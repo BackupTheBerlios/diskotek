@@ -1,0 +1,104 @@
+<?PHP
+
+/*
+*
+*diskotek main file
+*
+* This script checks two variables sent via HTML POST/GET:
+* o 'update' for update, value should be a keyword
+* o 'display' for choosing display. Value should be a keyword too
+*
+*/
+require 'config.php';
+require 'php/utils.php';
+require 'php/template.inc';
+require 'php/class.mysql_result.php';
+
+$DOK_THEME   = DOK_THEME_DEFAULT;
+$DOK_DISPLAY = DOK_DISPLAY_DEFAULT;
+$DOK_UPDATE  = '';
+$DOK_SYSTEM_MESSAGES = array();
+
+//adds script uri as template var 'DOK'
+dok_add_tpl_var('DOK',$PHP_SELF);
+$VARS = dok_get_html_vars();
+//initiate DB connection
+dok_db_open();
+
+/* includes language file */
+require_once('language/eng/main.php');
+
+require ('themes/'.$DOK_THEME.'/theme.php');
+
+
+
+
+/* catch module called for update (if any) */
+if ( isset($VARS['update']) ) {
+        $ml = dok_module_load($VARS['update'],'update');
+        if( $ml )       {
+		if ( function_exists('dok_'.$VARS['update']) ) {
+			eval('$tmp_module = dok_'.$VARS['update'].'();');
+			if ( $tmp_module != false ) {
+				$ml = dok_module_load($tmp_module,'display');
+			        if( $ml )       $DOK_DISPLAY = $tmp_module;
+				unset($ml);
+
+			}
+			unset($tmp_module);
+		} else {
+                	echo "Error: module ".$VARS['update']." should declare a function 'dok_".$VARS['update']."'.<BR>";
+	        }
+	} else {
+		echo "Can't update: module ".$VARS['update']." not found.<BR>";
+	}
+}
+
+
+
+
+
+
+
+
+
+//catch module called for display
+if ( isset($VARS['display']) ) {
+	$ml = dok_module_load($VARS['display'],'display');
+	if( $ml )	$DOK_DISPLAY = $VARS['display'];
+}
+
+
+//main template display
+$DOK_THEME_PATH = DOK_THEMES_PATH.'/'.$DOK_THEME;
+$ml = dok_module_load($DOK_DISPLAY,'display');
+if ( !function_exists('dok_'.$DOK_DISPLAY) ) {
+	echo "Fatal error: module '$DOK_DISPLAY' should provide a function 'dok_$DOK_DISPLAY'.";
+	exit;
+}
+eval('list($main_template, $page_title) = dok_'.$DOK_DISPLAY.'($VARS, $DOK_UPDATE,$DOK_THEME_PATH);');
+if ( !is_object($main_template) || strtolower(get_class($main_template)) != 'template' ) {
+	echo "Fatal error: function 'dok_$DOK_DISPLAY' of module '$DOK_DISPLAY' should return a template and the page title.";
+        exit;
+}
+dok_add_tpl_var('TITLE',$page_title);
+
+//sending display to user agent
+$tplvars = dok_add_tpl_var('','',true);
+$t = new template($DOK_THEME_PATH,'remove');
+$t->set_var($tplvars);
+$t2 = $t;
+$t->set_file('page','header.tpl');
+
+$t->pparse('out','page');
+
+$main_template->set_unknowns('remove');
+$main_template->pparse('out','page');
+
+
+$t2->set_file('page','footer.tpl');
+
+$t2->pparse('out','page');
+
+print_r($DOK_SYSTEM_MESSAGES);
+?>

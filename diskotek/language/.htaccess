@@ -1,0 +1,5 @@
+<Limit GET POST OPTIONS PROPFIND>
+        Order allow,deny
+        Allow from all
+</Limit>
+
