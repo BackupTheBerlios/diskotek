@@ -20,6 +20,10 @@ a {
 	font-weight: bold;
 }
 
+a:hover {
+	color: #FFCC00;
+}
+
 div.top {
 	background: #000000;
 	color: #FFFFFF;
@@ -113,9 +117,12 @@ div.boxlink {
 	margin-bottom: 1px;
 	border-bottom: 1px solid #005098;
 	text-align: center;
+	color: #FFFFFF;
 }
 div.boxlink:hover {
-	background-color: #005098;
+	color: #FFFFFF;
+        background-color: #000000;
+	font-weight: normal;
 }
 a.boxlink:hover {
 	color: #000000;

@@ -40,7 +40,7 @@ CREATE TABLE rel_song_album (
   song_id bigint(20) NOT NULL default '0',
   album_id bigint(20) NOT NULL default '0',
   track bigint(20) NOT NULL default '1',
-  UNIQUE KEY song_id (song_id,album_id,track)
+  UNIQUE KEY album_id (album_id,track)
 ) TYPE=MyISAM;
 
 --
@@ -66,7 +66,9 @@ CREATE TABLE song (
   creation_uid bigint(20) NOT NULL default '0',
   comment text NOT NULL,
   release year(4) NOT NULL default '0000',
+  hits bigint(20) NOT NULL default '0',
   PRIMARY KEY  (id),
+  KEY hits (hits),
   FULLTEXT KEY name (name,comment)
 ) TYPE=MyISAM;
 

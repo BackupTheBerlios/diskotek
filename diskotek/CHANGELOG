@@ -4,6 +4,9 @@
 * upgraded album & artist list display, added paged browsing & alphabetic shortcut
 * created 'hits' field on song db
 * when displayed, a song shows all other songs in the database having the same song name
+* created songs list display. Could set songs list to list only songs from an artist
+* modified artist view: only shows some artists songs, with a link to get
+  all songs list for this artist
 
 0.2
 
