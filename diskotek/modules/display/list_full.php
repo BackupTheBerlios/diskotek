@@ -34,17 +34,17 @@ function dok_list_full ( $VARS, $up, $theme_path ) {
 		$letter = false;
 		$count = -1;
 		$div=1;
-		if ( $res->numrows() < reset($THEME_FULL_LIST_COLUMN) ) {
+		if ( $res->numrows() <= reset($THEME_FULL_LIST_COLUMN) ) {
 			$el_per_block = $res->numrows();
 			$div = 1;
-		} elseif ( $res->numrows() > end($THEME_FULL_LIST_COLUMN) )  {
+		} elseif ( $res->numrows() >= end($THEME_FULL_LIST_COLUMN) )  {
 			$div =key($THEME_FULL_LIST_COLUMN);
 			$el_per_block = ceil($res->numrows() / $div);
 		} else {
 			$ak = array_keys($THEME_FULL_LIST_COLUMN);
 			$i=1;
 			foreach ($THEME_FULL_LIST_COLUMN as $key => $val ) {
-				if ($res->numrows() > $val && $res->numrows() < $THEME_FULL_LIST_COLUMN[$ak[$i]]) {
+				if ($res->numrows() >= $val && $res->numrows() <= $THEME_FULL_LIST_COLUMN[$ak[$i]]) {
 					$div = $key;
 					$el_per_block = ceil($res->numrows() / $key);
 					break;
@@ -52,7 +52,6 @@ function dok_list_full ( $VARS, $up, $theme_path ) {
 				$i++;
 			}
 		}
-		echo 'Div: '.$div."<BR>";
 		$t->set_var('BLOCK_PERCENT',((int)(100/$div)));
 		//if ( $res->numrows() < $THEME_FULL_LIST_COLUMN[0] && $res->numrows() < $THEME_FULL_LIST_COLUMN[0]
 		//$el_per_block = ceil($res->numrows() /3);
