@@ -1,7 +1,7 @@
 <?PHP
 
 function dok_view_artist ($VARS, $update_module, $tpl_path) {
-	global $THEME_DATE;
+	global $THEME_DATE, $USER;
 	if ( !isset($VARS['id']) || !is_numeric($VARS['id']) || $VARS['id'] < 1 ) {
 		$t = dok_error_template(MSG_ERR_ARTIST_DISPLAY);
 		return array($t,sprintf(MSG_TITLE_DISPLAY_ARTIST,''));
@@ -22,8 +22,12 @@ function dok_view_artist ($VARS, $update_module, $tpl_path) {
 	$t->set_var(array(	'ARTIST_NAME'=>$row['name'],
 				'ARTIST_DB_CREATION'=>date($THEME_DATE,$row['creation']) ));
 
-	$t->set_var('ARTIST_EDIT_LINK',$_SERVER['PHP_SELF'].'?display=edit_artist&id='.$VARS['id']);
-	$t->parse('editor_block','if_artisteditor');
+	if ( DOK_ENABLE_USER && ( !$USER->editor || !$USER->admin) ) {
+                $t->set_var('if_artisteditor','');
+	} else {
+		$t->set_var('ARTIST_EDIT_LINK',$_SERVER['PHP_SELF'].'?display=edit_artist&id='.$VARS['id']);
+		$t->parse('editor_block','if_artisteditor');
+	}
 
 	$songs =& dok_rel_song_artist(array(),array($VARS['id']));
 	echo mysql_error();

@@ -1,7 +1,7 @@
 <?PHP
 
 function dok_view_album ($VARS, $update_module, $tpl_path) {
-	global $THEME_DATE, $ARTIST_SONG_LINKS;
+	global $THEME_DATE, $ARTIST_SONG_LINKS, $USER;
 	if ( !isset($VARS['id']) || !is_numeric($VARS['id']) || $VARS['id'] < 1 ) {
 		$t = dok_error_template(MSG_ERR_ALBUM_DISPLAY);
 		return array($t,sprintf(MSG_TITLE_DISPLAY_ALBUM,''));
@@ -19,8 +19,12 @@ function dok_view_album ($VARS, $update_module, $tpl_path) {
 	$t->set_var(array(	'ALBUM_NAME'=>$row['name'],
 				'ALBUM_DB_CREATION'=>date($THEME_DATE,$row['creation']) ));
 
-	$t->set_var('ALBUM_EDIT_LINK',$_SERVER['PHP_SELF'].'?display=edit_album&id='.$VARS['id']);
-	$t->parse('editor_block','if_albumeditor');
+	if ( DOK_ENABLE_USER && ( !$USER->editor || !$USER->admin) ) {
+		$t->set_var('if_albumeditor','');
+	} else {
+		$t->set_var('ALBUM_EDIT_LINK',$_SERVER['PHP_SELF'].'?display=edit_album&id='.$VARS['id']);
+		$t->parse('editor_block','if_albumeditor');
+	}
 
 	$query = 'select s.id, s.name, s.creation, s.length, s.release, s.comment, r.track from '.dok_tn('rel_song_album').' as r left join '.dok_tn('song').' as s on r.song_id = s.id where r.album_id = '.$VARS['id'].' order by r.track';
 	$songs = dok_oquery($query);

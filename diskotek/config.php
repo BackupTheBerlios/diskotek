@@ -14,10 +14,13 @@ define ('DOK_MYSQL_PASS','');
 define ('DOK_MYSQL_DATABASE','diskotek');
 define ('DOK_MYSQL_TABLES_PREFIX','');
 
-define ('DOK_ENABLE_USER',true);
+define ('DOK_ENABLE_USER',false);
 
 define ('DOK_THEMES_PATH','themes');
+define ('DOK_LANGUAGE_PATH','language');
+
 define ('DOK_THEME_DEFAULT','default');
+define ('DOK_LANGUAGE_DEFAULT','eng');
 define ('DOK_DISPLAY_DEFAULT','homepage');
 
 define ('DOK_ANONYMOUS_USER_NAME','Anonymous');

@@ -13,6 +13,7 @@ require 'config.php';
 require 'php/utils.php';
 require 'php/template.inc';
 require 'php/class.mysql_result.php';
+require 'php/class.dok_user.php';
 
 session_start();
 
@@ -20,6 +21,14 @@ $DOK_THEME   = DOK_THEME_DEFAULT;
 $DOK_DISPLAY = DOK_DISPLAY_DEFAULT;
 $DOK_UPDATE  = '';
 $DOK_SYSTEM_MESSAGES = array();
+$DOK_ANONYMOUS_DISPLAY = array('homepage.php','list_albums.php','list_artists.php','list_songs.php','search.php','view_album.php','view_artist.php','view_song.php');
+$DOK_ANONYMOUS_UPDATE = array();
+$DOK_USER_DISPLAY = array(	'all'=>array(),
+				'editor'=>array('ask_dup_song.php','ask_sound_artist.php','edit_album.php','edit_artist.php','edit_song.php','link_song_album.php','link_song_artist.php','new_album.php','new_artist.php','new_song.php'));
+$DOK_USER_UPDATE = array(	'all'=>array(),
+				'editor'=>array('update_song_artist_link.php','update_song.php','update_album.php','unlink_song_album.php','create_song.php','create_album.php','update_song_album_link.php','update_artist.php','unlink_song_artist.php','song_track.php','create_artist.php'));
+
+
 
 //adds script uri as template var 'DOK'
 dok_add_tpl_var('DOK',$_SERVER['PHP_SELF']);
@@ -27,13 +36,45 @@ $VARS = dok_get_html_vars();
 //initiate DB connection
 dok_db_open();
 
-/* includes language file */
-require_once('language/eng/main.php');
 
-require ('themes/'.$DOK_THEME.'/theme.php');
-
-
-
+//check for user
+if ( DOK_ENABLE_USER ) {
+	$USER = new dok_user();
+	if ( $VARS['login'] ) {
+		$USER->login($VARS['username'],$VARS['password']);
+	} elseif ( $VARS['logout']) {
+		$USER->logout();
+	} else {
+		$USER->check_login();
+	}
+	/**********************************************************************
+		Set user language
+	**********************************************************************/
+	if ( strlen($USER->lang) && is_file(DOK_LANGUAGE_PATH.'/'.$USER->lang.'/main.php') ) {
+		require_once(DOK_LANGUAGE_PATH.'/'.$USER->lang.'/main.php');
+	} else {
+		require_once(DOK_LANGUAGE_PATH.'/eng/main.php');
+	}
+	/**********************************************************************
+                Set user theme
+        **********************************************************************/
+	if ( strlen($USER->theme) && is_dir('themes/'.$USER->theme) ) {
+		$DOK_THEME = $USER->theme;
+	}
+	/**********************************************************************
+                Check if user is allowed to update something
+        **********************************************************************/
+	if ( isset($VARS['update']) && $USER->id < 1 ) {
+		if ( !in_array($VARS['update'].'.php',$DOK_ANONYMOUS_UPDATE) ) unset($VARS['update']);
+		}  elseif     ( !$USER->admin && !$USER->editor && !in_array($VARS['update'].'.php',$DOK_USER_UPDATE['all']) ||
+				!$USER->admin && !in_array($DOK_DISPLAY.'.php',$DOK_USER_UPDATE['editor']) ) {
+					unset($VARS['update']);
+		}
+} else {
+	/* includes language file */
+	require_once(DOK_LANGUAGE_PATH.'/eng/main.php');
+	require (DOK_THEMES_PATH.'/'.$DOK_THEME.'/theme.php');
+}
 
 /* catch module called for update (if any) */
 if ( isset($VARS['update']) ) {
@@ -59,6 +100,7 @@ if ( isset($VARS['update']) ) {
 
 
 
+//to here normally no template was sent, except for an error page or a 'you don't have the right' page, so a module could choose theme
 
 
 
@@ -70,6 +112,15 @@ if ( isset($VARS['display']) ) {
 	if( $ml )	$DOK_DISPLAY = $VARS['display'];
 }
 
+//multi user check
+if ( DOK_ENABLE_USER ) {
+	if ( $USER->id < 1 ) {
+		if ( !in_array($DOK_DISPLAY.'.php',$DOK_ANONYMOUS_DISPLAY) ) $DOK_DISPLAY = DOK_DISPLAY_DEFAULT;
+	}  elseif     ( !$USER->admin && !$USER->editor && !in_array($DOK_DISPLAY.'.php',$DOK_USER_DISPLAY['all']) ||
+			!$USER->admin && !in_array($DOK_DISPLAY.'.php',$DOK_USER_DISPLAY['editor']) ) {
+		$DOK_DISPLAY = DOK_DISPLAY_DEFAULT;
+	}
+}
 
 //main template display
 $DOK_THEME_PATH = DOK_THEMES_PATH.'/'.$DOK_THEME;
