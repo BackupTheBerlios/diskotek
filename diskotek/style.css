@@ -124,3 +124,15 @@ span.buttonedit:hover {
         color: #003399;
 }
 
+div.listelement {
+        font-size: 14px;
+        font-weight: normal;
+        color: #FFCC00;
+        border-bottom: 1px solid #005098;
+	border-top: 1px solid #005098;
+	padding-bottom: 3px;
+	padding-top: 3px;
+}
+div.listelement:hover {
+        background-color: #005098;
+}

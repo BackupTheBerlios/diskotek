@@ -31,6 +31,8 @@ define ('MSG_TITLE_DUP_SONG','Check for duplicates');
 define ('MSG_TITLE_BOX_LAST_SONG','Last ten songs');
 define ('MSG_TITLE_ADD_SONG_ALBUM','link song to an album');
 define ('MSG_TITLE_ADD_SONG_ARTIST','link song to an artist');
+define ('MSG_TITLE_LIST_ARTIST','All artists listing');
+define ('MSG_TITLE_LIST_ALBUM','All albums listing');
 
 define ('MSG_NO_SONG','No song');
 define ('MSG_NO_ALBUM','No album');

@@ -37,6 +37,22 @@ Actions
 </a>
 </div>
 </div>
+
+<div class="box">
+<div class="boxtitle">
+Lists
+</div>
+<div class="boxcontent">
+<a class="boxlink" href="{DOK}?display=list_albums">
+<div class="boxlink">Albums</div>
+</a>
+<a class="boxlink" href="{DOK}?display=list_artists">
+<div class="boxlink">Artists</div>
+</a>
+</div>
+</div>
+
+
 {BOXES}
 </div>
 
