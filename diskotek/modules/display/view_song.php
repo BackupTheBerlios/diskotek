@@ -27,7 +27,8 @@ function dok_view_song($VARS, $update, $theme_path) {
 	}
 
 	$t->set_block('page','song_albums','albums_block');
-	$res = mysql_query('select a.name, a.creation, a.id, r.track from '.dok_tn('rel_song_album').' as r left join '.dok_tn('album').' as a on r.album_id = a.id where r.song_id = '.$VARS['id'].' order by a.name');
+	$query = 'select a.name, a.creation, a.id, r.track from '.dok_tn('rel_song_album').' as r left join '.dok_tn('album').' as a on r.album_id = a.id where r.song_id = '.$VARS['id'].' order by a.name';
+	$res = mysql_query($query);
 	if ( !mysql_numrows($res) ) {
 		$t->set_var('albums_block',MSG_NO_ALBUM);
 	} else {
