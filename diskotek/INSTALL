@@ -41,3 +41,25 @@ $ mv diskotek /var/lib/www/html/
 
 Diskotek system should be up and running. If your server don't parse '.html' files
 as PHP scripts, just move 'index.html' to 'index.php'.
+
+-------------------------------------------------------------------------------
+disk'o'tek multiuser setup
+
+Disk'o'tek now provides multiuser support. Rights management is:
+ o a user without rights will can log-in set a personnal theme or language.
+ o a user with 'editor' rights could create/update songs, artists and albums
+ o a user with 'admin' rights could do everything, including creating/updating other users
+
+Before switching disk'o'tek in multiuser mode, you have to create your first user:
+
+1. check in the configuration file 'config.php' that:
+
+	define ('DOK_ENABLE_USER',false);
+
+2. Go on the website, create your first user, and give it 'admin' rights.
+
+3. switch disk'o'tek in multiuser mode: set in the configuration file:
+
+	define ('DOK_ENABLE_USER',true);
+
+that's it.

@@ -11,7 +11,7 @@ Release year: {NEW_SONG_RELEASE}</td></tr></table>
 <div class="mpsubtitle">Songs having already the same name, in the database
 </div>
 <!-- BEGIN duplicate -->
-<A HREF="{SONG_LINK}" target="_blank">{SONG_NAME}</a>, by {SONG_ARTIST}, released on year {SONG_RELEASE}. duration {SONG_LENGTH}, genre {SONG_GENRE}.
+<A HREF="{SONG_LINK}" target="_blank">{SONG_NAME}</a>, {SONG_ARTIST}, released on year {SONG_RELEASE}. duration {SONG_LENGTH}, genre {SONG_GENRE}.
 <div class="mpsongcomment">{SONG_COMMENT}</div>
 <!-- END duplicate -->
 <P>

@@ -20,11 +20,29 @@ function dok_new_song ($VARS,$update_module,$theme_path) {
 	}
 
 	$artist_select = '';
-        foreach ( $artists as $id => $vars ) {
-                $artist_select .= '<option value="'.$id.'"';
-		if ( $_SESSION['song_select_artist'] == $id )    $artist_select .= ' selected';
-		$artist_select .= '>'.$vars['name'].'</option>'."\n";
-        }
+	if ( !DOK_USE_HTML4 ) {
+	        foreach ( $artists as $id => $vars ) {
+	                $artist_select .= '<option value="'.$id.'"';
+			if ( $_SESSION['song_select_artist'] == $id )    $artist_select .= ' selected';
+			$artist_select .= '>'.$vars['name'].'</option>'."\n";
+	        }
+	} else {
+		$current_letter = '';
+		foreach ( $artists as $id => $vars ) {
+			$c_letter = substr($vars['name'],0,1);
+			if ( $c_letter != $current_letter ) {
+				if ( strlen($current_letter) ) {
+					$artist_select .= '</optgroup>';
+				}
+				$artist_select .= '<OPTGROUP label="'.$c_letter.'">';
+				$current_letter = $c_letter;
+			}
+                        $artist_select .= '<option value="'.$id.'"';
+                        if ( $_SESSION['song_select_artist'] == $id )    $artist_select .= ' selected';
+                        $artist_select .= '>'.$vars['name'].'</option>'."\n";
+                }
+		if ( strlen($current_letter) )	$artist_select .= '</optgroup>';
+	}
 
 	if ( isset($_SESSION['song_select_genre']) && is_numeric($_SESSION['song_select_genre']) && $_SESSION['song_select_genre'] >= 0 ) {
 		$genre_select = dok_get_genre_select('genre',$_SESSION['song_select_genre']);

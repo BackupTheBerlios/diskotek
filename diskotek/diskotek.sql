@@ -5,10 +5,10 @@
 -- Server version	3.23.49
 
 --
--- Table structure for table 'album'
+-- Table structure for table 'dok_album'
 --
 
-CREATE TABLE album (
+CREATE TABLE dok_album (
   id bigint(20) NOT NULL auto_increment,
   name varchar(255) NOT NULL default '',
   creation bigint(20) NOT NULL default '0',
@@ -19,10 +19,10 @@ CREATE TABLE album (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table 'artist'
+-- Table structure for table 'dok_artist'
 --
 
-CREATE TABLE artist (
+CREATE TABLE dok_artist (
   id bigint(20) NOT NULL auto_increment,
   name varchar(255) NOT NULL default '',
   creation bigint(20) NOT NULL default '0',
@@ -33,10 +33,10 @@ CREATE TABLE artist (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table 'rel_song_album'
+-- Table structure for table 'dok_rel_song_album'
 --
 
-CREATE TABLE rel_song_album (
+CREATE TABLE dok_rel_song_album (
   song_id bigint(20) NOT NULL default '0',
   album_id bigint(20) NOT NULL default '0',
   track bigint(20) NOT NULL default '1',
@@ -44,10 +44,10 @@ CREATE TABLE rel_song_album (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table 'rel_song_artist'
+-- Table structure for table 'dok_rel_song_artist'
 --
 
-CREATE TABLE rel_song_artist (
+CREATE TABLE dok_rel_song_artist (
   song_id bigint(20) NOT NULL default '0',
   artist_id bigint(20) NOT NULL default '0',
   link tinyint(3) unsigned NOT NULL default '0',
@@ -55,10 +55,10 @@ CREATE TABLE rel_song_artist (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table 'song'
+-- Table structure for table 'dok_song'
 --
 
-CREATE TABLE song (
+CREATE TABLE dok_song (
   id bigint(20) NOT NULL auto_increment,
   name varchar(255) NOT NULL default '',
   length int(11) default NULL,
@@ -74,10 +74,10 @@ CREATE TABLE song (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table 'user'
+-- Table structure for table 'dok_user'
 --
 
-CREATE TABLE user (
+CREATE TABLE dok_user (
   id bigint(20) NOT NULL auto_increment,
   name varchar(255) NOT NULL default '',
   password varchar(255) NOT NULL default '',

@@ -17,10 +17,28 @@ function dok_link_song_artist ($VARS, $update, $theme_path) {
 	$res = mysql_query('select id, name from '.dok_tn('artist').$where.' order by name');
 	
 	$a_select = '';
-	while ( $row = mysql_fetch_array($res) ) {
-		$a_select.='<option value="'.$row['id'].'"';
-		if ( $_SESSION['song_select_artist'] == $row['id'] )    $a_select .= ' selected';
-		$a_select.='>'.$row['name'].'</option>';
+	if ( !DOK_USE_HTML4 ) {
+		while ( $row = mysql_fetch_array($res) ) {
+			$a_select.='<option value="'.$row['id'].'"';
+			if ( $_SESSION['song_select_artist'] == $row['id'] )    $a_select .= ' selected';
+			$a_select.='>'.$row['name'].'</option>';
+		}
+	} else {
+		$current_letter = '';
+                while ( $row = mysql_fetch_array($res) ) {
+                        $c_letter = substr($row['name'],0,1);
+                        if ( $c_letter != $current_letter ) {
+                                if ( strlen($current_letter) ) {
+                                        $a_select .= '</optgroup>';
+                                }
+                                $a_select .= '<OPTGROUP label="'.$c_letter.'">';
+                                $current_letter = $c_letter;
+                        }
+                        $a_select .= '<option value="'.$row['id'].'"';
+                        if ( $_SESSION['song_select_artist'] == $row['id'] )    $a_select .= ' selected';
+                        $a_select .= '>'.$row['name'].'</option>'."\n";
+                }
+                if ( strlen($current_letter) )  $a_select .= '</optgroup>';
 	}
 
 	$l_select = '';
