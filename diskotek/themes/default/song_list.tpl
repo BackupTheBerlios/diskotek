@@ -13,7 +13,7 @@ Alphabetic jump: <a href="{DOK}?display=list_songs&alpha=-">1-9</a> |
 <P>
 <!-- BEGIN song -->
 <div class="listelement">
-<i><a href="{SONG_LINK}">{SONG_NAME}</a></i>, {SONG_ARTIST} ({SONG_LENGTH})
+<i><a href="{SONG_LINK}">{SONG_NAME}</a></i>, {SONG_ARTIST} ({SONG_LENGTH}, {SONG_GENRE})
 </div>
 <!-- END song -->
 <!-- BEGIN next_page -->
