@@ -64,8 +64,8 @@ function dok_view_artist ($VARS, $update_module, $tpl_path) {
 			$t->set_var('related_artists_block',MSG_NO_RELATED_ARTIST);
 		} else {
 			while ($row = mysql_fetch_array($res) ) {
-				$t->set_var(array('ARTIST_LINK'=>$_SERVER['PHP_SELF'].'?display=view_artist&id='.$row['id'],
-						'ARTIST_NAME'=>$row['name']));
+				$t->set_var(array('RELATED_ARTIST_LINK'=>$_SERVER['PHP_SELF'].'?display=view_artist&id='.$row['id'],
+						'RELATED_ARTIST_NAME'=>$row['name']));
 				$t->parse('related_artists_block','related_artists','true');
 			}
 		}

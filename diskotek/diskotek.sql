@@ -48,6 +48,7 @@ CREATE TABLE rel_song_album (
 CREATE TABLE rel_song_artist (
   song_id bigint(20) NOT NULL default '0',
   artist_id bigint(20) NOT NULL default '0',
+  link tinyint(3) unsigned NOT NULL default '0',
   UNIQUE KEY song_id (song_id,artist_id)
 ) TYPE=MyISAM;
 

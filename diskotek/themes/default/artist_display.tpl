@@ -21,7 +21,7 @@ Artist songs:
 related artists:
 </div>
 <!-- BEGIN related_artists -->
-<A HREF="{ARTIST_LINK}">{ARTIST_NAME}</a>, 
+<A HREF="{RELATED_ARTIST_LINK}">{RELATED_ARTIST_NAME}</a>, 
 <!-- END related_artists -->
 ...
 <div class="recorded">recorded in the database on {ARTIST_DB_CREATION}.</div>
