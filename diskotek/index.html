@@ -45,7 +45,7 @@ if ( isset($VARS['update']) ) {
 				$ml = dok_module_load($tmp_module,'display');
 			        if( $ml )       $DOK_DISPLAY = $tmp_module;
 				unset($ml);
-
+				$DOK_UPDATE = $VARS['update'];
 			}
 			unset($tmp_module);
 		} else {

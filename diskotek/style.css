@@ -8,6 +8,12 @@ body {
 
 }
 
+td {
+	font-size: 12px;
+	font-family: 'Helvetica', sans-serif;
+	color: #dfdfdf;
+}
+
 a {
 	color: #FFFFFF;
 	text-decoration: none;
@@ -98,5 +104,23 @@ div.boxlink:hover {
 }
 a.boxlink:hover {
 	color: #000000;
+}
+
+span.buttonedit {
+	margin-left: 5px;
+	margin-right: 5px;
+	padding-left: 3px;
+	padding-right: 3px;
+	padding-top: 1px;
+	padding-bottom: 1px;
+	border: 2px outset #FFCC00;
+	background-color: #003399;
+	color: #FFCC00;
+	font-size: 12px;
+}
+
+span.buttonedit:hover {
+        background-color: #FFCC00;
+        color: #003399;
 }
 

@@ -15,22 +15,33 @@ function dok_ask_dup_song ( $VARS, $update, $theme_path ) {
 		$t->set_var(dok_song_format($row));
 		$t->parse('dup_block','duplicate','true');
 	}
-	$res = mysql_query('select name from '.dok_tn('album').' where id = '.$VARS['album']);
-	if ( !mysql_numrows($res) )	$album = MSG_UNKNOWN;
-	else				$album = mysql_result($res,0,'name');
-        $res = mysql_query('select name from '.dok_tn('artist').' where id = '.$VARS['artist']);
-        if ( !mysql_numrows($res) )      $artist = MSG_UNKNOWN;
-        else                            $artist = mysql_result($res,0,'name');
+	if ( $update == 'create_song' ) {
+		$res = mysql_query('select name from '.dok_tn('album').' where id = '.$VARS['album']);
+		if ( !mysql_numrows($res) )	$album = MSG_UNKNOWN;
+		else				$album = mysql_result($res,0,'name');
+		$res = mysql_query('select name from '.dok_tn('artist').' where id = '.$VARS['artist']);
+		if ( !mysql_numrows($res) )      $artist = MSG_UNKNOWN;
+		else                            $artist = mysql_result($res,0,'name');
 
-	$t->set_var(array(	'NEW_SONG_NAME' => $VARS['name'],
-				'NEW_SONG_COMMENT' => dok_textarea_2_db($VARS['comment']),
-				'NEW_SONG_TRACK' => $VARS['track'],
-				'NEW_SONG_LENGTH' => dok_sec2str($VARS['length']),
-				'NEW_SONG_ARTIST' => $artist,
-				'NEW_SONG_ALBUM' => $album,
-				'NEW_SONG_RELEASE'=> dok_year2str($VARS['release']) ) );
-	$yes_form = '<form method="post" action="'.$_SERVER['PHP_SELF'].'"><input type=hidden name="update" value="create_song">';
+		$t->set_var(array(	'NEW_SONG_NAME' => $VARS['name'],
+					'NEW_SONG_COMMENT' => dok_textarea_2_db($VARS['comment']),
+					'NEW_SONG_TRACK' => $VARS['track'],
+					'NEW_SONG_LENGTH' => dok_sec2str($VARS['length']),
+					'NEW_SONG_ARTIST' => $artist,
+					'NEW_SONG_ALBUM' => $album,
+					'NEW_SONG_RELEASE'=> dok_year2str($VARS['release']) ) );
+	} else {
+		$t->set_var(array(      'NEW_SONG_NAME' => $VARS['name'],
+                                        'NEW_SONG_COMMENT' => dok_textarea_2_db($VARS['comment']),
+                                        'NEW_SONG_TRACK' => $VARS['track'],
+                                        'NEW_SONG_LENGTH' => dok_sec2str($VARS['length']),
+                                        'NEW_SONG_ARTIST' => '',
+                                        'NEW_SONG_ALBUM' => '',
+                                        'NEW_SONG_RELEASE'=> dok_year2str($VARS['release']) ) );
+	}
+	$yes_form = '<form method="post" action="'.$_SERVER['PHP_SELF'].'"><input type=hidden name="update" value="'.$update.'">';
 	$yes_form.= '<input type=hidden name="dup_checked" value="1">';
+	if ( $update == 'update_song' )	$yes_form.= '<input type=hidden name="id" value="'.$VARS['id'].'">';
 	$yes_form.= '<input type=hidden name="artist" value="'.$VARS['artist'].'">';
 	$yes_form.= '<input type=hidden name="album" value="'.$VARS['album'].'">';
 	$yes_form.= '<input type=hidden name="track" value="'.str_replace('"','&quot;',$VARS['track']).'">';
