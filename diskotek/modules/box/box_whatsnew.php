@@ -2,6 +2,11 @@
 
 
 function dok_box_whatsnew($display_module, $theme_path) {
+	if ( DOK_USE_CACHE ) {
+		$fname = dok_c_box_filename('whatsnew','ignored');
+		$cache = dok_c_get($fname);
+		if ( $cache )	return $cache;
+	}
 	$res = mysql_query('select name, id from '.dok_tn('song').' order by creation desc limit 10');
 	echo mysql_error();
 	if ( !mysql_numrows($res) ) {
@@ -20,7 +25,12 @@ function dok_box_whatsnew($display_module, $theme_path) {
 		$t->set_var('LABEL',$row['name']);
 		$t->parse('BOXCONTENT','boxlink','true');
 	}
-	return $t->parse('out','page');
+
+	$html = $t->parse('out','page');
+	if ( DOK_USE_CACHE ) {
+		dok_c_write($fname,$html);
+	}
+	return $html;
 }
 
 

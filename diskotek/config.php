@@ -60,7 +60,7 @@ define ('DOK_USE_SOUNDEX', true);
 define ('DOK_USE_HTML4','true');
 
 // defines root directory of CACHE : if it's not writeable cache is disabled automatically
-define ('DOK_CACHE_PATH','/');
+define ('DOK_CACHE_PATH','/tmp/diskocache');
 
 // defines prefix of cache files (you SHOULD have a prefix)
 define ('DOK_CACHE_PREFIX','DOK_');

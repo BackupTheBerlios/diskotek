@@ -6,6 +6,7 @@ $CACHE_RULES = array (
 	'list_artists' => array('user'=>0,'alpha','offset','sort'),
 	'view_song' => array('user'=>1,'id'),
 	'view_album' => array('user'=>1,'id'),
+	'list_full' => array('user'=>0,'element'),
 	'view_artist' => array('user'=>1,'id'));
 
 
@@ -44,12 +45,13 @@ function dok_c_filename($display,$VARS) {
 *give filename for box caches
 *
 *@param string $box_name name of the box
+*@param string $display display module
 *@return string cache filename for this box
 */
-function dok_c_box_filename ( $box_name )  {
+function dok_c_box_filename ( $box_name, $display )  {
 	global $DOK_THEME;
 	$filename = DOK_CACHE_PREFIX.'box_'.$box_name;
-	$filename .= '_'.$DOK_THEME;
+	$filename .= '_display'.$display.'_'.$DOK_THEME;
 	return $filename;
 }
 
