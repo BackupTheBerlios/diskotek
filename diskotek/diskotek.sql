@@ -85,6 +85,8 @@ CREATE TABLE user (
   admin enum('1','0') NOT NULL default '0',
   lang varchar(100) NOT NULL default '',
   theme varchar(255) NOT NULL default '',
+  creation bigint(20) NOT NULL default '0',
+  last_login bigint(20) NOT NULL default '0',
   PRIMARY KEY  (id),
   UNIQUE KEY name (name)
 ) TYPE=MyISAM;

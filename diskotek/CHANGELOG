@@ -4,6 +4,10 @@
 * bugfix: song length in duplicate song dialog
 * sorted artist songs by song popularity in artist page
 * created modules and templates: create user, display user and edit/update user
+* added multiuser support
+* in songs list, if the list is dedicated to an artist, now the links
+  for alphabetical jumps work
+* in artists list, could sort list by number of songs for each artist
 
 0.3
 

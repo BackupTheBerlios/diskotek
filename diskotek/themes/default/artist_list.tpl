@@ -7,7 +7,8 @@ Alphabetic jump: <a href="{DOK}?display=list_artists&alpha=-">1-9</a> |
 <a href="{DOK}?display=list_artists&alpha=i">i-l</a> |
 <a href="{DOK}?display=list_artists&alpha=m">m-p</a> |
 <a href="{DOK}?display=list_artists&alpha=q">q-t</a> |
-<a href="{DOK}?display=list_artists&alpha=u">u-z</a> 
+<a href="{DOK}?display=list_artists&alpha=u">u-z</a> ,
+ or <a href="{DOK}?display=list_artists&sort=songs">sort by number of songs</a>
 <P>
 <!-- BEGIN artist -->
 <div class="listelement">

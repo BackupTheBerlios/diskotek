@@ -19,15 +19,18 @@ function dok_list_songs ( $VARS, $up, $theme_path ) {
 		if ( !mysql_numrows($res) ) {
 			$t->set_var('ARTIST_NAME','');
 			$t->set_var('ARTIST_LINK','');
+			$t->set_var('ARTIST_ID','');
 		} else {
 			$t->set_var('ARTIST_NAME',mysql_result($res,0,'name'));
 			$t->set_var('ARTIST_LINK',$_SERVER['PHP_SELF'].'?display=view_artist&id='.$VARS['artist']);
+			$t->set_var('ARTIST_ID',$VARS['artist']);
 		}
 		$t->parse('if_artist_block','if_artist');
 	} else {
 		$query = 'select * from '.dok_tn('song').' where substring(name from 1 for 1) >= \''.$VARS['alpha'].'\' order by name limit '.$VARS['offset'].', '.DOK_LIST_EPP;
 		$total_query = 'select count(*) as c from '.dok_tn('song').' where substring(name from 1 for 1) >= \''.$VARS['alpha'].'\'';
 		$t->set_var('if_artist_block','');
+		$t->set_var('ARTIST_ID','');
 	}
 	$res = dok_oquery($query);
 	if ( $res->numrows() ) {
