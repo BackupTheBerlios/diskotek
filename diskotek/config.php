@@ -17,4 +17,12 @@ define ('DOK_MYSQL_TABLES_PREFIX','');
 define ('DOK_THEMES_PATH','themes');
 define ('DOK_THEME_DEFAULT','default');
 define ('DOK_DISPLAY_DEFAULT','homepage');
+
+
+// when a new user is created, shake in database for a user with a name that sounds identical
+define ('DOK_USE_SOUNDEX', true); 
+
+$ARTIST_SONG_LINKS = array (	0 => '',
+				20 => 'featuring ',
+				30 => 'remix by ');
 ?>

@@ -1,7 +1,7 @@
 <?PHP
 
 function dok_update_song_artist_link () {
-	global $VARS;
+	global $VARS, $ARTIST_SONG_LINKS;
 
 	if ( !isset($VARS['id']) || !is_numeric($VARS['id']) || $VARS['id']<1 ) {
                 dok_msg(MSG_ERR_SONG_NOT_FOUND_UPDATE,'dok_update_song_artist_link','e');
@@ -27,8 +27,10 @@ function dok_update_song_artist_link () {
         }
         $artist = mysql_fetch_array($res);
 
+	if ( !in_array($VARS['link'],array_keys($ARTIST_SONG_LINKS)) )	$VARS['link'] = 0;
+
 	//cool we could update
-	$res = mysql_query('insert into '.dok_tn('rel_song_artist').' (song_id, artist_id) values ('.$song['id'].','.$artist['id'].')');
+	$res = mysql_query('insert into '.dok_tn('rel_song_artist').' (song_id, artist_id, link) values ('.$song['id'].','.$artist['id'].','.$VARS['link'].')');
 	
 	if ( $res ) {
                 return 'view_song';

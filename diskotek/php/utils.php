@@ -105,7 +105,7 @@ function dok_msg($message, $sender = 'core', $scope = 'i') {
 
 function dok_artists_list () {
 	$back = array();
-	$query = 'select id, name, creation from '.dok_tn('artist').' order by name desc';
+	$query = 'select id, name, creation from '.dok_tn('artist').' order by name';
 	$res = dok_oquery($query);
         while ( $row = $res->fetch_array() ) {
                 $back[$row['id']] = array('name'=>$row['name'], 'creation'=>$row['creation']);
@@ -115,7 +115,7 @@ function dok_artists_list () {
 
 function dok_albums_list() {
 	$back = array();
-        $query = 'select id, name, creation from '.dok_tn('album').' order by name desc';
+        $query = 'select id, name, creation from '.dok_tn('album').' order by name';
         $res = dok_oquery($query);
 	while ( $row = $res->fetch_array() ) {
 		$back[$row['id']] = array('name'=>$row['name'], 'creation'=>$row['creation']);
@@ -193,13 +193,35 @@ function dok_year2str ( $year ) {
 }
 
 function dok_get_artists_string ( $song_id ) {
-	$res = dok_oquery('select a.name,a.id from '.dok_tn('rel_song_artist').' as r left join '.dok_tn('artist').' as a on r.artist_id = a.id where r.song_id = '.$song_id);
+	global $ARTIST_SONG_LINKS;
+	$res = dok_oquery('select a.name,a.id, r.link from '.dok_tn('rel_song_artist').' as r left join '.dok_tn('artist').' as a on r.artist_id = a.id where r.song_id = '.$song_id.' order by r.link, a.name');
 	if ( !$res->numrows() )	return MSG_NO_ARTIST;
-	$ret = '';
+	$good_nb = array_keys($ARTIST_SONG_LINKS);
+	$data = array();
 	while ( $row = $res->fetch_array() ) {
-		$ret .= '<a href="'.$_SERVER['PHP_SELF'].'?display=view_artist&id='.$row['id'].'">'.$row['name'].'</a>, ';
+		if ( !in_array($row['link'], $good_nb) ) {
+			$data[0][$row['id']] = $row['name'];
+		} else {
+			$data[$row['link']][$row['id']] = $row['name'];
+		}
 	}
-	return substr($ret,0,-2);
+	ksort($data,SORT_NUMERIC);
+	$data_index = 0;
+	$data_size = sizeof($data);
+	foreach ( $data as $link => $artists ) {
+		$artists_index = 0;
+		$artists_size = sizeof($artists);
+		$ret.=$ARTIST_SONG_LINKS[$link].' ';
+		foreach ( $artists as $id => $artist ) {
+			$ret.='<a href="'.$_SERVER['PHP_SELF'].'?display=view_artist&id='.$id.'">'.$artist.'</a>';
+			if ( $artists_index == ( $artists_size -1 ) && $data_index < ($data_size-1) )	$ret.=', ';
+			elseif ( $artists_index == ( $artists_size -2 ) )				$ret.=' & ';
+			elseif ( $artists_index < ( $artists_size -2 ) )				$ret.=', ';
+			$artists_index++;
+		}
+		$data_index++;
+	}
+	return trim($ret);
 }
 
 function dok_textarea_2_db ($text) {

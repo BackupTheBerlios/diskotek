@@ -1,0 +1,6 @@
+MYSQL updates
+
+
+0.1 => 0.2
+
+alter table rel_song_artist add link TINYINT UNSIGNED not null default 0;
