@@ -409,6 +409,20 @@ function dok_get_genre_select ( $varname = 'genre', $selected = null ) {
 	return $ret;
 }
 
+function dok_songs_links_array() {
+	global $SONGS_LINKS;
+	$back = array();
+	foreach ( $SONGS_LINKS as $key => $array ) {
+		if( $array[1].' (&lt;=&gt;'.$array[0].')' == $array[0].' (&lt;=&gt;'.$array[1].')' ) {
+			$back[$key] = $array[1];
+		} else {
+			$back[$key.'-'.'1'] = $array[1].' (&lt;=&gt;'.$array[0].')';
+			$back[$key.'-'.'0'] = $array[0].' (&lt;=&gt;'.$array[1].')';
+		}
+	}
+	return $back;
+}
+
 function dok_genre_name($id) {
 	global $GENRES;
 	return $GENRES[$id];

@@ -14,14 +14,17 @@ Appearing in albums:
 <!-- BEGIN song_albums -->
 <a href="{ALBUM_LINK}">{ALBUM_NAME}</a> (track #{ALBUM_TRACK})<BR>
 <!-- END song_albums -->
-<!-- BEGIN if_duplicate -->
+<!-- BEGIN if_relation -->
 <div class="mpsubtitle">
-Songs with same title:
+{SONG_RELATIONS} related songs:
 </div>
-<!-- BEGIN duplicate -->
+<!-- BEGIN relation -->
+<p>{SONG_RELATION}</p>
+<!-- BEGIN song -->
 <a href="{SONG_LINK}">{SONG_NAME}</a>, {SONG_ARTIST} ({SONG_LENGTH})<BR>
 <div class="mpsongcomment">{SONG_COMMENT}</div>
-<!-- END duplicate -->
-<!-- END if_duplicate -->
+<!-- END song -->
+<!-- END relation -->
+<!-- END if_relation -->
 <P>
 <div class="recorded">recorded in database on {SONG_DB_CREATION}</div>

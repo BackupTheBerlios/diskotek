@@ -1,6 +1,7 @@
 <?PHP
 
 function dok_edit_song ($VARS,$update_module,$theme_path) {
+	global $SONGS_LINKS;
 	if ( !$VARS['id'] || !is_numeric($VARS['id']) || $VARS['id']<1 )	{
 		$t = dok_error_template(MSG_ERR_SONG_NOT_FOUND);
                 return array($t, sprintf(MSG_TITLE_EDIT_SONG,MSG_UNKNOWN));
@@ -10,7 +11,7 @@ function dok_edit_song ($VARS,$update_module,$theme_path) {
 		$t = dok_error_template(MSG_ERR_SONG_NOT_FOUND);
                 return array($t, sprintf(MSG_TITLE_EDIT_SONG,MSG_UNKNOWN));
 	}
-	$row = mysql_fetch_array($res);
+	$row = mysql_fetch_assoc($res);
 
 	$t = new template($theme_path);
 	$t->set_file('page','song_edit.tpl');
@@ -24,6 +25,7 @@ function dok_edit_song ($VARS,$update_module,$theme_path) {
 
 	$t->set_block('page','artist_remove','artist_remove_block');
 	$t->set_block('page','artist','artist_block');
+	$t->set_block('page','relation','relation_block');
 	$res = mysql_query('select a.name, a.id from '.dok_tn('rel_song_artist').' as r left join '.dok_tn('artist').' as a on r.artist_id = a.id where r.song_id = '.$VARS['id']);
 	if ( !mysql_numrows($res) ) {
 		$t->set_var('artist_block','');
@@ -67,13 +69,67 @@ function dok_edit_song ($VARS,$update_module,$theme_path) {
         }
         $t->set_var('ALBUM_ADD_LINK',$_SERVER['PHP_SELF'].'?display=link_song_album&id='.$row['id']);
 
-
-
+	$fields = array_keys($row);
+	$query = 'select ';
+	foreach ( $fields as $field ) {
+		$query.=' s1.'.$field.' as s1'.$field.', s2.'.$field.' as s2'.$field.',';
+	}
+	$query .= 'r.link from '.dok_tn('rel_songs').' as r left join '.dok_tn('song').' as s1 on r.song_id1=s1.id left join '.dok_tn('song').' as s2 on r.song_id2=s2.id where song_id1='.$row['id'].' or song_id2='.$row['id'].' order by link';
+	echo $query;
+	$res = mysql_query($query);
+	$link = false;
+	$relations = array();
+	while ( $subrow = mysql_fetch_assoc($res) ) {
+		if ( $subrow['s1id'] == $row['id'] ) {
+			if ( is_array($SONGS_LINKS[$subrow['link']]) && $SONGS_LINKS[$subrow['link']][0] ) {
+				$good_song = 's2';
+				$good_link = $subrow['link'].'-'.'2';
+			} else {
+				unset($good_song);
+				unset($good_link);
+			}
+		} else {
+			if ( is_array($SONGS_LINKS[$subrow['link']]) && $SONGS_LINKS[$subrow['link']][1] ) {
+				$good_song = 's1';
+				$good_link = $subrow['link'].'-'.'1';
+			} else {
+				unset($good_song);
+				unset($good_link);
+			}
+		}
+		if ( isset($good_song) ) {
+			$myrow = array();
+			foreach ( $fields as $field ) {
+				$myrow[$field] = $subrow[$good_song.$field];
+			}
+			$relations[$good_link] = $myrow;
+		}
+	}
+	if ( sizeof($relations) ) {
+		$link_array = dok_songs_links_array();
+		foreach ( $relations as $selected => $other_song ) {
+			print_r($other_song);
+			$t->set_var('RELATION_FORM','<form method=post action="'.$_SERVER['PHP_SELF'].'"><input type=hidden name=update value="song_links"><input type="hidden" name="linked_song_id" value="'.$other_song['id'].'"><input type="hidden" name="song_id" value="'.$row['id'].'">');
+			$sel = '';
+			foreach ( $link_array as $key => $val ) {
+				$sel.='<option value="'.$key.'"';
+				if ( $key == $selected || $key == preg_replace('/-.*$/','',$selected) )	$sel.=' SELECTED';
+				$sel.='>'.$val.'</option>'."\n";
+			}
+			$t->set_var('RELATION_OPTIONS',$sel);
+			$t->set_var('RELATION_REMOVE_LINK', $_SERVER['PHP_SELF'].'?update=unlink_song_link&link='.$selected.'&id='.$row['id'].'&other_id='.$other_song['id']);
+			$al = $SONGS_LINKS[preg_replace('/-.*$/','',$selected)];
+			if ( preg_replace('/^[^-]+-/','',$selected) == 1 )	$t->set_var('RELATION_NAME',$al[1]);
+			else							$t->set_var('RELATION_NAME',$al[0]);
+			$t->set_var(dok_song_format($other_song));
+			$t->parse('relation_block','relation','true');
+		}
+	} else {
+		$t->set_var('relation_block','');
+	}
+	$t->set_var('RELATION_ADD_LINK',$_SERVER['PHP_SELF'].'?display=link_songs&id='.$row['id'].'&alpha=a');
 
 	return array ($t, sprintf(MSG_TITLE_EDIT_SONG, $row['name']));
 }
-
-
-
 
 ?>

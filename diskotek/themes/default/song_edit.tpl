@@ -47,3 +47,11 @@ Track:</td><td><input type=text size="3" name="track" value="{ALBUM_TRACK}"></td
 </form>
 <!-- END album -->
 
+<div class="mpsubtitle">
+{SONG_NAME} related songs
+</div>
+<a href="{RELATION_ADD_LINK}"><span class="buttonedit">add a related song</span></a><P>
+<!-- BEGIN relation -->
+<a href="{SONG_LINK}">{SONG_NAME}</a>, {SONG_ARTIST} ({SONG_LENGTH}) <a href="{RELATION_REMOVE_LINK}"><span class="buttonedit">remove</span></a>
+<BR>{RELATION_FORM}relation type: <select name="link">{RELATION_OPTIONS}</select> <input type=submit value="update relation"></form>
+<!-- END relation -->

@@ -2,7 +2,7 @@
 
 $CACHE_RULES = array (
 	'list_songs' => array('user'=>0,'artist','alpha','offset'),
-	'list_albums' => array('user'=>0,'alpha','offset'),
+	'list_albums' => array('user'=>0,'alpha','offset','sort'),
 	'list_artists' => array('user'=>0,'alpha','offset','sort'),
 	'view_song' => array('user'=>1,'id'),
 	'view_album' => array('user'=>1,'id'),
