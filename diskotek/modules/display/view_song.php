@@ -7,12 +7,13 @@ function dok_view_song($VARS, $update, $theme_path) {
                 $t = dok_error_template(MSG_ERR_SONG_DISPLAY);
                 return array($t,sprintf(MSG_TITLE_DISPLAY_SONG,''));
         }
-        $res = mysql_query('select id, name, creation, length, release, comment, hits, genre from '.dok_tn('song').' where id = '.$VARS['id']);
+        $res = mysql_query('select * from '.dok_tn('song').' where id = '.$VARS['id']);
         if ( !mysql_numrows($res) ) {
                 $t = dok_error_template(MSG_ERR_SONG_DISPLAY);
                 return array($t,sprintf(MSG_TITLE_DISPLAY_SONG,''));
         }
 	$row = mysql_fetch_assoc($res);
+	$fields = array_keys($row);
 	$t = new template($theme_path);
 	$t->set_file('page','song_display.tpl');
 	$t->set_block('page','song','song_block');
@@ -44,17 +45,6 @@ function dok_view_song($VARS, $update, $theme_path) {
 	// song relations
 	$rel = 0;
 
-	$res = mysql_query('select * from '.dok_tn('song').' where id != '.$row['id'].' and name = \''.mysql_real_escape_string($row['name']).'\'');
-	if ( mysql_numrows($res) ) {
-		$t->set_var('SONG_RELATION',MSG_SONG_LINK_SAME_TITLE);
-		while ( $dup_row = mysql_fetch_array($res) ) {
-			$rel++;
-			$t->set_var(dok_song_format($dup_row));
-			$t->parse('song_block','song','true');
-		}
-		$t->parse('relation_block','relation', 'true');
-	}
-	$fields = array_keys($row);
 	$query = 'select ';
 	foreach ( $fields as $field ) {
 		$query.=' s1.'.$field.' as s1'.$field.', s2.'.$field.' as s2'.$field.',';
@@ -91,6 +81,8 @@ function dok_view_song($VARS, $update, $theme_path) {
 		}
 	}
 
+	$related_ids = array($row['id']);
+
 	if ( sizeof($relations) ) {
 		foreach ( $relations as $relation => $songs ) {
 			$t->set_var('song_block','');
@@ -99,10 +91,24 @@ function dok_view_song($VARS, $update, $theme_path) {
 				$rel++;
 				$t->set_var(dok_song_format($song));
 				$t->parse('song_block','song','true');
+				$related_ids[] = $song['id'];
 			}
 			$t->parse('relation_block','relation','true');
 
 		}
+	}
+
+	//same title
+	$res = mysql_query('select * from '.dok_tn('song').' where id not in('.implode(', ',$related_ids).') and name = \''.mysql_real_escape_string($row['name']).'\'');
+	if ( mysql_numrows($res) ) {
+		$t->set_var('song_block','');
+		$t->set_var('SONG_RELATION',MSG_SONG_LINK_SAME_TITLE);
+		while ( $dup_row = mysql_fetch_array($res) ) {
+			$rel++;
+			$t->set_var(dok_song_format($dup_row));
+			$t->parse('song_block','song','true');
+		}
+		$t->parse('relation_block','relation', 'true');
 	}
 
 	if ( $rel ) {

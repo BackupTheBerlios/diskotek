@@ -418,8 +418,10 @@ function dok_songs_links_array() {
 	global $SONGS_LINKS;
 	$back = array();
 	foreach ( $SONGS_LINKS as $key => $array ) {
-		if( $array[1].' (&lt;=&gt;'.$array[0].')' == $array[0].' (&lt;=&gt;'.$array[1].')' ) {
+		if( $array[1] == $array[0] ) {
 			$back[$key] = $array[1];
+		} elseif ( sizeof($array) == 1 ) {
+			$back[$key] = $array[0];
 		} else {
 			$back[$key.'-'.'1'] = $array[1].' (&lt;=&gt;'.$array[0].')';
 			$back[$key.'-'.'0'] = $array[0].' (&lt;=&gt;'.$array[1].')';

@@ -88,6 +88,7 @@ $ARTIST_SONG_LINKS = array (	0 => 'by',
 *If one of the two relation names is empty, relation won't appear. This other still will
 */
 $SONGS_LINKS = array ( 1 => array('same lyrics','same lyrics'),
-			10 => array('same beat','same beat'),
-			20 => array('remix','original'));
+			4 => array('same beat','same beat'),
+			7 => array('remix','original'),
+			10 => array('complete version'));
 ?>

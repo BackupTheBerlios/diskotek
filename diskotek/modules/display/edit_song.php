@@ -83,7 +83,7 @@ function dok_edit_song ($VARS,$update_module,$theme_path) {
 		if ( $subrow['s1id'] == $row['id'] ) {
 			if ( is_array($SONGS_LINKS[$subrow['link']]) && $SONGS_LINKS[$subrow['link']][0] ) {
 				$good_song = 's2';
-				$good_link = $subrow['link'].'-'.'2';
+				$good_link = $subrow['link'].'-'.'0';
 			} else {
 				unset($good_song);
 				unset($good_link);
@@ -109,7 +109,7 @@ function dok_edit_song ($VARS,$update_module,$theme_path) {
 		$link_array = dok_songs_links_array();
 		foreach ( $relations as $selected => $other_song ) {
 			//print_r($other_song);
-			$t->set_var('RELATION_FORM','<form method=post action="'.$_SERVER['PHP_SELF'].'"><input type=hidden name=update value="song_links"><input type="hidden" name="linked_song_id" value="'.$other_song['id'].'"><input type="hidden" name="song_id" value="'.$row['id'].'">');
+			$t->set_var('RELATION_FORM','<form method=post action="'.$_SERVER['PHP_SELF'].'"><input type=hidden name=update value="create_song_link"><input type="hidden" name="other_id" value="'.$other_song['id'].'"><input type="hidden" name="id" value="'.$row['id'].'"><input type="hidden" name="old_link" value="'.preg_replace('/-.*$/','',$selected).'">');
 			$sel = '';
 			foreach ( $link_array as $key => $val ) {
 				$sel.='<option value="'.$key.'"';
