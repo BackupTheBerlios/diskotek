@@ -1,0 +1,8 @@
+0.1
+
+* could add albums/artists/songs
+* could set multiple artists for a song
+* could set multiple albums for a song
+* could edit (and update) songs
+* check for duplicate name in songs and ask user
+* could display artists and albums list

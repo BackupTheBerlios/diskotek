@@ -1,0 +1,43 @@
+disK'o'teK installation instruction
+
+Diskotek is a simple based PHP application. To make it run,
+you'll need:
+
+o an apache server, with PHP4 module
+o a mysql server, version 3.23 or more
+
+1. Database
+
+a. CREATE a new database
+
+This is done most of the time with 'mysqladmin' command line:
+
+$ mysqladmin -u[user] -p[password] create diskotek
+
+b. IMPORT tables structures.
+
+This is done most of the time with 'cat' and 'mysql' command lines:
+
+$ cat diskotek/diskotek.sql | mysql -u[user] -p[password] diskotek
+
+2. Set up the website
+
+a. Configure diskotek
+
+Edit the file 'diskotek/config.php' and update the lines:
+
+define ('DOK_MYSQL_HOST','localhost');
+define ('DOK_MYSQL_USER','[user]');
+define ('DOK_MYSQL_PASS','[password]');
+define ('DOK_MYSQL_DATABASE','diskotek');
+
+b. Install PHP files in your webserver
+
+move the directory 'diskotek' anywhere you want in your Apache web directory.
+
+Example: 
+
+$ mv diskotek /var/lib/www/html/
+
+Diskotek system should be up and running. If your server don't parse '.html' files
+as PHP scripts, just move 'index.html' to 'index.php'.

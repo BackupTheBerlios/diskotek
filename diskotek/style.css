@@ -96,11 +96,11 @@ div.boxcontent {
 div.boxlink {
 	margin-top:0px;
 	margin-bottom: 1px;
-	border-bottom: 1px solid #001a4f;
+	border-bottom: 1px solid #005098;
 	text-align: center;
 }
 div.boxlink:hover {
-	background-color: #a9c3df;
+	background-color: #005098;
 }
 a.boxlink:hover {
 	color: #000000;
