@@ -29,14 +29,14 @@ function dok_ask_dup_song ( $VARS, $update, $theme_path ) {
 					'NEW_SONG_LENGTH' => $VARS['length'],
 					'NEW_SONG_ARTIST' => $artist,
 					'NEW_SONG_ALBUM' => $album,
-					'NEW_SONG_GENRE' => dok_get_genre($VARS['genre']),
+					'NEW_SONG_GENRE' => dok_genre_name($VARS['genre']),
 					'NEW_SONG_RELEASE'=> dok_year2str($VARS['release']) ) );
 	} else {
 		$t->set_var(array(      'NEW_SONG_NAME' => $VARS['name'],
                                         'NEW_SONG_COMMENT' => dok_textarea_2_db($VARS['comment']),
                                         'NEW_SONG_TRACK' => $VARS['track'],
                                         'NEW_SONG_LENGTH' => $VARS['length'],
-					'NEW_SONG_GENRE' => dok_get_genre($VARS['genre']),
+					'NEW_SONG_GENRE' => dok_genre_name($VARS['genre']),
                                         'NEW_SONG_ARTIST' => '',
                                         'NEW_SONG_ALBUM' => '',
                                         'NEW_SONG_RELEASE'=> dok_year2str($VARS['release']) ) );

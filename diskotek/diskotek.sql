@@ -67,8 +67,25 @@ CREATE TABLE song (
   comment text NOT NULL,
   release year(4) NOT NULL default '0000',
   hits bigint(20) NOT NULL default '0',
+  genre tinyint(3) unsigned NOT NULL default '14',
   PRIMARY KEY  (id),
   KEY hits (hits),
   FULLTEXT KEY name (name,comment)
+) TYPE=MyISAM;
+
+--
+-- Table structure for table 'user'
+--
+
+CREATE TABLE user (
+  id bigint(20) NOT NULL auto_increment,
+  name varchar(255) NOT NULL default '',
+  password varchar(255) NOT NULL default '',
+  editor enum('1','0') NOT NULL default '0',
+  admin enum('1','0') NOT NULL default '0',
+  lang varchar(100) NOT NULL default '',
+  theme varchar(255) NOT NULL default '',
+  PRIMARY KEY  (id),
+  UNIQUE KEY name (name)
 ) TYPE=MyISAM;
 
