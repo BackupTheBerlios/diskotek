@@ -34,18 +34,7 @@ Actions
 </a>
 </div>
 </div>
-
-here is the sidebar
-<BR>
-here is the sidebar
-<BR>here is the sidebar
-<BR>here is the sidebar
-<BR>here is the sidebar
-<BR>here is the sidebar
-<BR>here is the sidebar
-<BR>here is the sidebar
-<BR>here is the sidebar
-<BR>
+{BOXES}
 </div>
 
 <div class="mainpage">

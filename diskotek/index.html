@@ -84,7 +84,25 @@ if ( !is_object($main_template) || strtolower(get_class($main_template)) != 'tem
 }
 dok_add_tpl_var('TITLE',$page_title);
 
+//parsing boxes
+$boxes = '';
+$d = dir("modules/box");
+while (false !== ($entry = $d->read())) {
+	if ( preg_match('/^box_(.*)\.php$/',$entry,$regs) ) {
+		require_once('modules/box/'.$entry);
+		if ( !function_exists('dok_box_'.$regs[1]) ) {
+			echo "Box module '$entry' should declare a function dok_box_".$regs[1]."<BR>";
+		} else {
+			eval('$boxes .= dok_box_'.$regs[1].'($DOK_DISPLAY, $DOK_THEME_PATH);');
+		}
+	}
+}
+$d->close();
+dok_add_tpl_var('BOXES',$boxes);
+
+
 //sending display to user agent
+
 $tplvars = dok_add_tpl_var('','',true);
 $t = new template($DOK_THEME_PATH,'remove');
 $t->set_var($tplvars);
