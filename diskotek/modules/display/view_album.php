@@ -39,12 +39,13 @@ function dok_view_album ($VARS, $update_module, $tpl_path) {
 			$song_data['SONG_ARTIST'] = preg_replace('/^'.$ARTIST_SONG_LINKS[0].'/','',$song_data['SONG_ARTIST']);
 			$t->set_var($song_data);
 			$t->set_var('SONG_TRACK',$song['track']);
-			
+
 			$t->parse('songs_block','album_songs','true');
 			$album_length += $song['length'];
 		}
 	}
 	$t->set_var('ALBUM_LENGTH',dok_sec2str($album_length));
+	$t->set_var('ALBUM_SONGS',$songs->numrows());
 	return array($t,sprintf(MSG_TITLE_DISPLAY_ALBUM,$row['name']));
 	
 }

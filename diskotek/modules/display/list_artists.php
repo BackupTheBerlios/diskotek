@@ -67,7 +67,7 @@ function dok_list_artists ($VARS, $up, $theme_path) {
 			$t->set_var('ARTIST_LINK',$_SERVER['PHP_SELF'].'?display=view_artist&id='.$row['id']);
                 	$t->set_var('ARTIST_NAME',$row['name']);
        		        $t->set_var('ARTIST_SONGS',$row['count']);
-			$t->set_var('ARTIST_ALBUMS',$row['count']);
+			$t->set_var('ARTIST_ALBUMS',$row['albums']);
 			$t->set_var('ARTIST_LENGTH',dok_sec2str($row['length']));
 	                $t->parse('artist_block','artist','true');
 			$display_last++;

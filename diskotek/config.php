@@ -54,8 +54,11 @@ define ('DOK_LIST_EPP',25);
 //number of songs to display in 'artist view'
 define ('DOK_SONGS_ON_ARTIST_PAGE',15);
 
+//number of albums to display in 'artist view'
+define ('DOK_ALBUMS_ON_ARTIST_PAGE',10);
+
 // when a new user is created, shake in database for a user with a name that sounds identical
-define ('DOK_USE_SOUNDEX', true); 
+define ('DOK_USE_SOUNDEX', true);
 
 define ('DOK_USE_HTML4','true');
 

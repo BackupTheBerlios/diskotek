@@ -14,6 +14,7 @@ function dok_view_artist ($VARS, $update_module, $tpl_path) {
 	$row = mysql_fetch_assoc($res);
 	$t = new template($tpl_path);
 	$t->set_file('page','artist_display.tpl');
+	$t->set_block('page','all_albums','all_albums_block');
 	$t->set_block('page','all_songs','all_songs_block');
 	$t->set_block('page','if_artisteditor','editor_block');
 	$t->set_block('page','artist_albums','albums_block');
@@ -30,12 +31,14 @@ function dok_view_artist ($VARS, $update_module, $tpl_path) {
 	}
 
 	$songs =& dok_rel_song_artist(array(),array($VARS['id']));
+	$display_songs = array();
 	echo mysql_error();
 	if ( !$songs->numrows() ) {
 		$t->set_var('songs_block',MSG_NO_SONG);
 		$t->set_var('albums_block',MSG_NO_ALBUM);
 		$t->set_var('related_artists_block',MSG_NO_RELATED_ARTIST);
 		$t->set_var('all_songs_block','');
+		$t->set_var('all_albums_block','');
 	} else {
 		$all_songs = $songs->fetch_col_array('song_id');
 		$t->set_var('ARTIST_SONGS',sizeof($all_songs));
@@ -43,13 +46,14 @@ function dok_view_artist ($VARS, $update_module, $tpl_path) {
 			$t->set_var('ALL_SONGS_LINK',$_SERVER['PHP_SELF'].'?display=list_songs&artist='.$VARS['id']);
 			$t->set_var('ARTIST_REMAINING_SONGS',(sizeof($all_songs) - DOK_SONGS_ON_ARTIST_PAGE));
 			$t->parse('all_songs_block','all_songs');
-			$all_songs = array_slice($all_songs,0,DOK_SONGS_ON_ARTIST_PAGE);
+			$display_songs = array_slice($all_songs,0,DOK_SONGS_ON_ARTIST_PAGE);
 		} else {
+			$display_songs = $all_songs;
 			$t->set_var('all_songs_block','');
 		}
 
 
-		$query = 'select * from '.dok_tn('song').' where id in('.implode(',',$all_songs).') order by hits desc,name, creation desc';
+		$query = 'select * from '.dok_tn('song').' where id in('.implode(',',$display_songs).') order by hits desc,name, creation desc';
 		unset($songs);
 		$songs = dok_oquery($query);
 		while ( $song = $songs->fetch_array() ) {
@@ -59,19 +63,33 @@ function dok_view_artist ($VARS, $update_module, $tpl_path) {
 
 			$t->parse('songs_block','artist_songs','true');
 		}
-		$all_songs = $songs->fetch_col_array('id');
+		//$all_songs = $songs->fetch_col_array('id');
 		unset($songs);
 		$query = 'select distinct(album_id) from '.dok_tn('rel_song_album').' where song_id in('.implode(',',$all_songs).')';
 		$albums = dok_oquery($query);
+		$t->set_var('ARTIST_ALBUMS',$albums->numrows());
 		if ( !$albums->numrows() ) {
 			$t->set_var('albums_block',MSG_NO_ALBUM);
+			$t->set_var('all_albums_block','');
 		} else {
+			$albums_display = array();
 			$albums_id = $albums->fetch_col_array('album_id');
 			unset($albums);
-			$albums = dok_oquery('select id, name, creation from '.dok_tn('album').' where id in ('.implode(',',$albums_id).') order by name');
+			if ( sizeof($albums_id) > DOK_ALBUMS_ON_ARTIST_PAGE ) {
+				$albums_display = array_slice($albums_id,DOK_ALBUMS_ON_ARTIST_PAGE);
+				$t->set_var('ALL_ALBUMS_LINK',$_SERVER['PHP_SELF'].'?display=list_albums&artist='.$VARS['id']);
+				$t->set_var('ARTIST_REMAINING_ALBUMS',(sizeof($albums_id) - DOK_ALBUMS_ON_ARTIST_PAGE));
+				$t->parse('all_albums_block','all_albums');
+			} else {
+				$albums_display = $albums_id;
+				$t->set_var('all_albums_block','');
+			}
+			$albums = dok_oquery('select a.id, a.name, a.creation, count(s.id) as count, sum(s.length) as length from '.dok_tn('album').' as a left join '.dok_tn('rel_song_album').' as r on a.id=r.album_id left join '.dok_tn('song').' as s on r.song_id=s.id where a.id in ('.implode(',',$albums_display).') group by r.album_id order by a.name');
 			while ( $album = $albums->fetch_array() ) {
 				$t->set_var(array('ALBUM_LINK' => $_SERVER['PHP_SELF'].'?display=view_album&id='.$album['id'],
 						'ALBUM_NAME'   => $album['name'],
+						'ALBUM_LENGTH'   => dok_sec2str($album['length']),
+						'ALBUM_SONGS'   => $album['count'],
 						'ALBUM_DB_CREATION' => date($THEME_DATE,$album['creation']) ));
 				$t->parse('albums_block','artist_albums','true');
 			}

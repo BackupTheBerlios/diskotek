@@ -113,27 +113,29 @@ function dok_edit_song ($VARS,$update_module,$theme_path) {
 			foreach ( $fields as $field ) {
 				$myrow[$field] = $subrow[$good_song.$field];
 			}
-			$relations[$good_link] = $myrow;
+			$relations[$good_link][] = $myrow;
 		}
 	}
 	if ( sizeof($relations) ) {
 		$link_array = dok_songs_links_array();
-		foreach ( $relations as $selected => $other_song ) {
-			//print_r($other_song);
-			$t->set_var('RELATION_FORM','<form method=post action="'.$_SERVER['PHP_SELF'].'"><input type=hidden name=update value="create_song_link"><input type="hidden" name="other_id" value="'.$other_song['id'].'"><input type="hidden" name="id" value="'.$row['id'].'"><input type="hidden" name="old_link" value="'.preg_replace('/-.*$/','',$selected).'">');
-			$sel = '';
-			foreach ( $link_array as $key => $val ) {
-				$sel.='<option value="'.$key.'"';
-				if ( $key == $selected || $key == preg_replace('/-.*$/','',$selected) )	$sel.=' SELECTED';
-				$sel.='>'.$val.'</option>'."\n";
+		foreach ( $relations as $selected => $songs ) {
+			foreach ( $songs as $other_song ) {
+				//print_r($other_song);
+				$t->set_var('RELATION_FORM','<form method=post action="'.$_SERVER['PHP_SELF'].'"><input type=hidden name=update value="create_song_link"><input type="hidden" name="other_id" value="'.$other_song['id'].'"><input type="hidden" name="id" value="'.$row['id'].'"><input type="hidden" name="old_link" value="'.preg_replace('/-.*$/','',$selected).'">');
+				$sel = '';
+				foreach ( $link_array as $key => $val ) {
+					$sel.='<option value="'.$key.'"';
+					if ( $key == $selected || $key == preg_replace('/-.*$/','',$selected) )	$sel.=' SELECTED';
+					$sel.='>'.$val.'</option>'."\n";
+				}
+				$t->set_var('RELATION_OPTIONS',$sel);
+				$t->set_var('RELATION_REMOVE_LINK', $_SERVER['PHP_SELF'].'?update=unlink_song_link&link='.$selected.'&id='.$row['id'].'&other_id='.$other_song['id']);
+				$al = $SONGS_LINKS[preg_replace('/-.*$/','',$selected)];
+				if ( preg_replace('/^[^-]+-/','',$selected) == 1 )	$t->set_var('RELATION_NAME',$al[1]);
+				else							$t->set_var('RELATION_NAME',$al[0]);
+				$t->set_var(dok_song_format($other_song));
+				$t->parse('relation_block','relation','true');
 			}
-			$t->set_var('RELATION_OPTIONS',$sel);
-			$t->set_var('RELATION_REMOVE_LINK', $_SERVER['PHP_SELF'].'?update=unlink_song_link&link='.$selected.'&id='.$row['id'].'&other_id='.$other_song['id']);
-			$al = $SONGS_LINKS[preg_replace('/-.*$/','',$selected)];
-			if ( preg_replace('/^[^-]+-/','',$selected) == 1 )	$t->set_var('RELATION_NAME',$al[1]);
-			else							$t->set_var('RELATION_NAME',$al[0]);
-			$t->set_var(dok_song_format($other_song));
-			$t->parse('relation_block','relation','true');
 		}
 	} else {
 		$t->set_var('relation_block','');

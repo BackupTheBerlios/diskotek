@@ -34,6 +34,7 @@ class dok_user {
 		$query = 'select * from '.dok_tn('user').' where name = \''.addslashes($user).'\' and password = \''.md5($password).'\' and disabled = \'0\'';
 		//echo $query;
 		$res = mysql_query($query);
+		echo mysql_error();
 		if ( mysql_numrows($res) ) {
 			$row = mysql_fetch_array($res);
 			$_SESSION['user_id'] = $row['id'];

@@ -3,7 +3,7 @@
  <a class="buttonedit" href="{ALBUM_EDIT_LINK}"><span class="buttonedit">edit</span></a>
 <!-- END if_albumeditor -->
 </div>
-Total listening time: {ALBUM_LENGTH}
+Total listening time: <B>{ALBUM_LENGTH}</B> in {ALBUM_SONGS} songs.
 <div class="mpsubtitle">
 Track listing:
 </div>

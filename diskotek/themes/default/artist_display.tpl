@@ -7,8 +7,11 @@
 Artist albums:
 </div>
 <!-- BEGIN artist_albums -->
-<A HREF="{ALBUM_LINK}">{ALBUM_NAME}</a> ({ALBUM_DB_CREATION})<BR>
+<A HREF="{ALBUM_LINK}">{ALBUM_NAME}</a> {ALBUM_LENGTH} in {ALBUM_SONGS} songs. ({ALBUM_DB_CREATION})<BR>
 <!-- END artist_albums -->
+<!-- BEGIN all_albums -->
+<A HREF="{ALL_ALBUMS_LINK}" class="mplink">View all albums</a> ({ARTIST_ALBUMS} in database)
+<!-- END all_albums -->
 <P>
 <div class="mpsubtitle">
 Artist songs:
