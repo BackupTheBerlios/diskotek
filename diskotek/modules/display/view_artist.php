@@ -24,17 +24,12 @@ function dok_view_artist ($VARS, $update_module, $tpl_path) {
 		$t->set_var('songs_block',MSG_NO_SONG);
 		$t->set_var('albums_block',MSG_NO_ALBUM);
 	} else {
-		$query = 'select id, name, creation, length from '.dok_tn('song').' where id in('.implode(',',$songs->fetch_col_array('song_id')).') order by name, creation';
+		$query = 'select id, name, creation, length, release, comment from '.dok_tn('song').' where id in('.implode(',',$songs->fetch_col_array('song_id')).') order by name, creation';
 		unset($songs);
 		$songs = dok_oquery($query);
 		while ( $song = $songs->fetch_array() ) {
 			$sl = dok_sec2min($song['length']);
-			if ( !$sl['minut'] )	$length = $sl['second'].' '.MSG_SECONDS;
-			else			$length = $sl['minut'].' '.MSG_MINUTS.' '.$sl['second'].' '.MSG_SECONDS;
-			$t->set_var(array('SONG_LINK'  => $_SERVER['PHP_SELF'].'?display=view_song&id='.$song['id'],
-					'SONG_NAME'    => $song['name'],
-					'SONG_LENGTH'  => $length,
-					'SONG_DB_CREATION' => date($THEME_DATE,$song['creation']) ));
+			$t->set_var(dok_song_format($song));
 			$t->parse('songs_block','artist_songs','true');
 		}
 		$all_songs = $songs->fetch_col_array('id');

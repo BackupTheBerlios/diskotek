@@ -12,7 +12,7 @@ Release year: {NEW_SONG_RELEASE}</td></tr></table>
 </div>
 <!-- BEGIN duplicate -->
 <A HREF="{SONG_LINK}" target="_blank">{SONG_NAME}</a>, by {SONG_ARTIST}, released on year {SONG_RELEASE}. duration {SONG_LENGTH}.
-<div class="mpcomment">{SONG_COMMENT}</div>
+<div class="mpsongcomment">{SONG_COMMENT}</div>
 <!-- END duplicate -->
 <P>
 Please click on the following button if you still want to record your song in the database:

@@ -212,4 +212,18 @@ function dok_db_2_textarea ($text) {
 	return str_replace('<BR>','',$text);
 }
 
+
+function dok_song_format ( $data ) {
+	global $THEME_DATE;
+	$ret = array();
+	$ret['SONG_NAME'] = $data['name'];
+	$ret['SONG_LINK'] = $_SERVER['PHP_SELF'].'?display=view_song&id='.$data['id'];
+	$ret['SONG_ARTIST'] = dok_get_artists_string($data['id']);
+	$ret['SONG_LENGTH'] = dok_sec2str($data['length']);
+	$ret['SONG_RELEASE'] = dok_year2str($data['release']);
+	$ret['SONG_COMMENT'] = $data['comment'];
+	$ret['SONG_DB_CREATION'] = date($THEME_DATE,$data['creation']);
+	return $ret;
+}
+
 ?>

@@ -12,12 +12,7 @@ function dok_ask_dup_song ( $VARS, $update, $theme_path ) {
 	$query = 'select id, name, length, release, comment from '.dok_tn('song').' where id in('.implode(',',$VARS['duplicates']).')';
 	$res = mysql_query($query);
 	while ( $row = mysql_fetch_array($res) ) {
-		$t->set_var(	array(	'SONG_NAME' => $row['name'],
-					'SONG_LINK' => $_SERVER['PHP_SELF'].'?display=view_song&id='.$row['id'],
-					'SONG_LENGTH' => dok_sec2str($row['length']),
-					'SONG_RELEASE' => dok_year2str($row['release']),
-					'SONG_COMMENT' => $row['comment'],
-					'SONG_ARTIST' => dok_get_artists_string($row['id']) ) );
+		$t->set_var(dok_song_format($row));
 		$t->parse('dup_block','duplicate','true');
 	}
 	$res = mysql_query('select name from '.dok_tn('album').' where id = '.$VARS['album']);

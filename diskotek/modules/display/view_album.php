@@ -17,7 +17,7 @@ function dok_view_album ($VARS, $update_module, $tpl_path) {
 	$t->set_block('page','album_songs','songs_block');
 	$t->set_var(array(	'ALBUM_NAME'=>$row['name'],
 				'ALBUM_DB_CREATION'=>date($THEME_DATE,$row['creation']) ));
-	$query = 'select s.id, s.name, s.creation, s.length, r.track from '.dok_tn('rel_song_album').' as r left join '.dok_tn('song').' as s on r.song_id = s.id where r.album_id = '.$VARS['id'].' order by r.track';
+	$query = 'select s.id, s.name, s.creation, s.length, s.release, s.comment, r.track from '.dok_tn('rel_song_album').' as r left join '.dok_tn('song').' as s on r.song_id = s.id where r.album_id = '.$VARS['id'].' order by r.track';
 	$songs = dok_oquery($query);
 
 	$album_length = 0;
@@ -26,12 +26,8 @@ function dok_view_album ($VARS, $update_module, $tpl_path) {
 		$t->set_var('songs_block',MSG_NO_SONG);
 	} else {
 		while ( $song = $songs->fetch_array() ) {
-			$t->set_var(array('SONG_LINK'  => $_SERVER['PHP_SELF'].'?display=view_song&id='.$song['id'],
-					'SONG_NAME'    => $song['name'],
-					'SONG_LENGTH'  => dok_sec2str($song['length']),
-					'SONG_TRACK'   => $song['track'],
-					'SONG_DB_CREATION' => date($THEME_DATE,$song['creation']),
-					'SONG_ARTIST' => dok_get_artists_string($song['id']) ));
+			$t->set_var(dok_song_format($song));
+			$t->set_var('SONG_TRACK',$song['track']);
 			
 			$t->parse('songs_block','album_songs','true');
 			$album_length += $song['length'];

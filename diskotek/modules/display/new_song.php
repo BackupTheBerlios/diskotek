@@ -14,12 +14,16 @@ function dok_new_song ($VARS,$update_module,$theme_path) {
         }
 	$album_select = '';
 	foreach ( $albums as $id => $vars ) {
-		$album_select .= '<option value="'.$id.'">'.$vars['name'].'</option>'."\n";
+		$album_select .= '<option value="'.$id.'"';
+		if ( $_SESSION['song_select_album'] == $id )	$album_select .= ' selected';
+		$album_select .= '>'.$vars['name'].'</option>'."\n";
 	}
 
 	$artist_select = '';
         foreach ( $artists as $id => $vars ) {
-                $artist_select .= '<option value="'.$id.'">'.$vars['name'].'</option>'."\n";
+                $artist_select .= '<option value="'.$id.'"';
+		if ( $_SESSION['song_select_artist'] == $id )    $artist_select .= ' selected';
+		$artist_select .= '>'.$vars['name'].'</option>'."\n";
         }
 	$t = new template($theme_path);
 	$t->set_file('page','song_new.tpl');

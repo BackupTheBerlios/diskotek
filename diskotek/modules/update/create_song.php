@@ -6,16 +6,6 @@ function dok_create_song() {
 		dok_msg(MSG_ERR_SONG_NO_NAME,'dok_create_song','e');
 		return false;
 	}
-	$song_name = substr($VARS['name'],0,255);
-	if ( !$VARS['dup_checked'] ) {
-		$res = dok_oquery('select id from '.dok_tn('song').' where name = \''.addslashes($song_name).'\'');
-		if ( $res->numrows() ) {
-			//dok_msg(MSG_ERR_SONG_DUP_NAME,'dok_create_song','e');
-			$VARS['duplicates'] = $res->fetch_col_array('id');
-	                return 'ask_dup_song';
-		}
-	}
-	$song_name = ucwords($song_name);
 
 	if ( !is_numeric($VARS['album']) || $VARS['album'] < 1 )	$VARS['album'] = 0;
 	$res = mysql_query('select name from '.dok_tn('album').' where id = '.$VARS['album']);
@@ -24,7 +14,9 @@ function dok_create_song() {
                 return false;
 	}
 	$album_name = mysql_result($res,0,'name');
-	
+
+	$_SESSION['song_select_album'] = $VARS['album'];
+
 	if ( !is_numeric($VARS['artist']) || $VARS['artist'] < 1 )        $VARS['artist'] = 0;
 	$res = mysql_query('select name from '.dok_tn('artist').' where id = '.$VARS['artist']);
         if ( !mysql_numrows($res) ) {
@@ -32,6 +24,19 @@ function dok_create_song() {
                 return false;
         }
         $artist_name = mysql_result($res,0,'name');
+
+	$_SESSION['song_select_artist'] = $VARS['artist'];
+
+        $song_name = substr($VARS['name'],0,255);
+        if ( !$VARS['dup_checked'] ) {
+                $res = dok_oquery('select id from '.dok_tn('song').' where name = \''.addslashes($song_name).'\'');
+                if ( $res->numrows() ) {
+                        //dok_msg(MSG_ERR_SONG_DUP_NAME,'dok_create_song','e');
+                        $VARS['duplicates'] = $res->fetch_col_array('id');
+                        return 'ask_dup_song';
+                }
+        }
+        $song_name = ucwords($song_name);
 
 
 	if ( !is_numeric($VARS['track']) || $VARS['track'] < 1 ) {
