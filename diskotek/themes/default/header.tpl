@@ -42,6 +42,7 @@ Lists
 <a class="boxlink" href="{DOK}?display=list_songs">
 <div class="boxlink">Songs</div>
 </a>
+{LIST_USER}
 </div>
 </div>
 {BOXES}
