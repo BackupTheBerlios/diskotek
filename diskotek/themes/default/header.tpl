@@ -23,6 +23,9 @@
 Actions
 </div>
 <div class="boxcontent">
+<a class="boxlink" href="{DOK}">
+<div class="boxlink">home page</div>
+</a>
 <a class="boxlink" href="{DOK}?display=new_song">
 <div class="boxlink">Add new song</div>
 </a>
