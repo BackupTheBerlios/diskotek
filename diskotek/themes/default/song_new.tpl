@@ -18,6 +18,8 @@ Enter a new song in the database
 </td></tr>
 <tr><td>Song name (REQUIRED, 255 chars. max)</td>
 <td><input type=text name="name" value="" size=25></td></tr>
+<tr><td>Song genre:</td>
+<td>{GENRES_SELECT}</td></tr>
 <tr><td>Song length (in seconds '340' or minutes:seconds '1:45')</td>
 <td><input type=text name="length" size=6></td></tr>
 <tr><td>Release year (if known, 4-digits year)</td>

@@ -329,7 +329,156 @@ function dok_song_format ( $data ) {
 	$ret['SONG_RELEASE'] = dok_year2str($data['release']);
 	$ret['SONG_COMMENT'] = $data['comment'];
 	$ret['SONG_DB_CREATION'] = date($THEME_DATE,$data['creation']);
+	$ret['SONG_GENRE'] = dok_genre_name($data['genre']);
 	return $ret;
 }
+
+function dok_get_genre_select ( $varname = 'genre', $selected = null ) {
+	global $GENRES;
+	$ret = '<select name="'.$varname.'">';
+	foreach ( $GENRES as $id => $name ) {
+		$ret.='<option value="'.$id.'"';
+		if ( $selected !== null && $selected == $id ) {
+			$ret.=' selected';
+		}
+		$ret.='>'.$name.'</option>';
+	}
+	$ret.= '</select>';
+	return $ret;
+}
+
+function dok_genre_name($id) {
+	global $GENRES;
+	return $GENRES[$id];
+}
+
+$GENRES =  Array(
+'Blues',
+'Classic Rock',
+'Country',
+'Dance',
+'Disco',
+'Funk',
+'Grunge',
+'Hip-Hop',
+'Jazz',
+'Metal',
+'New Age',
+'Oldies',
+'Other',
+'Pop',
+'R&B',
+'Rap',
+'Reggae',
+'Rock',
+'Techno',
+'Industrial',
+'Alternative',
+'Ska',
+'Death Metal',
+'Pranks',
+'Soundtrack',
+'Euro-Techno',
+'Ambient',
+'Trip-Hop',
+'Vocal',
+'Jazz+Funk',
+'Fusion',
+'Trance',
+'Classical',
+'Instrumental',
+'Acid',
+'House',
+'Game',
+'Sound Clip',
+'Gospel',
+'Noise',
+'AlternRock',
+'Bass',
+'Soul',
+'Punk',
+'Space',
+'Meditative',
+'Instrumental Pop',
+'Instrumental Rock',
+'Ethnic',
+'Gothic','Darkwave',
+'Techno-Industrial',
+'Electronic',
+'Pop-Folk',
+'Eurodance',
+'Dream',
+'Southern Rock',
+'Comedy',
+'Cult',
+'Gangsta',
+'Top 40',
+'Christian Rap',
+'Pop/Funk',
+'Jungle',
+'Native American',
+'Cabaret',
+'New Wave',
+'Psychadelic',
+'Rave',
+'Showtunes',
+'Trailer',
+'Lo-Fi',
+'Tribal',
+'Acid Punk',
+'Acid Jazz',
+'Polka',
+'Retro',
+'Musical',
+'Rock & Roll',
+'Hard Rock',
+'Folk',
+'Folk-Rock',
+'National Folk',
+'Swing',
+'Fast Fusion',
+'Bebob',
+'Latin',
+'Revival',
+'Celtic',
+'Bluegrass',
+'Avantgarde',
+'Gothic Rock',
+'Progressive Rock',
+'Psychedelic Rock',
+'Symphonic Rock',
+'Slow Rock',
+'Big Band',
+'Chorus',
+'Easy Listening',
+'Acoustic',
+'Humour',
+'Speech',
+'Chanson',
+'Opera',
+'Chamber Music',
+'Sonata',
+'Symphony',
+'Booty Bass',
+'Primus',
+'Porn Groove',
+'Satire',
+'Slow Jam',
+'Club',
+'Tango',
+'Samba',
+'Folklore',
+'Ballad',
+'Power Ballad',
+'Rhythmic Soul',
+'Freestyle',
+'Duet',
+'Punk Rock',
+'Drum Solo',
+'Acapella',
+'Euro-House',
+'Dance Hall'
+);
+
 
 ?>

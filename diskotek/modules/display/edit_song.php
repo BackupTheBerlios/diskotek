@@ -20,6 +20,7 @@ function dok_edit_song ($VARS,$update_module,$theme_path) {
 	$t->set_var('SONG_LENGTH_TF',str_replace('"','&quot;',$row['length']));
 	$t->set_var('SONG_RELEASE_TF',str_replace('"','&quot;',$row['release']));
 	$t->set_var('SONG_COMMENT_TF',dok_db_2_textarea($row['comment']));
+	$t->set_var('SONG_GENRE_SELECT',dok_get_genre_select('genre',$row['genre']));
 
 	$t->set_block('page','artist_remove','artist_remove_block');
 	$t->set_block('page','artist','artist_block');

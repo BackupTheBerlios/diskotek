@@ -1,7 +1,7 @@
 <?PHP
 
 function dok_create_song() {
-	global $VARS;
+	global $VARS, $GENRES;
 	if ( !isset($VARS['name']) || !strlen(trim($VARS['name'])) ) {
 		dok_msg(MSG_ERR_SONG_NO_NAME,'dok_create_song','e');
 		return false;
@@ -68,8 +68,15 @@ function dok_create_song() {
 
 	$length = dok_str2sec($VARS['length']);
 
+	if ( $VARS['genre'] >= sizeof($GENRES) ) {
+		$genre=0;
+	} else {
+		$genre = $VARS['genre'];
+		$_SESSION['song_select_genre'] = $genre;
+	}
+
 	//add
-	$res = mysql_query('insert into '.dok_tn('song').' (name, length, creation,release, comment) values (\''.addslashes($song_name).'\', '.$length.', '.time().','.$VARS['release'].',\''.addslashes($comment).'\')');
+	$res = mysql_query('insert into '.dok_tn('song').' (name, length, creation,release, comment, genre) values (\''.addslashes($song_name).'\', '.$length.', '.time().','.$VARS['release'].',\''.addslashes($comment).'\','.$genre.')');
 	if ( !$res ) {
 		echo mysql_error();
 		return false;

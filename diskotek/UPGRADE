@@ -1,5 +1,9 @@
 MYSQL updates
 
+0.3 => 0.4
+
+alter table song add genre TINYINT UNSIGNED not null default 14;
+
 0.2 => 0.3
 
 alter table album add fulltext(name);
@@ -9,7 +13,6 @@ alter table rel_song_album drop index song_id;
 alter table rel_song_album add UNIQUE album_id(album_id,track);
 alter table song add hits bigint not null default 0;
 create index hits on song(hits);
-
 
 0.1 => 0.2
 

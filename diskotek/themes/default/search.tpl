@@ -3,7 +3,7 @@
 "<i>{SEARCH_QUERY}</i>": {SEARCH_RESULTS} result(s).
 <div class="mpsubtitle">songs:</div>
 <!-- BEGIN song_result -->
-<a href="{SONG_LINK}">{SONG_NAME}</a>, {SONG_ARTIST} ({SONG_LENGTH}) <span class="relevance">Relevance: {SONG_SCORE}</span>
+<a href="{SONG_LINK}">{SONG_NAME}</a>, {SONG_ARTIST} ({SONG_LENGTH}, {SONG_GENRE}) <span class="relevance">Relevance: {SONG_SCORE}</span>
 <BR>
 <!-- END song_result -->
 <div class="mpsubtitle">albums:</div>

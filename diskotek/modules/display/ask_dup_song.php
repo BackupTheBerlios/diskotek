@@ -29,12 +29,14 @@ function dok_ask_dup_song ( $VARS, $update, $theme_path ) {
 					'NEW_SONG_LENGTH' => $VARS['length'],
 					'NEW_SONG_ARTIST' => $artist,
 					'NEW_SONG_ALBUM' => $album,
+					'NEW_SONG_GENRE' => dok_get_genre($VARS['genre']),
 					'NEW_SONG_RELEASE'=> dok_year2str($VARS['release']) ) );
 	} else {
 		$t->set_var(array(      'NEW_SONG_NAME' => $VARS['name'],
                                         'NEW_SONG_COMMENT' => dok_textarea_2_db($VARS['comment']),
                                         'NEW_SONG_TRACK' => $VARS['track'],
                                         'NEW_SONG_LENGTH' => $VARS['length'],
+					'NEW_SONG_GENRE' => dok_get_genre($VARS['genre']),
                                         'NEW_SONG_ARTIST' => '',
                                         'NEW_SONG_ALBUM' => '',
                                         'NEW_SONG_RELEASE'=> dok_year2str($VARS['release']) ) );
@@ -49,6 +51,7 @@ function dok_ask_dup_song ( $VARS, $update, $theme_path ) {
 	$yes_form.= '<input type=hidden name="length" value="'.str_replace('"','&quot;',$VARS['length']).'">';
 	$yes_form.= '<input type=hidden name="release" value="'.str_replace('"','&quot;',$VARS['release']).'">';
 	$yes_form.= '<input type=hidden name="comment" value="'.str_replace('"','&quot;',$VARS['comment']).'">';
+	$yes_form.= '<input type=hidden name="genre" value="'.$VARS['genre'].'">';
 	$t->set_var('SONG_RECORD_FORM',$yes_form);
 	return array ($t, MSG_TITLE_DUP_SONG);
 }

@@ -56,6 +56,9 @@ function dok_update_song() {
 		$set[] = 'length = '.$length;
 	}
 
+	if ( is_numeric($VARS['genre']) && $VARS['genre'] >= 0 && $VARS['genre'] != $song['genre'] ) {
+		$set[] = 'genre = '.$VARS['genre'];
+	}
 //	print_r($set);
 	
 	if ( sizeof($set) ) {

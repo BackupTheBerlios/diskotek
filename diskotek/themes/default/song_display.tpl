@@ -5,6 +5,8 @@
 
 </div>
 Release date: {SONG_RELEASE}
+<BR>
+Genre: {SONG_GENRE}
 <div class="mpsongcomment">{SONG_COMMENT}</div>
 <div class="mpsubtitle">
 Appearing in albums:

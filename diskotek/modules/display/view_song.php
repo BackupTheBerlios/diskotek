@@ -7,7 +7,7 @@ function dok_view_song($VARS, $update, $theme_path) {
                 $t = dok_error_template(MSG_ERR_SONG_DISPLAY);
                 return array($t,sprintf(MSG_TITLE_DISPLAY_SONG,''));
         }
-        $res = mysql_query('select id, name, creation, length, release, comment from '.dok_tn('song').' where id = '.$VARS['id']);
+        $res = mysql_query('select id, name, creation, length, release, comment, hits, genre from '.dok_tn('song').' where id = '.$VARS['id']);
         if ( !mysql_numrows($res) ) {
                 $t = dok_error_template(MSG_ERR_SONG_DISPLAY);
                 return array($t,sprintf(MSG_TITLE_DISPLAY_SONG,''));

@@ -7,6 +7,8 @@ Edit song {SONG_NAME}
 <table border=0>
 <tr><td>Song name (REQUIRED, 255 chars. max)</td>
 <td><input type=text name="name" value="{SONG_NAME_TF}" size=25></td></tr>
+<tr><td>Genre:</td>
+<td>{SONG_GENRE_SELECT}</td></tr>
 <tr><td>Song length (in seconds '340' or minutes:seconds '1:45')</td>
 <td><input type=text name="length" value="{SONG_LENGTH_TF}" size=6></td></tr>
 <tr><td>Release year (if known, 4-digits year)</td>
