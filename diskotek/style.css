@@ -132,6 +132,20 @@ div.boxlink:hover {
         background-color: #000000;
 	font-weight: normal;
 }
+
+div.songchoose {
+	margin-top:0px;
+	margin-bottom: 1px;
+	border-bottom: 1px solid #005098;
+	text-align: left;
+	color: #FFFFFF;
+}
+div.songchoose:hover {
+	color: #FFFFFF;
+        background-color: #000000;
+	font-weight: normal;
+}
+
 a.boxlink:hover {
 	color: #000000;
 }

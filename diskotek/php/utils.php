@@ -409,6 +409,11 @@ function dok_get_genre_select ( $varname = 'genre', $selected = null ) {
 	return $ret;
 }
 
+/**
+*returns variable names (array keys) and legends (array values) of songs links
+*
+*@return array names=>legends array
+*/
 function dok_songs_links_array() {
 	global $SONGS_LINKS;
 	$back = array();
@@ -422,6 +427,22 @@ function dok_songs_links_array() {
 	}
 	return $back;
 }
+
+/**
+*returns a list of beginning letters of table $table names
+*
+*@param string $table name of the db table
+*@return array array of letters
+*/
+function dok_letter_array($table) {
+	$tables = array('user','song','artist','album');
+	if ( ! in_array($table,$tables) ) {
+		return false;
+	}
+	$res = dok_oquery('select distinct(substring(a.name from 1 for 1)) as letter from '.dok_tn($table).' as a order by letter');
+	return $res->fetch_col_array('letter');
+}
+
 
 function dok_genre_name($id) {
 	global $GENRES;

@@ -11,6 +11,7 @@ define ('MSG_ERR_ALBUM_TRACK_ASSIGNED','Track %s is already taken in this album'
 define ('MSG_ERR_ARTIST_DISPLAY','Unable to find the artist you asked for.');
 define ('MSG_ERR_ARTIST_NOT_FOUND','Unable to find artist.');
 define ('MSG_ERR_SONG_NO_NAME','Please set song name');
+define ('MSG_ERR_SONG_NO_LINK_NAME','Unknown relation type');
 define ('MSG_ERR_SONG_DUP_NAME','the song \'%s\' is already in the database');
 define ('MSG_ERR_SONG_TRACK_DUP','the album got already song \'%s\' as song track %s. Change track number.');
 define ('MSG_ERR_SONG_DISPLAY','Unable to find the song you asked for.');
@@ -43,6 +44,7 @@ define ('MSG_TITLE_BOX_LAST_SONG','Last ten songs');
 define ('MSG_TITLE_BOX_RANKED_SONG','Most seen');
 define ('MSG_TITLE_ADD_SONG_ALBUM','link song to an album');
 define ('MSG_TITLE_ADD_SONG_ARTIST','link song to an artist');
+define ('MSG_TITLE_ADD_SONG_LINK','add a relationship between two songs');
 define ('MSG_TITLE_LIST_ARTIST','All artists listing');
 define ('MSG_TITLE_LIST_ALBUM','All albums listing');
 define ('MSG_TITLE_LIST_USER','All users listing');

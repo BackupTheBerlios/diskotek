@@ -87,7 +87,7 @@ $ARTIST_SONG_LINKS = array (	0 => 'by',
 *to add relations, choose an unused indice and two clear relation names.
 *If one of the two relation names is empty, relation won't appear. This other still will
 */
-$SONGS_LINKS = array ( 0 => array('same lyrics','same lyrics'),
+$SONGS_LINKS = array ( 1 => array('same lyrics','same lyrics'),
 			10 => array('same beat','same beat'),
 			20 => array('remix','original'));
 ?>

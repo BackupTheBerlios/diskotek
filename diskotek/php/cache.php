@@ -65,6 +65,10 @@ function dok_c_box_filename ( $box_name, $display )  {
 function dok_c_get ( $filename ) {
 	$filename = DOK_CACHE_PATH.'/'.$filename;
 
+	//if ( !( (filemtime($filename)+DOK_CACHE_TTL) > time() ) )  {
+	//	echo "Cache expired ! ";
+	//}
+
 	if ( file_exists($filename) && ( (filemtime($filename)+DOK_CACHE_TTL) > time() ) ) {
 		return implode(file($filename));
 	}
@@ -83,6 +87,8 @@ function dok_c_write ( $filename, $data ) {
 	fwrite($ok,$data);
 	fclose($ok);
 }
+
+
 
 /**
 *delete all cache files

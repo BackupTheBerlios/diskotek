@@ -31,6 +31,8 @@ function dok_list_songs ( $VARS, $up, $theme_path ) {
 		$total_query = 'select count(*) as c from '.dok_tn('song').' where substring(name from 1 for 1) >= \''.$VARS['alpha'].'\'';
 		$t->set_var('if_artist_block','');
 		$t->set_var('ARTIST_ID','');
+		$t->set_var('ARTIST_NAME','');
+		$t->set_var('ARTIST_LINK','');
 	}
 	$res = dok_oquery($query);
 	if ( $res->numrows() ) {
