@@ -7,7 +7,7 @@ function dok_view_song($VARS, $update, $theme_path) {
                 $t = dok_error_template(MSG_ERR_SONG_DISPLAY);
                 return array($t,sprintf(MSG_TITLE_DISPLAY_SONG,''));
         }
-        $res = mysql_query('select name, creation, length from '.dok_tn('song').' where id = '.$VARS['id']);
+        $res = mysql_query('select name, creation, length, release, comment from '.dok_tn('song').' where id = '.$VARS['id']);
         if ( !mysql_numrows($res) ) {
                 $t = dok_error_template(MSG_ERR_SONG_DISPLAY);
                 return array($t,sprintf(MSG_TITLE_DISPLAY_SONG,''));
@@ -18,6 +18,8 @@ function dok_view_song($VARS, $update, $theme_path) {
 	$t->set_var( array('SONG_NAME'=>$row['name'],
 				'SONG_ARTIST' => dok_get_artists_string($VARS['id']),
 				'SONG_LENGTH' => dok_sec2str($row['length']),
+				'SONG_RELEASE' => dok_year2str($row['release']),
+				'SONG_COMMENT' => $row['comment'],
 				'SONG_DB_CREATION' => date($THEME_DATE,$row['creation']) ) );
 	$t->set_block('page','song_albums','albums_block');
 	$res = mysql_query('select a.name, a.creation, a.id, r.track from '.dok_tn('rel_song_album').' as r left join '.dok_tn('album').' as a on r.album_id = a.id where r.song_id = '.$VARS['id'].' order by a.name');

@@ -1,3 +1,5 @@
+<div class="mptitle">{TITLE}
+</div>
 <form method="post" action="{DOK}">
 <input type=hidden name="update" value="create_artist">
 <table border=0>

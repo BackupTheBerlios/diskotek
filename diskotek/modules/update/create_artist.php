@@ -10,7 +10,7 @@ function dok_create_artist () {
                 dok_msg(MSG_ERR_NO_ARTIST_NAME,'dok_create_artist','e');
                 return false;
         }
-	$artist_name = substr($VARS['name'],0,255);
+	$artist_name = ucwords(substr($VARS['name'],0,255));
 	$res = mysql_query('select id from '.dok_tn('artist').' where name = \''.addslashes($artist_name).'\'');
 	if ( mysql_numrows($res) ) {
 		dok_msg(sprintf(MSG_ERR_DUP_ARTIST_NAME,$artist_name),'dok_create_artist','e');

@@ -4,6 +4,7 @@ body {
     padding: 0px;
     margin: 0px;
     font-size: 12px;
+    font-family: 'Helvetica', sans-serif;
 
 }
 
@@ -17,7 +18,7 @@ div.top {
 	background: #000000;
 	color: #FFFFFF;
 	margin: 0px;
-	padding: 8px;
+	padding: 0px;
 	height: 80px;
 	width: 100%;
 }
@@ -26,7 +27,7 @@ div.sidebar {
 	margin: 0px;
 	border-right: 1px dotted #dfdfdf;
 	padding: 5px;
-	width: 190px;
+	width: 20%;
 	height: 100%;
 }
 
@@ -39,6 +40,36 @@ div.mainpage {
 	margin-right: 0px;
 	padding: 5px;
 	padding-left: 30px;
+	font-size: 16px;
+	width: 75%;
+}
+
+div.mptitle {
+	padding-left: 0 px;
+	font-size: 24px;
+	font-weight: bold;
+	color: #FFCC00;
+	border-bottom: 1px solid #005098;
+	margin-bottom: 10px;
+	width: 100%;
+}
+
+div.mpsubtitle {
+        padding-left: 0 px;
+        font-size: 20px;
+        font-weight: bold;
+        color: #FFCC00;
+        border-bottom: 1px solid #005098;
+        margin-bottom: 10px;
+        width: 100%;
+}
+
+div.mpsongcomment {
+	padding-left: 40px;
+	margin-bottom: 10px;
+	font-size: 12px;
+	font-weight: normal;
+	font-style: italic;
 }
 
 div.box {

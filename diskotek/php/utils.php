@@ -187,6 +187,10 @@ function dok_sec2str ( $seconds ) {
 	return $ret;
 }
 
+function dok_year2str ( $year ) {
+	if ( $year == 0 )	return MSG_UNKNOWN;
+	return $year;
+}
 
 function dok_get_artists_string ( $song_id ) {
 	$res = dok_oquery('select a.name,a.id from '.dok_tn('rel_song_artist').' as r left join '.dok_tn('artist').' as a on r.artist_id = a.id where r.song_id = '.$song_id);
@@ -196,6 +200,16 @@ function dok_get_artists_string ( $song_id ) {
 		$ret .= '<a href="'.$_SERVER['PHP_SELF'].'?display=view_artist&id='.$row['id'].'">'.$row['name'].'</a>, ';
 	}
 	return substr($ret,0,-2);
+}
+
+function dok_textarea_2_db ($text) {
+	$text = htmlentities(trim($text));
+	$text = ucfirst(wordwrap($text,75,"<BR>\n",1));
+	return $text;
+}
+
+function dok_db_2_textarea ($text) {
+	return str_replace('<BR>','',$text);
 }
 
 ?>

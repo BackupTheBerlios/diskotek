@@ -1,3 +1,6 @@
+<div class="mptitle">{TITLE}
+</div>
+Here you'll find the form needed to add an album in the database.<P>
 <form method="post" action="{DOK}">
 <input type=hidden name="update" value="create_album">
 <table border=0>

@@ -23,15 +23,15 @@
 Actions
 </div>
 <div class="boxcontent">
-<div class="boxlink">
-<a class="boxlink" href="{DOK}?display=new_song">Add new song</a>
-</div>
-<div class="boxlink">
-<a class="boxlink" href="{DOK}?display=new_artist">Add new artist</a>
-</div>
-<div class="boxlink">
-<a class="boxlink" href="{DOK}?display=new_album">Add new album</a>
-</div>
+<a class="boxlink" href="{DOK}?display=new_song">
+<div class="boxlink">Add new song</div>
+</a>
+<a class="boxlink" href="{DOK}?display=new_artist">
+<div class="boxlink">Add new artist</div>
+</a>
+<a class="boxlink" href="{DOK}?display=new_album">
+<div class="boxlink">Add new album</div>
+</a>
 </div>
 </div>
 

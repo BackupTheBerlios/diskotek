@@ -1,6 +1,5 @@
 <?PHP
 
-
 function dok_create_song() {
 	global $VARS;
 	if ( !isset($VARS['name']) || !strlen(trim($VARS['name'])) ) {
@@ -44,6 +43,13 @@ function dok_create_song() {
                 return false;
 	}
 
+	//check comment
+	$comment = dok_textarea_2_db ( $VARS['comment']);
+
+	if ( !isset($VARS['release']) || !is_numeric($VARS['release']) || $VARS['release']<1901 || $VARS['release'] > 2155 ) {
+		$VARS['release'] = 0;
+	}
+
 	$length = 0;
 	if ( isset($VARS['length']) ) {
 		if ( preg_match('/:/',$VARS['length']) ) {
@@ -58,7 +64,7 @@ function dok_create_song() {
 	}
 
 	//add
-	$res = mysql_query('insert into '.dok_tn('song').' (name, length, creation) values (\''.addslashes($song_name).'\', '.$length.', '.time().')');
+	$res = mysql_query('insert into '.dok_tn('song').' (name, length, creation,release, comment) values (\''.addslashes($song_name).'\', '.$length.', '.time().','.$VARS['release'].',\''.addslashes($comment).'\')');
 	if ( !$res ) {
 		echo mysql_error();
 		return false;

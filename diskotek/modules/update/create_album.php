@@ -10,7 +10,7 @@ function dok_create_album () {
                 dok_msg(MSG_ERR_NO_ALBUM_NAME,'dok_create_album','e');
                 return false;
         }
-	$album_name = substr($VARS['name'],0,255);
+	$album_name = ucwords(substr($VARS['name'],0,255));
 	$res = mysql_query('select id from '.dok_tn('album').' where name = \''.addslashes($album_name).'\'');
 	if ( mysql_numrows($res) ) {
 		dok_msg(sprintf(MSG_ERR_DUP_ALBUM_NAME,$album_name),'dok_create_album','e');
