@@ -17,6 +17,7 @@ function dok_view_artist ($VARS, $update_module, $tpl_path) {
 	$t->set_block('page','if_artisteditor','editor_block');
 	$t->set_block('page','artist_albums','albums_block');
 	$t->set_block('page','artist_songs','songs_block');
+	$t->set_block('page','related_artists','related_artists_block');
 	$t->set_var(array(	'ARTIST_NAME'=>$row['name'],
 				'ARTIST_DB_CREATION'=>date($THEME_DATE,$row['creation']) ));
 
@@ -28,8 +29,10 @@ function dok_view_artist ($VARS, $update_module, $tpl_path) {
 	if ( !$songs->numrows() ) {
 		$t->set_var('songs_block',MSG_NO_SONG);
 		$t->set_var('albums_block',MSG_NO_ALBUM);
+		$t->set_var('related_artists_block',MSG_NO_RELATED_ARTIST);
 	} else {
-		$query = 'select id, name, creation, length, release, comment from '.dok_tn('song').' where id in('.implode(',',$songs->fetch_col_array('song_id')).') order by name, creation';
+		$all_songs = $songs->fetch_col_array('song_id');
+		$query = 'select id, name, creation, length, release, comment from '.dok_tn('song').' where id in('.implode(',',$all_songs).') order by name, creation';
 		unset($songs);
 		$songs = dok_oquery($query);
 		while ( $song = $songs->fetch_array() ) {
@@ -52,6 +55,18 @@ function dok_view_artist ($VARS, $update_module, $tpl_path) {
 						'ALBUM_NAME'   => $album['name'],
 						'ALBUM_DB_CREATION' => date($THEME_DATE,$album['creation']) ));
 				$t->parse('albums_block','artist_albums','true');
+			}
+		}
+		$query = 'select a.name, a.id, count(*) as c from '.dok_tn('rel_song_artist').' as r left join '.dok_tn('artist').' as a on r.artist_id = a.id where r.song_id in('.implode(',',$all_songs).') and artist_id != '.$VARS['id'].' group by r.artist_id order by c desc limit 7';
+		//echo $query;
+		$res = mysql_query($query);
+		if ( !mysql_numrows($res) ) {
+			$t->set_var('related_artists_block',MSG_NO_RELATED_ARTIST);
+		} else {
+			while ($row = mysql_fetch_array($res) ) {
+				$t->set_var(array('ARTIST_LINK'=>$_SERVER['PHP_SELF'].'?display=view_artist&id='.$row['id'],
+						'ARTIST_NAME'=>$row['name']));
+				$t->parse('related_artists_block','related_artists','true');
 			}
 		}
 	}

@@ -1,3 +1,2 @@
-disKoteK homepage: welcome!
-<BR>zdfsdfsdf sdmfmfsd lkksdfklm sklmdfk s
-<BR>sdùfsd ùlmsdùfls mùldsùfl sdgfo isjgklsg n
+<center><B>disKoteK homepage: welcome!</B></center><P>
+Currently <B>{TOTAL_SONGS}</B> songs, <B>{TOTAL_ARTISTS}</B> artists, <B>{TOTAL_ALBUMS}</B> albums in database.

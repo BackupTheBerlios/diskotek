@@ -136,3 +136,11 @@ div.listelement {
 div.listelement:hover {
         background-color: #005098;
 }
+span.titlefont {
+	font-size: 16px;
+}
+div.recorded {
+	text-align: right;
+	font-size:12px;
+	font-style: italic;
+}

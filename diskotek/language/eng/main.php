@@ -40,6 +40,7 @@ define ('MSG_TITLE_SOUNDEX_TEST','artists similar names');
 define ('MSG_NO_SONG','No song');
 define ('MSG_NO_ALBUM','No album');
 define ('MSG_NO_ARTIST','No artist');
+define ('MSG_NO_RELATED_ARTIST','No related artist');
 define ('MSG_MINUTS',':');
 define ('MSG_SECONDS','');
 define ('MSG_UNKNOWN','unknown');

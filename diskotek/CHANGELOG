@@ -1,3 +1,11 @@
+0.2
+
+* could set more precise links between artists and songs 
+  (featuring, mixed by, ...)
+* added artists and albums edition (could update name)
+* added soundex check on new artist creation
+  (check based on artist name sonority)
+
 0.1
 
 * could add albums/artists/songs
