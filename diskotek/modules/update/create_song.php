@@ -85,12 +85,12 @@ function dok_create_song() {
 		return false;
 	}
 	$my_id = mysql_insert_id();
-	$res = mysql_query('insert into rel_song_artist (song_id, artist_id) values ('.$my_id.','.$VARS['artist'].')');
+	$res = mysql_query('insert into '.dok_tn('rel_song_artist').' (song_id, artist_id) values ('.$my_id.','.$VARS['artist'].')');
 	if ( !$res ) {
                 echo mysql_error();
                 return false;
         }
-	$res = mysql_query('insert into rel_song_album (song_id, album_id,track ) values ('.$my_id.','.$VARS['album'].','.$VARS['track'].')');
+	$res = mysql_query('insert into '.dok_tn('rel_song_album').' (song_id, album_id,track ) values ('.$my_id.','.$VARS['album'].','.$VARS['track'].')');
         if ( !$res ) {
                 echo mysql_error();
                 return false;
