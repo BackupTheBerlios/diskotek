@@ -55,7 +55,7 @@ function dok_list_songs ( $VARS, $up, $theme_path ) {
 		$t->set_var('song_block',MSG_NO_SONG);
 		$t->set_var('next_page_block','');
 	}
-	return array($t, MSG_TITLE_LIST_ALBUM);
+	return array($t, MSG_TITLE_LIST_SONG);
 }
 
 

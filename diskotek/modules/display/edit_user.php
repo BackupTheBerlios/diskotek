@@ -12,7 +12,7 @@ function dok_edit_user ($VARS,$update_module,$theme_path) {
         }
         $row = mysql_fetch_array($res);
 
-	if ( DOK_ENABLE_USER && ( !$USER->admin || $USER->id != $row['id'] ) ) {
+	if ( DOK_ENABLE_USER && ( !$USER->admin && $USER->id != $row['id'] ) ) {
 		$t = dok_error_template(MSG_ERR_USER_EDITION_NOT_ALLOWED);
                 return array($t, sprintf(MSG_TITLE_EDIT_USER,MSG_UNKNOWN));
 	}

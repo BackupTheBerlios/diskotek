@@ -22,5 +22,11 @@ Actions
 <div class="boxlink">Add new user</div>
 </a>
 <!-- END if_admin -->
+<!-- BEGIN if_logged -->
+<p>
+<a class="boxlink" href="{DOK}?display=edit_user&id={USER_ID}">
+<div class="boxlink">personnal settings</div>
+</a>
+<!-- END if_logged -->
 </div>
 </div>

@@ -21,7 +21,7 @@ $DOK_THEME   = DOK_THEME_DEFAULT;
 $DOK_DISPLAY = DOK_DISPLAY_DEFAULT;
 $DOK_UPDATE  = '';
 $DOK_SYSTEM_MESSAGES = array();
-$DOK_ANONYMOUS_DISPLAY = array('homepage.php','list_albums.php','list_artists.php','list_songs.php','search.php','view_album.php','view_artist.php','view_song.php','view_user.php','login.php');
+$DOK_ANONYMOUS_DISPLAY = array('homepage.php','list_albums.php','list_artists.php','list_full.php','list_songs.php','search.php','view_album.php','view_artist.php','view_song.php','view_user.php','login.php');
 $DOK_ANONYMOUS_UPDATE = array();
 $DOK_USER_DISPLAY = array(	'all'=>array('edit_user.php'),
 				'editor'=>array('ask_dup_song.php','ask_sound_artist.php','edit_album.php','edit_artist.php','edit_song.php','link_song_album.php','link_song_artist.php','new_album.php','new_artist.php','new_song.php'));
@@ -77,9 +77,10 @@ if ( DOK_ENABLE_USER ) {
                 Check if user is allowed to update something
         **********************************************************************/
 	if ( isset($VARS['update']) && !in_array($VARS['update'].'.php',$DOK_ANONYMOUS_UPDATE) ) {
-		if (	!$USER->admin && !$USER->editor && !in_array($VARS['update'].'.php',$DOK_USER_UPDATE['all']) ||
-		       	!$USER->admin && !in_array($VARS['update'].'.php',$DOK_USER_UPDATE['editor']) ) {
-					unset($VARS['update']);
+		if (	!$USER->admin && !$USER->editor && !in_array($VARS['update'].'.php',$DOK_USER_UPDATE['all']) ) {
+			if ( $USER->editor && !$USER->admin && !in_array($VARS['update'].'.php',$DOK_USER_UPDATE['editor'])) {
+				unset($VARS['update']);
+			}
 		}
 	}
 	require_once(DOK_LANGUAGE_PATH.'/eng/main.php');
@@ -131,10 +132,11 @@ if ( isset($VARS['display']) ) {
 //multi user check
 if ( DOK_ENABLE_USER && !in_array($DOK_DISPLAY.'.php',$DOK_ANONYMOUS_DISPLAY) ) {
 	if ( $USER->id < 1 ) {
-		if ( !in_array($DOK_DISPLAY.'.php',$DOK_ANONYMOUS_DISPLAY) ) $DOK_DISPLAY = DOK_DISPLAY_DEFAULT;
-	}  elseif     ( !$USER->admin && !$USER->editor && !in_array($DOK_DISPLAY.'.php',$DOK_USER_DISPLAY['all']) ||
-			!$USER->admin && !in_array($DOK_DISPLAY.'.php',$DOK_USER_DISPLAY['editor']) ) {
 		$DOK_DISPLAY = DOK_DISPLAY_DEFAULT;
+	}  elseif     ( !in_array($DOK_DISPLAY.'.php',$DOK_USER_DISPLAY['all']) ) {
+		if ( $USER->editor && !$USER->admin && !in_array($DOK_DISPLAY.'.php',$DOK_USER_DISPLAY['editor']) ) {
+			$DOK_DISPLAY = DOK_DISPLAY_DEFAULT;
+		}
 	}
 }
 

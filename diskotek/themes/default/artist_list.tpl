@@ -18,3 +18,6 @@ Alphabetic jump: <a href="{DOK}?display=list_artists&alpha=-&artist={ARTIST_ID}"
 <!-- BEGIN next_page -->
 <P><a href="{NEXT_PAGE_LINK}" class="mplink">next page</a>
 <!-- END next_page -->
+<div class="fulllist">
+<a class="mplink" href="{DOK}?display=list_full&element=artist">full listing</a>
+</div>

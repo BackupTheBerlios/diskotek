@@ -176,6 +176,10 @@ span.relevance {
 	font-style: italic;
 }
 
+div.fulllist {
+	text-align: center;
+}
+
 div.recorded {
 	text-align: right;
 	font-size:12px;

@@ -17,3 +17,6 @@ Alphabetic jump: <a href="{DOK}?display=list_albums&alpha=-">1-9</a> |
 <!-- BEGIN next_page -->
 <P><a href="{NEXT_PAGE_LINK}" class="mplink">next page</a>
 <!-- END next_page -->
+<div class="fulllist">
+<a class="mplink" href="{DOK}?display=list_full&element=album">full listing</a>
+</div>
