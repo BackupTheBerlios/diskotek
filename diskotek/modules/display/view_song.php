@@ -20,6 +20,7 @@ function dok_view_song($VARS, $update, $theme_path) {
 	$t->set_block('page','relation','relation_block');
 	$t->set_block('page','if_relation','if_relation_block');
 	$t->set_block('page','if_songeditor','songeditor_block');
+	$t->set_block('page','if_label','label_block');
 
 	if ( DOK_ENABLE_USER &&  !$USER->editor && !$USER->admin ) {
                 $t->set_var('songeditor_block','');
@@ -119,6 +120,11 @@ function dok_view_song($VARS, $update, $theme_path) {
 
 	$t->set_var('SONG_RELATIONS',$rel);
 	$t->set_var(dok_song_format($row));
+	if ( $row['label'] > 0 ) {
+		$t->parse('label_block','if_label');
+	} else {
+		$t->set_var('label_block','');
+	}
 	$res = mysql_query('update '.dok_tn('song').' set hits = hits + 1 where id = '.$VARS['id']);
 	return array($t, sprintf(MSG_TITLE_DISPLAY_SONG,$row['name']));
 }

@@ -1,7 +1,7 @@
 <?PHP
 
 function dok_edit_song ($VARS,$update_module,$theme_path) {
-	global $SONGS_LINKS;
+	global $SONGS_LINKS, $SONGS_LABELS;
 	if ( !$VARS['id'] || !is_numeric($VARS['id']) || $VARS['id']<1 )	{
 		$t = dok_error_template(MSG_ERR_SONG_NOT_FOUND);
                 return array($t, sprintf(MSG_TITLE_EDIT_SONG,MSG_UNKNOWN));
@@ -13,6 +13,16 @@ function dok_edit_song ($VARS,$update_module,$theme_path) {
 	}
 	$row = mysql_fetch_assoc($res);
 
+	if ( !$row['label'] )	$row['label'] = 0;
+	$label_select = '<option value="0"';
+	if ( $row['label'] == 0 )	$label_select.=' SELECTED';
+	$label_select.='>'.MSG_LABEL_NONE.'</option>';
+	foreach ( $SONGS_LABELS as $key => $val ) {
+		$label_select .= '<option value="'.$key.'"';
+		if ( $row['label'] == $key )	$label_select.=' SELECTED';
+		$label_select.='>'.$val['label'].'</option>';
+	}
+
 	$t = new template($theme_path);
 	$t->set_file('page','song_edit.tpl');
 	$t->set_var(dok_song_format($row));
@@ -20,6 +30,7 @@ function dok_edit_song ($VARS,$update_module,$theme_path) {
 	$t->set_var('SONG_NAME_TF',str_replace('"','&quot;',$row['name']));
 	$t->set_var('SONG_LENGTH_TF',str_replace('"','&quot;',$row['length']));
 	$t->set_var('SONG_RELEASE_TF',str_replace('"','&quot;',$row['release']));
+	$t->set_var('SONG_LABELS_SELECT',$label_select);
 	$t->set_var('SONG_COMMENT_TF',dok_db_2_textarea($row['comment']));
 	$t->set_var('SONG_GENRE_SELECT',dok_get_genre_select('genre',$row['genre']));
 

@@ -7,6 +7,8 @@ Artist: {NEW_SONG_ARTIST}<BR></TD></TR><tr><td>
 Album: {NEW_SONG_ALBUM}<BR></td><td>
 Album track: {NEW_SONG_TRACK}<BR></td></tr><tr><td>
 Length: {NEW_SONG_LENGTH}<BR></td><td>
+Label: {NEW_SONG_LABEL}</td></tr><tr><td>
+Comments: {NEW_SONG_COMMENT}<BR></td><td>
 Release year: {NEW_SONG_RELEASE}</td></tr></table>
 <div class="mpsubtitle">Songs having already the same name, in the database
 </div>

@@ -92,4 +92,20 @@ $SONGS_LINKS = array ( 1 => array('same lyrics','same lyrics'),
 			7 => array('remix','original'),
 			10 => array('complete version'),
 			13 => array('in another style','in another style'));
+
+
+/*
+*song labels are label you can associate to a song ( one label per song)
+*in the template 'song_display.tpl' you'll have in the 'if_label' block the templates variables
+* {SONG_LABEL} : value of 'label' key
+* {SONG_TAG} : value of 'tag' key
+* {SONG_TAG2} : value of 'tag2' key
+*
+* In addition the theme file 'theme.php' should contain a variable $THEME_SONG_LABEL that is a part of line that could
+* contain template variables described just before. This parsed will appear as {SONG_LABEL_LINE} in a song display
+*/
+$SONGS_LABELS = array (	1 => array('label'=>'club bang', 'tag' => '#FF0000', 'tag2' => ''),
+			2 => array('label'=>'5 stars hiphop beat', 'tag' => '#0000FF', 'tag2' => ''),
+			3 => array('label'=>'hot & wet', 'tag' => '#00FF00', 'tag2' => '')
+			);
 ?>

@@ -62,10 +62,12 @@ define ('MSG_SYS_DEBUG','<font size=-2>%s</font>');
 define ('MSG_SYS_ERROR','<font color=red>Error: %s</font>');
 
 define ('MSG_RELATION_NONE','no special relation');
+define ('MSG_LABEL_NONE','no special label');
 
 define ('MSG_SONGS','Songs');
 define ('MSG_SONG_LINK_SAME_TITLE','same title');
 define ('MSG_ALBUMS','Albums');
+define ('MSG_ALBUM_NEXT_TRACK','Next album track');
 define ('MSG_ARTISTS','Artists');
 define ('MSG_USERS','Users');
 define ('MSG_NO_SONG','No song');

@@ -26,5 +26,7 @@ Enter a new song in the database
 <td><input type=text name="release" size=6></td></tr>
 <tr><td colspan=2><center>comments on this song<BR>
 <textarea name="comment" rows=7 cols=50></textarea>
+<tr><td>Special label:</td>
+<td><select name="label">{LABELS_SELECT}</select></td></tr>
 <tr><td></td><td><input type=submit value="record"></td></tr></table>
 </form>

@@ -16,4 +16,9 @@ $THEME_LIST_USER = "<a class=\"boxlink\" href=\"{DOK}?display=list_users\">
 */
 $THEME_FULL_LIST_COLUMN = array(2=>40,3=>90,4=>200,5=>300);
 
+/*
+* see config.php for more infos
+*/
+$THEME_SONG_LABEL = ' ::- {SONG_LABEL} -::';
+
 ?>

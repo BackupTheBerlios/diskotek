@@ -1,7 +1,7 @@
 <?PHP
 
 function dok_new_song ($VARS,$update_module,$theme_path) {
-
+	global $SONGS_LABELS;
 	$albums = dok_albums_list();
 	if( !sizeof($albums) ) {
 		$t = dok_error_template(MSG_ERR_NO_ALBUM);
@@ -58,11 +58,19 @@ function dok_new_song ($VARS,$update_module,$theme_path) {
         if ( $_SESSION['album_track'] == 'text' )   $text_radio.='checked';
         $text_radio.='>';
 
+	$label_select = '<option value="" SELECTED>'.MSG_LABEL_NONE.'</option>';
+	foreach ( $SONGS_LABELS as $key => $val)  {
+		if ( is_numeric($key) && $key > 0 ) {
+			$label_select.='<option value="'.$key.'">'.$val['label'].'</option>'."\n";
+		}
+	}
+
 	$t = new template($theme_path);
 	$t->set_file('page','song_new.tpl');
 	$t->set_var( array( 'ARTISTS_SELECT' => $artist_select,
 				'ALBUMS_SELECT' => $album_select,
 				'GENRES_SELECT' => $genre_select,
+				'LABELS_SELECT' => $label_select,
 				'TRACK_NEXT_RADIO' => $next_radio,
 				'TRACK_TEXT_RADIO' => $text_radio) );
 	return array($t,MSG_TITLE_NEW_SONG);

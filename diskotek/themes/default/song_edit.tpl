@@ -15,6 +15,8 @@ Edit song {SONG_NAME}
 <td><input type=text name="release" value="{SONG_RELEASE_TF}" size=6></td></tr>
 <tr><td colspan=2><center>comments on this song<BR>
 <textarea name="comment" rows=7 cols=50>{SONG_COMMENT_TF}</textarea>
+<tr><td>Special label:</td>
+<td><select name=label>{SONG_LABELS_SELECT}</select></td></tr>
 <tr><td></td><td><input type=submit value="update"></td></tr></table>
 </form>
 

@@ -7,6 +7,10 @@
 Release date: {SONG_RELEASE}
 <BR>
 Genre: {SONG_GENRE}
+<!-- BEGIN if_label -->
+<BR>
+<span class="label" style="background-color: {SONG_TAG}">&nbsp;</span> {SONG_LABEL}
+<!-- END if_label -->
 <div class="mpsongcomment">{SONG_COMMENT}</div>
 <div class="mpsubtitle">
 Appearing in albums:

@@ -380,8 +380,9 @@ function dok_db_2_textarea ($text) {
 *
 */
 function dok_song_format ( $data ) {
-	global $THEME_DATE;
-	$ret = array();
+	global $THEME_DATE, $THEME_SONG_LABEL;
+	$label = dok_song_label_vars($data['label']);
+	$ret = $label;
 	$ret['SONG_NAME'] = $data['name'];
 	$ret['SONG_ID']   = $data['id'];
 	$ret['SONG_HITS'] = $data['hits'];
@@ -392,7 +393,24 @@ function dok_song_format ( $data ) {
 	$ret['SONG_COMMENT'] = $data['comment'];
 	$ret['SONG_DB_CREATION'] = date($THEME_DATE,$data['creation']);
 	$ret['SONG_GENRE'] = dok_genre_name($data['genre']);
+	if ( $data['label'] > 0 ) {
+		$t = new template(getcwd());
+		$t->set_var('song_label',$THEME_SONG_LABEL);
+		$t->set_var($label);
+		$ret['SONG_LABEL_LINE'] = $t->finish($t->parse('out','song_label'));
+	} else {
+		$ret['SONG_LABEL_LINE'] = '';
+	}
+	//print_r($ret);
 	return $ret;
+}
+
+function dok_song_label_vars($label_id) {
+	global $SONGS_LABELS;
+	if ( !in_array($label_id,array_keys($SONGS_LABELS)) )	{
+		return array('SONG_LABEL'=>'','SONG_TAG'=>'','SONG_TAG2'=>'');
+	}
+	return array('SONG_LABEL' => $SONGS_LABELS[$label_id]['label'], 'SONG_TAG' => $SONGS_LABELS[$label_id]['tag'], 'SONG_TAG2' => $SONGS_LABELS[$label_id]['tag2']);
 }
 
 function dok_get_genre_select ( $varname = 'genre', $selected = null ) {

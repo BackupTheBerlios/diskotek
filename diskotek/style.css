@@ -168,6 +168,15 @@ span.buttonedit:hover {
         color: #003399;
 }
 
+span.label {
+	font-weight: bold;
+	color: #000000;
+	padding-left: 1px;
+	padding-right: 1px;
+	padding-top: 1px;
+	padding-bottom: 1px;
+}
+
 div.listelement {
         font-size: 14px;
         font-weight: normal;

@@ -5,10 +5,10 @@
 -- Server version	4.0.15a-log
 
 --
--- Table structure for table 'dok_album'
+-- Table structure for table 'album'
 --
 
-CREATE TABLE dok_album (
+CREATE TABLE album (
   id bigint(20) NOT NULL auto_increment,
   name varchar(255) NOT NULL default '',
   creation bigint(20) NOT NULL default '0',
@@ -19,10 +19,10 @@ CREATE TABLE dok_album (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table 'dok_artist'
+-- Table structure for table 'artist'
 --
 
-CREATE TABLE dok_artist (
+CREATE TABLE artist (
   id bigint(20) NOT NULL auto_increment,
   name varchar(255) NOT NULL default '',
   creation bigint(20) NOT NULL default '0',
@@ -33,10 +33,10 @@ CREATE TABLE dok_artist (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table 'dok_rel_song_album'
+-- Table structure for table 'rel_song_album'
 --
 
-CREATE TABLE dok_rel_song_album (
+CREATE TABLE rel_song_album (
   song_id bigint(20) NOT NULL default '0',
   album_id bigint(20) NOT NULL default '0',
   track bigint(20) NOT NULL default '1',
@@ -45,10 +45,10 @@ CREATE TABLE dok_rel_song_album (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table 'dok_rel_song_artist'
+-- Table structure for table 'rel_song_artist'
 --
 
-CREATE TABLE dok_rel_song_artist (
+CREATE TABLE rel_song_artist (
   song_id bigint(20) NOT NULL default '0',
   artist_id bigint(20) NOT NULL default '0',
   link tinyint(3) unsigned NOT NULL default '0',
@@ -57,21 +57,22 @@ CREATE TABLE dok_rel_song_artist (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table 'dok_rel_songs'
+-- Table structure for table 'rel_songs'
 --
 
-CREATE TABLE dok_rel_songs (
+CREATE TABLE rel_songs (
   song_id1 bigint(20) NOT NULL default '0',
   song_id2 bigint(20) NOT NULL default '0',
-  link tinyint(4) NOT NULL default '0',
-  UNIQUE KEY song_id1 (song_id1,song_id2,link)
+  link smallint(6) NOT NULL default '0',
+  UNIQUE KEY song_id1 (song_id1,song_id2,link),
+  KEY link (link)
 ) TYPE=MyISAM;
 
 --
--- Table structure for table 'dok_song'
+-- Table structure for table 'song'
 --
 
-CREATE TABLE dok_song (
+CREATE TABLE song (
   id bigint(20) NOT NULL auto_increment,
   name varchar(255) NOT NULL default '',
   length int(11) default NULL,
@@ -81,16 +82,17 @@ CREATE TABLE dok_song (
   release year(4) NOT NULL default '0000',
   hits bigint(20) NOT NULL default '0',
   genre tinyint(3) unsigned NOT NULL default '14',
+  label smallint(6) NOT NULL default '0',
   PRIMARY KEY  (id),
   KEY hits (hits),
   FULLTEXT KEY name (name,comment)
 ) TYPE=MyISAM;
 
 --
--- Table structure for table 'dok_user'
+-- Table structure for table 'user'
 --
 
-CREATE TABLE dok_user (
+CREATE TABLE user (
   id bigint(20) NOT NULL auto_increment,
   name varchar(255) NOT NULL default '',
   password varchar(255) NOT NULL default '',

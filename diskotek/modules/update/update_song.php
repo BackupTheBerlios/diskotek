@@ -1,7 +1,7 @@
 <?PHP
 
 function dok_update_song() {
-	global $VARS;
+	global $VARS, $SONGS_LABELS;
 	if ( !isset($VARS['id']) || !is_numeric($VARS['id']) || $VARS['id']<1 ) {
 		dok_msg(MSG_ERR_SONG_NOT_FOUND_UPDATE,'dok_update_song','e');
                 return false;
@@ -59,8 +59,13 @@ function dok_update_song() {
 	if ( is_numeric($VARS['genre']) && $VARS['genre'] >= 0 && $VARS['genre'] != $song['genre'] ) {
 		$set[] = 'genre = '.$VARS['genre'];
 	}
+
+	if ( is_numeric($VARS['label']) && $VARS['label'] != $song['label'] && ( in_array($VARS['label'],array_keys($SONGS_LABELS)) && strlen($SONGS_LABELS[$VARS['label']]['label']) || $VARS['label'] == 0 ) ) {
+		$set[] = 'label = '.$VARS['label'];
+	}
+
 //	print_r($set);
-	
+
 	if ( sizeof($set) ) {
 		$res = dok_uquery('update '.dok_tn('song').' set '.implode(',',$set).' where id = '.$VARS['id']);
 	}
@@ -71,7 +76,7 @@ function dok_update_song() {
 		dok_msg(MSG_ERR_DB_UPDATE_FAILED,'dok_update_song','e');
 		return false;
 	}
-	
+
 }
 
 ?>
