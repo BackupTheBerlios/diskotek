@@ -56,7 +56,7 @@ function dok_update_song() {
 		$set[] = 'length = '.$length;
 	}
 
-	print_r($set);
+//	print_r($set);
 	
 	if ( sizeof($set) ) {
 		$res = mysql_query('update '.dok_tn('song').' set '.implode(',',$set).' where id = '.$VARS['id']);
