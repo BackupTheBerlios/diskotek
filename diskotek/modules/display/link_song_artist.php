@@ -17,7 +17,9 @@ function dok_link_song_artist ($VARS, $update, $theme_path) {
 	
 	$a_select = '';
 	while ( $row = mysql_fetch_array($res) ) {
-		$a_select.='<option value="'.$row['id'].'">'.$row['name'].'</option>';
+		$a_select.='<option value="'.$row['id'].'"';
+		if ( $_SESSION['song_select_artist'] == $row['id'] )    $a_select .= ' selected';
+		$a_select.='>'.$row['name'].'</option>';
 	}
 
 	$t = new template($theme_path);

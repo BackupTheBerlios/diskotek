@@ -23,6 +23,7 @@ function dok_create_artist () {
                 return false;
 	}
 	$VARS['id'] = mysql_insert_id();
+	$_SESSION['song_select_artist'] = $VARS['id'];
 	return 'view_artist';
 }
 

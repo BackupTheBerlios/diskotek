@@ -1,4 +1,8 @@
 <div class="mptitle">Album: {ALBUM_NAME}
+<!-- BEGIN if_albumeditor -->
+ <a class="buttonedit" href="{ALBUM_EDIT_LINK}"><span class="buttonedit">edit</span></a>
+<!-- END if_albumeditor -->
+
 </div>
 Total listening time: {ALBUM_LENGTH}<P>
 recorded in db on {ALBUM_DB_CREATION}<P>

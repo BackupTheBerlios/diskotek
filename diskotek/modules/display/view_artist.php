@@ -14,10 +14,15 @@ function dok_view_artist ($VARS, $update_module, $tpl_path) {
 	$row = mysql_fetch_assoc($res);
 	$t = new template($tpl_path);
 	$t->set_file('page','artist_display.tpl');
+	$t->set_block('page','if_artisteditor','editor_block');
 	$t->set_block('page','artist_albums','albums_block');
 	$t->set_block('page','artist_songs','songs_block');
 	$t->set_var(array(	'ARTIST_NAME'=>$row['name'],
 				'ARTIST_DB_CREATION'=>date($THEME_DATE,$row['creation']) ));
+
+	$t->set_var('ARTIST_EDIT_LINK',$_SERVER['PHP_SELF'].'?display=edit_artist&id='.$VARS['id']);
+	$t->parse('editor_block','if_artisteditor');
+
 	$songs =& dok_rel_song_artist(array(),array($VARS['id']));
 	echo mysql_error();
 	if ( !$songs->numrows() ) {

@@ -27,6 +27,8 @@ define ('MSG_TITLE_DISPLAY_ARTIST','artist %s');
 define ('MSG_TITLE_DISPLAY_ALBUM','album %s');
 define ('MSG_TITLE_DISPLAY_SONG','song %s');
 define ('MSG_TITLE_EDIT_SONG','edit song %s');
+define ('MSG_TITLE_EDIT_ARTIST','edit artist %s');
+define ('MSG_TITLE_EDIT_ALBUM','edit album %s');
 define ('MSG_TITLE_DUP_SONG','Check for duplicates');
 define ('MSG_TITLE_BOX_LAST_SONG','Last ten songs');
 define ('MSG_TITLE_ADD_SONG_ALBUM','link song to an album');

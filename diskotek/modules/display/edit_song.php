@@ -55,7 +55,7 @@ function dok_edit_song ($VARS,$update_module,$theme_path) {
                 $t->set_var('album_remove_block','');
         } else {
                 while ( $a_row = mysql_fetch_array($res) ) {
-			echo "parsing ".$a_row['name'].' ( '.$a_row['id'].' )';
+			//echo "parsing ".$a_row['name'].' ( '.$a_row['id'].' )';
 			$t->set_var('ALBUM_REMOVE_LINK',$_SERVER['PHP_SELF'].'?update=unlink_song_album&album='.$a_row['id'].'&id='.$row['id']);
                         $t->parse('album_remove_block','album_remove');
                         $t->set_var('ALBUM_NAME',$a_row['name']);

@@ -14,9 +14,14 @@ function dok_view_album ($VARS, $update_module, $tpl_path) {
 	$row = mysql_fetch_assoc($res);
 	$t = new template($tpl_path);
 	$t->set_file('page','album_display.tpl');
+	$t->set_block('page','if_albumeditor','editor_block');
 	$t->set_block('page','album_songs','songs_block');
 	$t->set_var(array(	'ALBUM_NAME'=>$row['name'],
 				'ALBUM_DB_CREATION'=>date($THEME_DATE,$row['creation']) ));
+
+	$t->set_var('ALBUM_EDIT_LINK',$_SERVER['PHP_SELF'].'?display=edit_album&id='.$VARS['id']);
+	$t->parse('editor_block','if_albumeditor');
+
 	$query = 'select s.id, s.name, s.creation, s.length, s.release, s.comment, r.track from '.dok_tn('rel_song_album').' as r left join '.dok_tn('song').' as s on r.song_id = s.id where r.album_id = '.$VARS['id'].' order by r.track';
 	$songs = dok_oquery($query);
 

@@ -1,4 +1,7 @@
 <div class="mptitle">artist {ARTIST_NAME}
+<!-- BEGIN if_artisteditor -->
+<a class="buttonedit" href="{ARTIST_EDIT_LINK}"><span class="buttonedit">edit</span></a>
+<!-- END if_artisteditor -->
 </div>
 Entered in the database on {ARTIST_DB_CREATION}.<P>
 <div class="mpsubtitle">
