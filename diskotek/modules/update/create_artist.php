@@ -19,7 +19,7 @@ function dok_create_artist () {
 
 	//test for soundex
 	if ( DOK_USE_SOUNDEX && !$VARS['soundex_checked'] ) {
-		$query = 'select id, name from '.dok_tn('artist').' where substring(soundex(name) from 2 for 3) = substring(soundex(\''.addslashes($artist_name).'\') from 2 for 3)';
+		$query = 'select id, name from '.dok_tn('artist').' where substring(soundex(name) from 2) = substring(soundex(\''.addslashes($artist_name).'\') from 2)';
 		$res = dok_oquery($query);
 		if ( $res->numrows() ) {
 			$VARS['soundex'] = $res->fetch_col_array('name','id');

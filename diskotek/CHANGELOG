@@ -1,6 +1,9 @@
 0.3
 
 * created search capabilities
+* upgraded album & artist list display, added paged browsing & alphabetic shortcut
+* created 'hits' field on song db
+* when displayed, a song shows all other songs in the database having the same song name
 
 0.2
 

@@ -15,7 +15,10 @@ function dok_view_song($VARS, $update, $theme_path) {
 	$row = mysql_fetch_array($res);
 	$t = new template($theme_path);
 	$t->set_file('page','song_display.tpl');
-	$t->set_var(dok_song_format($row));
+	$t->set_block('page','duplicate','duplicate_block');
+	$t->set_block('page','if_duplicate','if_duplicate_block');
+	
+	//$t->set_var(dok_song_format($row));
 	$t->set_block('page','if_songeditor','songeditor_block');
 	$t->parse('songeditor_block','if_songeditor');
 	$t->set_var('SONG_EDIT_LINK',$_SERVER['PHP_SELF'].'?display=edit_song&id='.$row['id']);
@@ -31,6 +34,19 @@ function dok_view_song($VARS, $update, $theme_path) {
 			$t->parse('albums_block','song_albums','true');
 		}
 	}
+
+	$res = mysql_query('select * from '.dok_tn('song').' where id != '.$row['id'].' and name = \''.mysql_real_escape_string($row['name']).'\'');
+	if ( mysql_numrows($res) ) {
+		while ( $dup_row = mysql_fetch_array($res) ) {
+			$t->set_var(dok_song_format($dup_row));
+			$t->parse('duplicate_block','duplicate','true');
+		}
+		$t->parse('if_duplicate_block','if_duplicate');
+	} else {
+		$t->set_var('if_duplicate_block','');
+	}
+	$t->set_var(dok_song_format($row));
+	$res = mysql_query('update '.dok_tn('song').' set hits = hits + 1 where id = '.$VARS['id']);
 	return array($t, sprintf(MSG_TITLE_DISPLAY_SONG,$row['name']));
 }
 

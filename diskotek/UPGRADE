@@ -7,6 +7,9 @@ alter table artist add fulltext(name);
 alter table song add fulltext(name,comment);
 alter table rel_song_album drop index song_id;
 alter table rel_song_album add UNIQUE album_id(album_id,track);
+alter table song add hits bigint not null default 0;
+create index hits on song(hits);
+
 
 0.1 => 0.2
 
