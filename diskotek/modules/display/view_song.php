@@ -2,7 +2,7 @@
 
 
 function dok_view_song($VARS, $update, $theme_path) {
-	global $THEME_DATE;
+	global $THEME_DATE, $USER;
 	if ( !isset($VARS['id']) || !is_numeric($VARS['id']) || $VARS['id'] < 1 ) {
                 $t = dok_error_template(MSG_ERR_SONG_DISPLAY);
                 return array($t,sprintf(MSG_TITLE_DISPLAY_SONG,''));
@@ -19,7 +19,7 @@ function dok_view_song($VARS, $update, $theme_path) {
 	$t->set_block('page','if_duplicate','if_duplicate_block');
 	$t->set_block('page','if_songeditor','songeditor_block');
 
-	if ( DOK_ENABLE_USER && ( !$USER->editor || !$USER->admin) ) {
+	if ( DOK_ENABLE_USER &&  !$USER->editor && !$USER->admin ) {
                 $t->set_var('songeditor_block','');
 	} else {
 		$t->parse('songeditor_block','if_songeditor');

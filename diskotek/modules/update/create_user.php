@@ -29,7 +29,7 @@ function dok_create_user () {
 	if ( $VARS['editor'] != '1' )	$VARS['editor'] = 0;
 	if ( $VARS['admin'] != '1' )    $VARS['admin'] = 0;
 
-	$res = mysql_query('insert into '.dok_tn('user').' (name, password, editor, admin, creation) values (\''.addslashes($VARS['name']).'\', \''.addslashes($VARS['password']).'\', \''.$VARS['editor'].'\', \''.$VARS['admin'].'\', '.time().')');
+	$res = mysql_query('insert into '.dok_tn('user').' (name, password, editor, admin, creation) values (\''.addslashes($VARS['name']).'\', \''.md5($VARS['password']).'\', \''.$VARS['editor'].'\', \''.$VARS['admin'].'\', '.time().')');
 	if ( !$res ) {
 		dok_msg(MSG_ERR_DB_UPDATE_FAILED,'dok_create_user','e');
 		return false;

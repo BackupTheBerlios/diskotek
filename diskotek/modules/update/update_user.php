@@ -23,7 +23,7 @@ function dok_update_user() {
 
 	if ( isset($VARS['password']) && strlen(trim($VARS['password'])) > 0 ) {
 		$VARS['password'] = substr($VARS['password'],0,255);
-		$set[] = 'password = \''.addslashes($VARS['password']).'\'';
+		$set[] = 'password = \''.md5($VARS['password']).'\'';
 	}
 
 	if ( !DOK_ENABLE_USER || $USER->admin ) {

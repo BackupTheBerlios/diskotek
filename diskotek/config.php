@@ -14,7 +14,7 @@ define ('DOK_MYSQL_PASS','');
 define ('DOK_MYSQL_DATABASE','diskotek');
 define ('DOK_MYSQL_TABLES_PREFIX','');
 
-define ('DOK_ENABLE_USER',false);
+define ('DOK_ENABLE_USER',true);
 
 define ('DOK_THEMES_PATH','themes');
 define ('DOK_LANGUAGE_PATH','language');

@@ -22,7 +22,7 @@ function dok_view_artist ($VARS, $update_module, $tpl_path) {
 	$t->set_var(array(	'ARTIST_NAME'=>$row['name'],
 				'ARTIST_DB_CREATION'=>date($THEME_DATE,$row['creation']) ));
 
-	if ( DOK_ENABLE_USER && ( !$USER->editor || !$USER->admin) ) {
+	if ( DOK_ENABLE_USER && !$USER->editor && !$USER->admin ) {
                 $t->set_var('if_artisteditor','');
 	} else {
 		$t->set_var('ARTIST_EDIT_LINK',$_SERVER['PHP_SELF'].'?display=edit_artist&id='.$VARS['id']);

@@ -18,35 +18,16 @@
 <form method="post" action="{DOK}">
 Music search:
 <input type=hidden name="display" value="search">
-<input type=text name="query" size="10"> <input type=submit value="go" class="search"></form>
+<input type=text name="query" size="10"> <input type=submit value="go" class="search">
+
+ {LOGIN_STATE}
+</form>
 </td></tr>
 </table>
 </div>
 
 <div class="sidebar">
-<div class="box">
-<div class="boxtitle">
-Actions
-</div>
-<div class="boxcontent">
-<a class="boxlink" href="{DOK}">
-<div class="boxlink">home page</div>
-</a>
-<a class="boxlink" href="{DOK}?display=new_song">
-<div class="boxlink">Add new song</div>
-</a>
-<a class="boxlink" href="{DOK}?display=new_artist">
-<div class="boxlink">Add new artist</div>
-</a>
-<a class="boxlink" href="{DOK}?display=new_album">
-<div class="boxlink">Add new album</div>
-</a>
-<a class="boxlink" href="{DOK}?display=new_user">
-<div class="boxlink">Add new user</div>
-</a>
-</div>
-</div>
-
+{ACTION_BOX}
 <div class="box">
 <div class="boxtitle">
 Lists
