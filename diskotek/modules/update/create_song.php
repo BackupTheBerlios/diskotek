@@ -96,6 +96,19 @@ function dok_create_song() {
                 return false;
         }
 	$VARS['id'] = $my_id;
+	if ( sizeof($VARS['link']) ) {
+		$links = array_keys(dok_songs_links_array());
+		foreach ( $VARS['link'] as $key => $val ) {
+			if ( is_numeric($key) && $key > 0 && strlen($val) && in_array($val,$links) ) {
+				$res = mysql_query('select name from '.dok_tn('song').' where id = '.$key);
+				if ( mysql_numrows($res) ) {
+					$res = dok_song_link_add($VARS['id'],$key,$val);
+				}
+			}
+		}
+	}
+
+
 	return 'view_song';
 }
 

@@ -20,46 +20,17 @@ function dok_create_song_link() {
 	$VARS['other_id']=trim($VARS['other_id']);
 	$VARS['id']=trim($VARS['id']);
 
+	if ( !$VARS['old_link'] || !is_numeric($VARS['old_link']) )	$VARS['old_link'] = 0;
+
 	$res = mysql_query('select name from '.dok_tn('song').' where id = '.$VARS['id'].' or id = '.$VARS['other_id']);
 	if ( mysql_numrows($res) != 2 ) {
 		dok_msg(MSG_ERR_SONG_NOT_FOUND,'dok_create_song_link','e');
                 return false;
 	}
 
-	$relation = explode('-',$VARS['link']);
-	$query = 'insert into '.dok_tn('rel_songs').' (song_id1, song_id2, link) values (';
-	if ( sizeof($relation) == 2 ) {
-		if ( !$relation[1] )	$query.=$VARS['id'].', '.$VARS['other_id'].', ';
-		else			$query.=$VARS['other_id'].', '.$VARS['id'].', ';
-		$query.=$relation[0];
-	} elseif ( sizeof($relation) == 1 ) {
-		if ( $VARS['id'] <= $VARS['other_id'] ) {
-			$query.=$VARS['id'].', '.$VARS['other_id'].', '.$relation[0];
-		} else {
-			$query.=$VARS['other_id'].', '.$VARS['id'].', '.$relation[0];
-		}
-	} else {
-		dok_msg(MSG_ERR_SONG_NO_LINK_NAME,'dok_create_song_link','e');
-		return false;
-	}
-	$query.=')';
+	$ok = dok_song_link_add($VARS['id'],$VARS['other_id'],$VARS['link'],$VARS['old_link']);
 
-	if ( $VARS['old_link'] || is_numeric($VARS['old_link']) ) {
-		//here I don't use dok_uquery because I delete just before updating
-		//	so I will call dok_uquery when updating stuff
-		$delquery = 'delete from '.dok_tn('rel_songs').' where link = '.$VARS['old_link'].' and ( (song_id1 = '.$VARS['id'].' and song_id2 = '.$VARS['other_id'].') OR (song_id1 = '.$VARS['other_id'].' and song_id2 = '.$VARS['id'].') )';
-		//echo $delquery;
-		$res = mysql_query($delquery);
-		if ( !$res ) {
-			echo mysql_error();
-			return false;
-		}
-	}
-
-	$res = dok_uquery($query);
-
-	//add
-	if ( !$res ) {
+	if ( !$ok ) {
 		echo mysql_error();
 		return false;
 	}

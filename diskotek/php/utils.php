@@ -409,6 +409,35 @@ function dok_get_genre_select ( $varname = 'genre', $selected = null ) {
 	return $ret;
 }
 
+function dok_song_link_add ( $id, $other_id, $link, $old_link = 0 ) {
+	$relation = explode('-',$link);
+	$query = 'insert into '.dok_tn('rel_songs').' (song_id1, song_id2, link) values (';
+	if ( sizeof($relation) == 2 ) {
+		if ( !$relation[1] )	$query.=$id.', '.$other_id;
+		else			$query.=$other_id.', '.$id;
+	} elseif ( sizeof($relation) == 1 ) {
+		if ( $id <= $other_id ) {
+			$query.=$id.', '.$other_id;
+		} else {
+			$query.=$other_id.', '.$id;
+		}
+	} else {
+		dok_msg(MSG_ERR_SONG_NO_LINK_NAME,'utils:dok_song_link_add','e');
+		return false;
+	}
+	$query.=', '.$relation[0].')';
+	if ( $old_link > 0 ) {
+		$res = mysql_query('delete from '.dok_tn('rel_songs').' where link = '.$relation[0].' and ( ( song_id1 = '.$id.' AND song_id2 = '.$other_id.') OR ( song_id1 = '.$other_id.' AND song_id2 = '.$id.'))');
+		if( !$res ) {
+			echo mysql_error();
+			dok_msg(MSG_ERR_DB_UPDATE_FAILED,'utils:dok_song_link_add','e');
+                	return false;
+		}
+	}
+	return dok_uquery($query);
+
+}
+
 /**
 *returns variable names (array keys) and legends (array values) of songs links
 *

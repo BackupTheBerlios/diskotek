@@ -10,16 +10,24 @@ function dok_ask_dup_song ( $VARS, $update, $theme_path ) {
 	*find related songs
 	*
 	*/
-	//$res = dok_oquery('select * from '.dok_tn('rel_songs').' where song_id1 = 
+	//$res = dok_oquery('select * from '.dok_tn('rel_songs').' where song_id1 =
 	$t = new template($theme_path);
 	$t->set_file('page','song_dup.tpl');
 	$t->set_block('page','duplicate','dup_block');
 	$query = 'select * from '.dok_tn('song').' where id in('.implode(',',$VARS['duplicates']).')';
 	$res = mysql_query($query);
+	$relations = dok_songs_links_array();
 	while ( $row = mysql_fetch_array($res) ) {
 		$t->set_var(dok_song_format($row));
+		$relations_select = '<select name="link['.$row['id'].']"><option value="" SELECTED>'.MSG_RELATION_NONE.'</option>'."\n";
+		foreach ( $relations as $key => $val ) {
+			$relations_select.='<option value="'.$key.'">'.$val.'</option>'."\n";
+		}
+		$relations_select.='</select>';
+		$t->set_var('SONG_RELATION_SELECT',$relations_select);
 		$t->parse('dup_block','duplicate','true');
 	}
+
 	if ( $update == 'create_song' ) {
 		$res = mysql_query('select name from '.dok_tn('album').' where id = '.$VARS['album']);
 		if ( !mysql_numrows($res) )	$album = MSG_UNKNOWN;
