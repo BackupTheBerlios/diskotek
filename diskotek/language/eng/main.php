@@ -36,6 +36,7 @@ define ('MSG_TITLE_ADD_SONG_ARTIST','link song to an artist');
 define ('MSG_TITLE_LIST_ARTIST','All artists listing');
 define ('MSG_TITLE_LIST_ALBUM','All albums listing');
 define ('MSG_TITLE_SOUNDEX_TEST','artists similar names');
+define ('MSG_TITLE_SEARCH','Search results: \'%s\'');
 
 define ('MSG_SYS_INFO','Information: %s');
 define ('MSG_SYS_DEBUG','<font size=-2>%s</font>');
@@ -48,4 +49,9 @@ define ('MSG_NO_RELATED_ARTIST','No related artist');
 define ('MSG_MINUTS',':');
 define ('MSG_SECONDS','');
 define ('MSG_UNKNOWN','unknown');
+
+define ('MSG_SEARCH_NO_RESULT_SONG','No matching song');
+define ('MSG_SEARCH_NO_RESULT_ALBUM','No matching album');
+define ('MSG_SEARCH_NO_RESULT_ARTIST','No matching artist');
+
 ?>

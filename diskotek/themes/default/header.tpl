@@ -51,9 +51,22 @@ Lists
 </a>
 </div>
 </div>
-
-
 {BOXES}
+<div class="box">
+<div class="boxtitle">
+Search
+</div>
+<div class="boxcontent">
+<center>
+<form method="post" action="{DOK}">
+<input type=hidden name="display" value="search">
+<input type=text name="query" size="10"> <input type="submit" value="search">
+</form>
+</center>
+</div>
+</div>
+
+
 </div>
 
 <div class="mainpage">
