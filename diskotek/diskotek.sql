@@ -1,8 +1,8 @@
--- MySQL dump 9.07
+-- MySQL dump 8.21
 --
 -- Host: localhost    Database: diskotek
 ---------------------------------------------------------
--- Server version	4.0.10-gamma-log
+-- Server version	3.23.49
 
 --
 -- Table structure for table 'album'
@@ -12,6 +12,7 @@ CREATE TABLE album (
   id bigint(20) NOT NULL auto_increment,
   name varchar(255) NOT NULL default '',
   creation bigint(20) NOT NULL default '0',
+  creation_uid bigint(20) NOT NULL default '0',
   PRIMARY KEY  (id),
   UNIQUE KEY name (name)
 ) TYPE=MyISAM;
@@ -24,6 +25,7 @@ CREATE TABLE artist (
   id bigint(20) NOT NULL auto_increment,
   name varchar(255) NOT NULL default '',
   creation bigint(20) NOT NULL default '0',
+  creation_uid bigint(20) NOT NULL default '0',
   PRIMARY KEY  (id),
   UNIQUE KEY name (name)
 ) TYPE=MyISAM;
@@ -58,6 +60,9 @@ CREATE TABLE song (
   name varchar(255) NOT NULL default '',
   length int(11) default NULL,
   creation bigint(20) NOT NULL default '0',
+  creation_uid bigint(20) NOT NULL default '0',
+  comment text NOT NULL,
+  release year(4) NOT NULL default '0000',
   PRIMARY KEY  (id)
 ) TYPE=MyISAM;
 

@@ -7,11 +7,15 @@ function dok_create_song() {
 		return false;
 	}
 	$song_name = substr($VARS['name'],0,255);
-	$res = mysql_query('select id from '.dok_tn('song').' where name = \''.addslashes($song_name).'\'');
-	if ( mysql_numrows($res) ) {
-		dok_msg(MSG_ERR_SONG_DUP_NAME,'dok_create_song','e');
-                return false;
+	if ( !$VARS['dup_checked'] ) {
+		$res = dok_oquery('select id from '.dok_tn('song').' where name = \''.addslashes($song_name).'\'');
+		if ( $res->numrows() ) {
+			//dok_msg(MSG_ERR_SONG_DUP_NAME,'dok_create_song','e');
+			$VARS['duplicates'] = $res->fetch_col_array('id');
+	                return 'ask_dup_song';
+		}
 	}
+	$song_name = ucwords($song_name);
 
 	if ( !is_numeric($VARS['album']) || $VARS['album'] < 1 )	$VARS['album'] = 0;
 	$res = mysql_query('select name from '.dok_tn('album').' where id = '.$VARS['album']);

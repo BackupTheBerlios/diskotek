@@ -173,9 +173,9 @@ function &dok_rel_song_artist($songs = array(), $artists = array() ) {
 function dok_sec2min ( $seconds ) {
 	$min = intval($seconds / 60);
 	if ( $min == 0 )	{
-		return array('minut'=>0,'second'=>$seconds);
+		return array('minut'=>0,'second'=>sprintf('%02d',$seconds));
 	}
-	return array('minut'=>$min,'second'=> ($seconds%60) );
+	return array('minut'=>sprintf('%02d',$min),'second'=> sprintf('%02d',($seconds%60)) );
 }
 
 function dok_sec2str ( $seconds ) {
