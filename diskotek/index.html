@@ -61,6 +61,7 @@ if ( DOK_ENABLE_USER ) {
 	if ( strlen($USER->theme) && is_dir('themes/'.$USER->theme) ) {
 		$DOK_THEME = $USER->theme;
 	}
+	//echo "DOK theme: $DOK_THEME";
 	/**********************************************************************
                 Check if user is allowed to update something
         **********************************************************************/
@@ -70,6 +71,8 @@ if ( DOK_ENABLE_USER ) {
 					unset($VARS['update']);
 		}
 	}
+	require_once(DOK_LANGUAGE_PATH.'/eng/main.php');
+        require (DOK_THEMES_PATH.'/'.$DOK_THEME.'/theme.php');
 } else {
 	/* includes language file */
 	require_once(DOK_LANGUAGE_PATH.'/eng/main.php');
