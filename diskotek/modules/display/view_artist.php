@@ -36,8 +36,10 @@ function dok_view_artist ($VARS, $update_module, $tpl_path) {
 		unset($songs);
 		$songs = dok_oquery($query);
 		while ( $song = $songs->fetch_array() ) {
-			$sl = dok_sec2min($song['length']);
+			//$sl = dok_sec2min($song['length']);
+			$song['ignore_artist'] = $VARS['id'];
 			$t->set_var(dok_song_format($song));
+			
 			$t->parse('songs_block','artist_songs','true');
 		}
 		$all_songs = $songs->fetch_col_array('id');

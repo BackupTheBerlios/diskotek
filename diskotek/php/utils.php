@@ -192,9 +192,12 @@ function dok_year2str ( $year ) {
 	return $year;
 }
 
-function dok_get_artists_string ( $song_id ) {
+function dok_get_artists_string ( $song_id, $ignore_artist = null ) {
 	global $ARTIST_SONG_LINKS;
-	$res = dok_oquery('select a.name,a.id, r.link from '.dok_tn('rel_song_artist').' as r left join '.dok_tn('artist').' as a on r.artist_id = a.id where r.song_id = '.$song_id.' order by r.link, a.name');
+	if ( $ignore_artist > 0 ) {
+		$where = ' and a.id != '.$ignore_artist.' ';
+	}
+	$res = dok_oquery('select a.name,a.id, r.link from '.dok_tn('rel_song_artist').' as r left join '.dok_tn('artist').' as a on r.artist_id = a.id where r.song_id = '.$song_id.' '.$where.' order by r.link, a.name');
 	if ( !$res->numrows() )	return MSG_NO_ARTIST;
 	$good_nb = array_keys($ARTIST_SONG_LINKS);
 	$data = array();
@@ -240,7 +243,7 @@ function dok_song_format ( $data ) {
 	$ret = array();
 	$ret['SONG_NAME'] = $data['name'];
 	$ret['SONG_LINK'] = $_SERVER['PHP_SELF'].'?display=view_song&id='.$data['id'];
-	$ret['SONG_ARTIST'] = dok_get_artists_string($data['id']);
+	$ret['SONG_ARTIST'] = dok_get_artists_string($data['id'], $data['ignore_artist']);
 	$ret['SONG_LENGTH'] = dok_sec2str($data['length']);
 	$ret['SONG_RELEASE'] = dok_year2str($data['release']);
 	$ret['SONG_COMMENT'] = $data['comment'];
