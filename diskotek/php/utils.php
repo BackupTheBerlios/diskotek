@@ -157,6 +157,47 @@ function dok_db_open() {
 }
 
 /**
+*returns the number of albums contained in the database
+*
+*
+*@return int number of albums
+*/
+function dok_albums_nb() {
+        $query = 'select count(*) as c from '.dok_tn('album');
+        $res = dok_oquery($query);
+        $row = $res->fetch_array();
+        return $row['c'];
+}
+
+/**
+*returns the number of artists contained in the database
+*
+*
+*@return int number of artists
+*/
+function dok_artists_nb() {
+        $query = 'select count(*) as c from '.dok_tn('artist');
+        $res = dok_oquery($query);
+        $row = $res->fetch_array();
+        return $row['c'];
+}
+
+/**
+*returns the number of songs contained in the database
+*
+*
+*@return int number of songs
+*/
+function dok_songs_nb() {
+        $query = 'select count(*) as c from '.dok_tn('song');
+        $res = dok_oquery($query);
+        $row = $res->fetch_array();
+        return $row['c'];
+}
+
+
+
+/**
 *execute query $query on mysql server, and returns resultset under
 *a 'mysql_result' object
 *
