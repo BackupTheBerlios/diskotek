@@ -193,7 +193,7 @@ function dok_get_artists_string ( $song_id ) {
 	if ( !$res->numrows() )	return MSG_NO_ARTIST;
 	$ret = '';
 	while ( $row = $res->fetch_array() ) {
-		$ret .= '<a href="'.$PHP_SELF.'?display=view_artist&id='.$row['id'].'">'.$row['name'].'</a>, ';
+		$ret .= '<a href="'.$_SERVER['PHP_SELF'].'?display=view_artist&id='.$row['id'].'">'.$row['name'].'</a>, ';
 	}
 	return substr($ret,0,-2);
 }

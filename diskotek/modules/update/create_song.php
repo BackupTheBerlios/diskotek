@@ -52,6 +52,7 @@ function dok_create_song() {
 				$sec = 0;
 				if ( is_numeric($test[0]) )	$sec = $test[0] * 60;
 				if ( is_numeric($test[1]) )	$sec += $test[1];
+				$length = $sec;
 			}
 		} elseif ( is_numeric($VARS['length']) && $VARS['length'] > 0 )	$length = $VARS['length'];
 	}

@@ -14,13 +14,14 @@ require 'php/utils.php';
 require 'php/template.inc';
 require 'php/class.mysql_result.php';
 
+
 $DOK_THEME   = DOK_THEME_DEFAULT;
 $DOK_DISPLAY = DOK_DISPLAY_DEFAULT;
 $DOK_UPDATE  = '';
 $DOK_SYSTEM_MESSAGES = array();
 
 //adds script uri as template var 'DOK'
-dok_add_tpl_var('DOK',$PHP_SELF);
+dok_add_tpl_var('DOK',$_SERVER['PHP_SELF']);
 $VARS = dok_get_html_vars();
 //initiate DB connection
 dok_db_open();
@@ -92,6 +93,7 @@ $t->set_file('page','header.tpl');
 
 $t->pparse('out','page');
 
+$main_template->set_var($tplvars);
 $main_template->set_unknowns('remove');
 $main_template->pparse('out','page');
 

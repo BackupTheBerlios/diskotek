@@ -31,7 +31,7 @@ function dok_view_artist ($VARS, $update_module, $tpl_path) {
 			$sl = dok_sec2min($song['length']);
 			if ( !$sl['minut'] )	$length = $sl['second'].' '.MSG_SECONDS;
 			else			$length = $sl['minut'].' '.MSG_MINUTS.' '.$sl['second'].' '.MSG_SECONDS;
-			$t->set_var(array('SONG_LINK'  => $PHP_SELF.'?display=view_song&id='.$song['id'],
+			$t->set_var(array('SONG_LINK'  => $_SERVER['PHP_SELF'].'?display=view_song&id='.$song['id'],
 					'SONG_NAME'    => $song['name'],
 					'SONG_LENGTH'  => $length,
 					'SONG_DB_CREATION' => date($THEME_DATE,$song['creation']) ));
@@ -48,7 +48,7 @@ function dok_view_artist ($VARS, $update_module, $tpl_path) {
 			unset($albums);
 			$albums = dok_oquery('select id, name, creation from '.dok_tn('album').' where id in ('.implode(',',$albums_id).') order by name');
 			while ( $album = $albums->fetch_array() ) {
-				$t->set_var(array('ALBUM_LINK' => $PHP_SELF.'?display=view_album&id='.$album['id'],
+				$t->set_var(array('ALBUM_LINK' => $_SERVER['PHP_SELF'].'?display=view_album&id='.$album['id'],
 						'ALBUM_NAME'   => $album['name'],
 						'ALBUM_DB_CREATION' => date($THEME_DATE,$album['creation']) ));
 				$t->parse('albums_block','artist_albums','true');

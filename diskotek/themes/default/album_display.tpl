@@ -1,4 +1,5 @@
 Album: {ALBUM_NAME}<P>
+Total listening time: {ALBUM_LENGTH}<P>
 recorded in db on {ALBUM_DB_CREATION}<P>
 Track listing:<BR>
 <!-- BEGIN album_songs -->
