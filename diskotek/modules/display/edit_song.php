@@ -25,8 +25,8 @@ function dok_edit_song ($VARS,$update_module,$theme_path) {
 
 	$t = new template($theme_path);
 	$t->set_file('page','song_edit.tpl');
-	$t->set_var(dok_song_format($row));
-	$t->set_var('SONG_ID',$VARS['id']);
+	$main_song_data =dok_song_format($row);
+	$main_song_data['SONG_ID']=$VARS['id'];
 	$t->set_var('SONG_NAME_TF',str_replace('"','&quot;',$row['name']));
 	$t->set_var('SONG_LENGTH_TF',str_replace('"','&quot;',$row['length']));
 	$t->set_var('SONG_RELEASE_TF',str_replace('"','&quot;',$row['release']));
@@ -141,7 +141,7 @@ function dok_edit_song ($VARS,$update_module,$theme_path) {
 		$t->set_var('relation_block','');
 	}
 	$t->set_var('RELATION_ADD_LINK',$_SERVER['PHP_SELF'].'?display=link_songs&id='.$row['id'].'&alpha=a');
-
+	$t->set_var($main_song_data);
 	return array ($t, sprintf(MSG_TITLE_EDIT_SONG, $row['name']));
 }
 

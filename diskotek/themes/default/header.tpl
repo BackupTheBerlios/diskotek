@@ -6,7 +6,7 @@
 <META HTTP-EQUIV="KEYWORDS" CONTENT="disk disc management php4 mysql">
 <META HTTP-EQUIV="AUTHOR" CONTENT="Dready">
 <META NAME="GENERATOR" CONTENT="VI">
-<LINK rel="stylesheet" type="text/css" href="style.css">
+<LINK rel="stylesheet" type="text/css" href="{DOK}?display=css">
 <TITLE>{TITLE} - My disKoteK</TITLE>
 </HEAD>
 <BODY>

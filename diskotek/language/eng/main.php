@@ -22,6 +22,7 @@ define ('MSG_ERR_NO_DUP_SONG','Can\'t find duplicates for this new song');
 define ('MSG_ERR_DB_UPDATE_FAILED','Error in database update.');
 define ('MSG_ERR_NO_USER_NAME','You didn\'t set user login.');
 define ('MSG_ERR_NO_USER_PASSWORD','You didn\'t set user password.');
+define ('MSG_ERR_NO_CSS','CSS file not found');
 define ('MSG_ERR_PASSWORD_MISMATCH','You didn\'t entered the same password in the two passwords fields.');
 define ('MSG_ERR_USER_NAME_EXISTS','Another user \'%s\' is already known in the database');
 define ('MSG_ERR_USER_DISPLAY','Unable to find the user you asked for.');
