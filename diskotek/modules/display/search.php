@@ -61,7 +61,7 @@ function dok_search ( $VARS, $update, $theme_path ) {
                 $t->set_var('artist_block','');
         }
 	$t->set_var('SEARCH_RESULTS',$total);
-	$t->set_var('SEARCH_QUERY',$VARS['query']);
+	$t->set_var('SEARCH_QUERY',str_replace('"','&quot;',$VARS['query']));
 
 	return array($t, sprintf(MSG_TITLE_SEARCH,$VARS['query']));
 }

@@ -14,7 +14,8 @@ CREATE TABLE album (
   creation bigint(20) NOT NULL default '0',
   creation_uid bigint(20) NOT NULL default '0',
   PRIMARY KEY  (id),
-  UNIQUE KEY name (name)
+  UNIQUE KEY name (name),
+  FULLTEXT KEY name_2 (name)
 ) TYPE=MyISAM;
 
 --
@@ -27,7 +28,8 @@ CREATE TABLE artist (
   creation bigint(20) NOT NULL default '0',
   creation_uid bigint(20) NOT NULL default '0',
   PRIMARY KEY  (id),
-  UNIQUE KEY name (name)
+  UNIQUE KEY name (name),
+  FULLTEXT KEY name_2 (name)
 ) TYPE=MyISAM;
 
 --
@@ -64,6 +66,7 @@ CREATE TABLE song (
   creation_uid bigint(20) NOT NULL default '0',
   comment text NOT NULL,
   release year(4) NOT NULL default '0000',
-  PRIMARY KEY  (id)
+  PRIMARY KEY  (id),
+  FULLTEXT KEY name (name,comment)
 ) TYPE=MyISAM;
 
