@@ -25,10 +25,21 @@ function dok_new_song ($VARS,$update_module,$theme_path) {
 		if ( $_SESSION['song_select_artist'] == $id )    $artist_select .= ' selected';
 		$artist_select .= '>'.$vars['name'].'</option>'."\n";
         }
+
+	$next_radio = '<input type=radio name="album_track" value="next"';
+	if ( $_SESSION['album_track'] != 'text' )	$next_radio.='checked';
+	$next_radio.='>';
+
+	$text_radio = '<input type=radio name="album_track" value="text"';
+        if ( $_SESSION['album_track'] == 'text' )   $text_radio.='checked';
+        $text_radio.='>';
+
 	$t = new template($theme_path);
 	$t->set_file('page','song_new.tpl');
 	$t->set_var( array( 'ARTISTS_SELECT' => $artist_select,
-				'ALBUMS_SELECT' => $album_select) );
+				'ALBUMS_SELECT' => $album_select,
+				'TRACK_NEXT_RADIO' => $next_radio,
+				'TRACK_TEXT_RADIO' => $text_radio) );
 	return array($t,MSG_TITLE_NEW_SONG);
 
 }

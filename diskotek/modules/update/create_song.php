@@ -39,9 +39,16 @@ function dok_create_song() {
         $song_name = ucwords($song_name);
 
 
-	if ( !is_numeric($VARS['track']) || $VARS['track'] < 1 ) {
-		dok_msg(MSG_ERR_NO_TRACK,'dok_create_song','e');
-                return false;
+	if ( $VARS['album_track'] != 'text' ) {
+		$t_res = mysql_query('select max(track) as m from '.dok_tn('rel_song_album').' where album_id = '.$VARS['album']);
+		$VARS['track'] = mysql_result($t_res,0,'m') + 1 ;
+		$_SESSION['album_track'] = 'next';
+	} else {
+		if ( !is_numeric($VARS['track']) || $VARS['track'] < 1 ) {
+			dok_msg(MSG_ERR_NO_TRACK,'dok_create_song','e');
+	                return false;
+		}
+		$_SESSION['album_track'] = 'text';
 	}
 	$res = mysql_query('select song_id from '.dok_tn('rel_song_album').' where album_id = '.$VARS['album'].' and track = '.$VARS['track']);
 	if ( mysql_numrows($res) ) {
