@@ -49,7 +49,7 @@ function dok_view_artist ($VARS, $update_module, $tpl_path) {
 		}
 
 
-		$query = 'select id, name, creation, length, release, comment from '.dok_tn('song').' where id in('.implode(',',$all_songs).') order by hits desc,name, creation';
+		$query = 'select id, name, creation, length, release, comment from '.dok_tn('song').' where id in('.implode(',',$all_songs).') order by hits desc,name, creation desc';
 		unset($songs);
 		$songs = dok_oquery($query);
 		while ( $song = $songs->fetch_array() ) {
@@ -90,7 +90,7 @@ function dok_view_artist ($VARS, $update_module, $tpl_path) {
 		}
 	}
 	return array($t,sprintf(MSG_TITLE_DISPLAY_ARTIST,$row['name']));
-	
+
 }
 
 

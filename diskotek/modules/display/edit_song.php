@@ -75,7 +75,7 @@ function dok_edit_song ($VARS,$update_module,$theme_path) {
 		$query.=' s1.'.$field.' as s1'.$field.', s2.'.$field.' as s2'.$field.',';
 	}
 	$query .= 'r.link from '.dok_tn('rel_songs').' as r left join '.dok_tn('song').' as s1 on r.song_id1=s1.id left join '.dok_tn('song').' as s2 on r.song_id2=s2.id where song_id1='.$row['id'].' or song_id2='.$row['id'].' order by link';
-	echo $query;
+	//echo $query;
 	$res = mysql_query($query);
 	$link = false;
 	$relations = array();
@@ -108,7 +108,7 @@ function dok_edit_song ($VARS,$update_module,$theme_path) {
 	if ( sizeof($relations) ) {
 		$link_array = dok_songs_links_array();
 		foreach ( $relations as $selected => $other_song ) {
-			print_r($other_song);
+			//print_r($other_song);
 			$t->set_var('RELATION_FORM','<form method=post action="'.$_SERVER['PHP_SELF'].'"><input type=hidden name=update value="song_links"><input type="hidden" name="linked_song_id" value="'.$other_song['id'].'"><input type="hidden" name="song_id" value="'.$row['id'].'">');
 			$sel = '';
 			foreach ( $link_array as $key => $val ) {

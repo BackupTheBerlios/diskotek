@@ -1,6 +1,7 @@
 <?PHP
 
 function dok_list_full ( $VARS, $up, $theme_path ) {
+	global $THEME_FULL_LIST_COLUMN;
         $t = new template($theme_path);
         $t->set_file('page','full_list.tpl');
         $t->set_block('page','element_letter','element_letter_block');
@@ -32,7 +33,29 @@ function dok_list_full ( $VARS, $up, $theme_path ) {
 	if ( $res->numrows() ) {
 		$letter = false;
 		$count = -1;
-		$el_per_block = ceil($res->numrows() /3);
+		$div=1;
+		if ( $res->numrows() < reset($THEME_FULL_LIST_COLUMN) ) {
+			$el_per_block = $res->numrows();
+			$div = 1;
+		} elseif ( $res->numrows() > end($THEME_FULL_LIST_COLUMN) )  {
+			$div =key($THEME_FULL_LIST_COLUMN);
+			$el_per_block = ceil($res->numrows() / $div);
+		} else {
+			$ak = array_keys($THEME_FULL_LIST_COLUMN);
+			$i=1;
+			foreach ($THEME_FULL_LIST_COLUMN as $key => $val ) {
+				if ($res->numrows() > $val && $res->numrows() < $THEME_FULL_LIST_COLUMN[$ak[$i]]) {
+					$div = $key;
+					$el_per_block = ceil($res->numrows() / $key);
+					break;
+				}
+				$i++;
+			}
+		}
+		echo 'Div: '.$div."<BR>";
+		$t->set_var('BLOCK_PERCENT',((int)(100/$div)));
+		//if ( $res->numrows() < $THEME_FULL_LIST_COLUMN[0] && $res->numrows() < $THEME_FULL_LIST_COLUMN[0]
+		//$el_per_block = ceil($res->numrows() /3);
 		while ( $row = $res->fetch_array() ) {
 			$count++;
 			if ( $count && ! ($count % $el_per_block) ) {
