@@ -44,7 +44,7 @@ function dok_link_songs ($VARS, $update, $theme_path) {
 		}
 	}
 
-	$where = ' where substring(name from 1 for 1) = \''.addslashes($VARS['alpha']).'\'';
+	$where = ' where substring(name from 1 for 1) = \''.addslashes($VARS['alpha']).'\' and id != '.$VARS['id'];
 	$res = mysql_query('select * from '.dok_tn('song').$where.' order by name');
 	while ( $row = mysql_fetch_array($res) ) {
 		$t->set_var('SONG_CB','<input type=radio name="other_id" value="'.$row['id'].'">');
