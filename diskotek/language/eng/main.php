@@ -19,6 +19,14 @@ define ('MSG_ERR_SONG_NOT_FOUND_UPDATE','Unable to update the song you asked for
 define ('MSG_ERR_NO_TRACK','invalid track number');
 define ('MSG_ERR_NO_DUP_SONG','Can\'t find duplicates for this new song');
 define ('MSG_ERR_DB_UPDATE_FAILED','Error in database update.');
+define ('MSG_ERR_NO_USER_NAME','You didn\'t set user login.');
+define ('MSG_ERR_NO_USER_PASSWORD','You didn\'t set user password.');
+define ('MSG_ERR_PASSWORD_MISMATCH','You didn\'t entered the same password in the two passwords fields.');
+define ('MSG_ERR_USER_NAME_EXISTS','Another user \'%s\' is already known in the database');
+define ('MSG_ERR_USER_DISPLAY','Unable to find the user you asked for.');
+define ('MSG_ERR_USER_NOT_FOUND','Unable to find user.');
+define ('MSG_ERR_USER_EDITION_NOT_ALLOWED','You are not allowed to edit this user settings.');
+define ('MSG_ERR_USER_UPDATE_NOT_ALLOWED','You are not allowed to update this user settings.');
 
 define ('MSG_TITLE_NEW_SONG','Enter a new song in the database');
 define ('MSG_TITLE_NEW_ARTIST','Enter a new artist');
@@ -26,6 +34,7 @@ define ('MSG_TITLE_NEW_ALBUM','Enter a new album');
 define ('MSG_TITLE_DISPLAY_ARTIST','artist %s');
 define ('MSG_TITLE_DISPLAY_ALBUM','album %s');
 define ('MSG_TITLE_DISPLAY_SONG','song %s');
+define ('MSG_TITLE_DISPLAY_USER','user %s');
 define ('MSG_TITLE_EDIT_SONG','edit song %s');
 define ('MSG_TITLE_EDIT_ARTIST','edit artist %s');
 define ('MSG_TITLE_EDIT_ALBUM','edit album %s');
@@ -38,6 +47,9 @@ define ('MSG_TITLE_LIST_ARTIST','All artists listing');
 define ('MSG_TITLE_LIST_ALBUM','All albums listing');
 define ('MSG_TITLE_SOUNDEX_TEST','artists similar names');
 define ('MSG_TITLE_SEARCH','Search results: \'%s\'');
+define ('MSG_TITLE_NEW_USER','Create a new user');
+define ('MSG_TITLE_EDIT_USER','edit user %s ');
+
 
 define ('MSG_SYS_INFO','Information: %s');
 define ('MSG_SYS_DEBUG','<font size=-2>%s</font>');

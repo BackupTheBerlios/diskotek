@@ -41,6 +41,9 @@ Actions
 <a class="boxlink" href="{DOK}?display=new_album">
 <div class="boxlink">Add new album</div>
 </a>
+<a class="boxlink" href="{DOK}?display=new_user">
+<div class="boxlink">Add new user</div>
+</a>
 </div>
 </div>
 

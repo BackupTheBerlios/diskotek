@@ -3,6 +3,7 @@ MYSQL updates
 0.3 => 0.4
 
 alter table song add genre TINYINT UNSIGNED not null default 14;
+CREATE TABLE `user` (  `id` bigint(20) NOT NULL auto_increment,  `name` varchar(255) NOT NULL default '',  `password` varchar(255) NOT NULL default '',  `editor` enum('1','0') NOT NULL default '0',  `admin` enum('1','0') NOT NULL default '0',  `lang` varchar(100) NOT NULL default '',  `theme` varchar(255) NOT NULL default '',  `creation` bigint(20) NOT NULL default '0',  `last_login` bigint(20) NOT NULL default '0',  PRIMARY KEY  (`id`),  UNIQUE KEY `name` (`name`)) TYPE=MyISAM;
 
 0.2 => 0.3
 
