@@ -35,6 +35,7 @@ function dok_view_artist ($VARS, $update_module, $tpl_path) {
 		$t->set_var('songs_block',MSG_NO_SONG);
 		$t->set_var('albums_block',MSG_NO_ALBUM);
 		$t->set_var('related_artists_block',MSG_NO_RELATED_ARTIST);
+		$t->set_var('all_songs_block','');
 	} else {
 		$all_songs = $songs->fetch_col_array('song_id');
 		$t->set_var('ARTIST_SONGS',sizeof($all_songs));
@@ -55,7 +56,7 @@ function dok_view_artist ($VARS, $update_module, $tpl_path) {
 			//$sl = dok_sec2min($song['length']);
 			$song['ignore_artist'] = $VARS['id'];
 			$t->set_var(dok_song_format($song));
-			
+
 			$t->parse('songs_block','artist_songs','true');
 		}
 		$all_songs = $songs->fetch_col_array('id');

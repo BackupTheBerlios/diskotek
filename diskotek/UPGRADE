@@ -1,5 +1,10 @@
 MYSQL updates
 
+0.5 => 0.6
+
+create table dok_rel_songs(song_id1 bigint not null, song_id2 bigint not null, link tinyint not null default 0, unique(song_id1,song_id2,link)) ;
+create index song_id on dok_rel_song_album(song_id);
+
 0.4 => 0.5
 
 alter table dok_user add disabled enum('1','0') not null default '0';

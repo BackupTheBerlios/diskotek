@@ -60,8 +60,8 @@ define ('DOK_USE_SOUNDEX', true);
 define ('DOK_USE_HTML4','true');
 
 // defines root directory of CACHE : if it's not writeable cache is disabled automatically
-define ('DOK_CACHE_PATH','/tmp/diskocache');
-
+//define ('DOK_CACHE_PATH','/tmp/diskocache');
+define ('DOK_CACHE_PATH','/');
 // defines prefix of cache files (you SHOULD have a prefix)
 define ('DOK_CACHE_PREFIX','DOK_');
 
@@ -76,4 +76,18 @@ define ('DOK_CACHE_TTL',1800);
 $ARTIST_SONG_LINKS = array (	0 => 'by',
 				20 => 'featuring ',
 				30 => 'remix by ');
+
+/*
+*define relations between two songs. As relations of song A => song B isn't nessessary the same as relations
+*of song B => song A , each indice got two relation: the first to describe song A => song B , the second for the
+*reverse (song B => song A)
+*Take for example the remix: if song B is the remix of song A, song A isn't the remix of song B, but the original !
+*A type of relation where A=>B == B=>A could have been "same title", but Disk'o'tek deals automagically with this relation
+*
+*to add relations, choose an unused indice and two clear relation names.
+*If one of the two relation names is empty, relation won't appear. This other still will
+*/
+$SONGS_LINKS = array ( 0 => array('same lyrics','same lyrics'),
+			10 => array('same beat','same beat'),
+			20 => array('remix','original'));
 ?>

@@ -7,11 +7,12 @@ Alphabetic jump: <a href="{DOK}?display=list_albums&alpha=-">1-9</a> |
 <a href="{DOK}?display=list_albums&alpha=i">i-l</a> |
 <a href="{DOK}?display=list_albums&alpha=m">m-p</a> |
 <a href="{DOK}?display=list_albums&alpha=q">q-t</a> |
-<a href="{DOK}?display=list_albums&alpha=u">u-z</a>
+<a href="{DOK}?display=list_albums&alpha=u">u-z</a> ,
+ sort by <a href="{DOK}?display=list_albums&sort=hits">hits</a> or by <a href="{DOK}?display=list_albums&sort=length">album total length</a>
 <P>
 <!-- BEGIN album -->
 <div class="listelement">
-<a href="{ALBUM_LINK}">{ALBUM_NAME}</a>, {ALBUM_SONGS} song(s)
+<a href="{ALBUM_LINK}">{ALBUM_NAME}</a>, {ALBUM_LENGTH}, {ALBUM_SONGS} song(s), {ALBUM_HITS} hits
 </div>
 <!-- END album -->
 <!-- BEGIN next_page -->

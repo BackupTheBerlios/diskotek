@@ -309,7 +309,7 @@ function dok_str2sec ( $str ) {
 /**
 *returns the year if set, a string 'year unknown' if not set
 *
-*@param int $year 
+*@param int $year
 *@return string
 */
 function dok_year2str ( $year ) {
@@ -331,7 +331,11 @@ function dok_get_artists_string ( $song_id, $ignore_artist = null ) {
 		$where = ' and a.id != '.$ignore_artist.' ';
 	}
 	$res = dok_oquery('select a.name,a.id, r.link from '.dok_tn('rel_song_artist').' as r left join '.dok_tn('artist').' as a on r.artist_id = a.id where r.song_id = '.$song_id.' '.$where.' order by r.link, a.name');
-	if ( !$res->numrows() )	return MSG_NO_ARTIST;
+	if ( !$res->numrows() )	{
+		if ( $ignore_artist )	return ;
+		else			return MSG_NO_ARTIST;
+	}
+
 	$good_nb = array_keys($ARTIST_SONG_LINKS);
 	$data = array();
 	while ( $row = $res->fetch_array() ) {
