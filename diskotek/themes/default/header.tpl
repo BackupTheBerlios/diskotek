@@ -13,7 +13,13 @@
 
 <div class="top">
 <table border=0 width=100% cellspacing=0 cellpadding=0>
-<tr><td align=left><img src="images/dok.png" border=0></td></tr>
+<tr><td align=left><img src="images/dok.png" border=0></td>
+<td align="left" valign="bottom">
+<form method="post" action="{DOK}">
+Music search:
+<input type=hidden name="display" value="search">
+<input type=text name="query" size="10"> <input type=submit value="go" class="search"></form>
+</td></tr>
 </table>
 </div>
 

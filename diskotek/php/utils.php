@@ -48,6 +48,7 @@ function dok_module_table($path) {
 		}
 	}
 	$d->close();
+	return $table;
 }
 
 /**
@@ -96,6 +97,13 @@ function dok_add_tpl_var($var,$val = null,$send = false) {
 	return false;
 }
 
+/**
+*adds a system message
+*
+*@param string $message message to display
+*@param string $sender sender of this message
+*@param string $scope could be 'i' (info), 'd' (debug) or 'e' (error)
+*/
 function dok_msg($message, $sender = 'core', $scope = 'i') {
 	global $DOK_SYSTEM_MESSAGES;
 	if ( strtolower(substr($scope,0,1)) == 'i' )	$DOK_SYSTEM_MESSAGES['i'][] = $message;
@@ -103,6 +111,12 @@ function dok_msg($message, $sender = 'core', $scope = 'i') {
 	else						$DOK_SYSTEM_MESSAGES['d'][] = $message;
 }
 
+/**
+*returns the list of all artists contained in the database
+*
+*
+*@return array keys are artist id, vars is an array ('name','creation')
+*/
 function dok_artists_list () {
 	$back = array();
 	$query = 'select id, name, creation from '.dok_tn('artist').' order by name';
@@ -113,6 +127,12 @@ function dok_artists_list () {
         return $back;
 }
 
+/**
+*returns the list of all albums contained in the database
+*
+*
+*@return array keys are album id, vars is an array ('name','creation')
+*/
 function dok_albums_list() {
 	$back = array();
         $query = 'select id, name, creation from '.dok_tn('album').' order by name';
@@ -151,6 +171,12 @@ function dok_oquery($query) {
 	return new mysql_result($res, $query);
 }
 
+/**
+*returns a temlate object filled with the default error page
+*
+*@param string $error_message the message to display on the error page
+*@return template error template
+*/
 function dok_error_template($error_message) {
 	global $DOK_THEME_PATH;
 	$t = new template($DOK_THEME_PATH);
@@ -159,6 +185,13 @@ function dok_error_template($error_message) {
 	return $t;
 }
 
+/**
+*lookups the songs-artists relation db and fetch infos
+*
+*@param array $songs if set, only get data for songs id included in $song array
+*@param array $artists if set, only get data for artists id included in $artists array
+*@return mysql_result a filled mysql_result object
+*/
 function &dok_rel_song_artist($songs = array(), $artists = array() ) {
 	$where = 'where ';
 	if ( sizeof($songs) )	{
@@ -170,6 +203,12 @@ function &dok_rel_song_artist($songs = array(), $artists = array() ) {
 	return dok_oquery($query);
 }
 
+/**
+*converts seconds into an array with keys 'minut' and 'second'
+*
+*@param int $seconds seconds to split
+*@return array array with keys 'minut' and 'second'
+*/
 function dok_sec2min ( $seconds ) {
 	$min = intval($seconds / 60);
 	if ( $min == 0 )	{
@@ -178,6 +217,12 @@ function dok_sec2min ( $seconds ) {
 	return array('minut'=>sprintf('%02d',$min),'second'=> sprintf('%02d',($seconds%60)) );
 }
 
+/**
+*turns a number of seconds into a string 'minuts:seconds'
+*
+*@param int $seconds number of seconds
+*@return string time
+*/
 function dok_sec2str ( $seconds ) {
 	$a = dok_sec2min($seconds);
 	$ret = '';
@@ -187,11 +232,41 @@ function dok_sec2str ( $seconds ) {
 	return $ret;
 }
 
+function dok_str2sec ( $str ) {
+	$length = 0;
+        if ( isset($str) ) {
+                if ( preg_match('/:/',$str) ) {
+                        $test = explode(':',$str);
+                        if ( sizeof($test) > 1 ) {
+                                $sec = 0;
+                                if ( is_numeric($test[0]) )     $sec = $test[0] * 60;
+                                if ( is_numeric($test[1]) )     $sec += $test[1];
+                                $length = $sec;
+                        }
+                } elseif ( is_numeric($str) && $str > 0 ) $length = $str;
+        }
+	return $length;
+}
+
+/**
+*returns the year if set, a string 'year unknown' if not set
+*
+*@param int $year 
+*@return string
+*/
 function dok_year2str ( $year ) {
 	if ( $year == 0 )	return MSG_UNKNOWN;
 	return $year;
 }
 
+/**
+*returns a well formatted string for artists related to a song
+*
+*
+*@param int $song_id id of the song to display artists
+*@param int $ignore_artist if set this artist won't appear in the returned string
+*@return string formatted artists
+*/
 function dok_get_artists_string ( $song_id, $ignore_artist = null ) {
 	global $ARTIST_SONG_LINKS;
 	if ( $ignore_artist > 0 ) {
@@ -237,11 +312,17 @@ function dok_db_2_textarea ($text) {
 	return str_replace('<BR>','',$text);
 }
 
-
+/**
+*get PHPlib variables for a song
+*
+*
+*/
 function dok_song_format ( $data ) {
 	global $THEME_DATE;
 	$ret = array();
 	$ret['SONG_NAME'] = $data['name'];
+	$ret['SONG_ID']   = $data['id'];
+	$ret['SONG_HITS'] = $data['hits'];
 	$ret['SONG_LINK'] = $_SERVER['PHP_SELF'].'?display=view_song&id='.$data['id'];
 	$ret['SONG_ARTIST'] = dok_get_artists_string($data['id'], $data['ignore_artist']);
 	$ret['SONG_LENGTH'] = dok_sec2str($data['length']);

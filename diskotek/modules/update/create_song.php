@@ -66,18 +66,7 @@ function dok_create_song() {
 		$VARS['release'] = 0;
 	}
 
-	$length = 0;
-	if ( isset($VARS['length']) ) {
-		if ( preg_match('/:/',$VARS['length']) ) {
-			$test = explode(':',$VARS['length']);
-			if ( sizeof($test) > 1 ) {
-				$sec = 0;
-				if ( is_numeric($test[0]) )	$sec = $test[0] * 60;
-				if ( is_numeric($test[1]) )	$sec += $test[1];
-				$length = $sec;
-			}
-		} elseif ( is_numeric($VARS['length']) && $VARS['length'] > 0 )	$length = $VARS['length'];
-	}
+	$length = dok_str2sec($VARS['length']);
 
 	//add
 	$res = mysql_query('insert into '.dok_tn('song').' (name, length, creation,release, comment) values (\''.addslashes($song_name).'\', '.$length.', '.time().','.$VARS['release'].',\''.addslashes($comment).'\')');

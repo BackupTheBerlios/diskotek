@@ -39,7 +39,7 @@ function dok_list_songs ( $VARS, $up, $theme_path ) {
 		$res = mysql_query($total_query);
 		$total = mysql_result($res,0,'c');
 		if ( $total > ( $VARS['offset'] + DOK_LIST_EPP ) ) {
-			$t->set_var('NEXT_PAGE_LINK',$_SERVER['PHP_SELF'].'?display=list_albums&alpha='.$VARS['alpha'].'&offset='.($VARS['offset']+DOK_LIST_EPP));
+			$t->set_var('NEXT_PAGE_LINK',$_SERVER['PHP_SELF'].'?display=list_songs&alpha='.$VARS['alpha'].'&offset='.($VARS['offset']+DOK_LIST_EPP));
 			$t->parse('next_page_block','next_page');
 		} else {
 			$t->set_var('next_page_block','');

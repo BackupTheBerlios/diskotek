@@ -24,6 +24,14 @@ a:hover {
 	color: #FFCC00;
 }
 
+input.search {
+	margin-left: 7px;
+	background-color: #000000;
+	color: #FFCC00;
+	font-size: 12px;
+	font-weight: bold;
+}
+
 div.top {
 	background: #000000;
 	color: #FFFFFF;
