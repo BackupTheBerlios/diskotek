@@ -27,6 +27,20 @@ class mysql_result {
 		}
 	}
 	
+	function fetch_last_array() {
+		if ( !sizeof($this->resultset) ) {
+			return null;
+		}
+		return $this->resultset[(sizeof($this->resultset)-1)];
+	}
+	
+	function fetch_first_array() {
+		if ( !sizeof($this->resultset) ) {
+			return null;
+		}
+		return $this->resultset[0];
+	}
+	
 	function reset() {
 		$this->offset=0;
 	}

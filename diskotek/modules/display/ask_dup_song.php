@@ -50,7 +50,7 @@ function dok_ask_dup_song ( $VARS, $update, $theme_path ) {
 		$t->set_var(array(	'NEW_SONG_NAME' => $VARS['name'],
 					'NEW_SONG_COMMENT' => dok_textarea_2_db($VARS['comment']),
 					'NEW_SONG_TRACK' => $new_song_track,
-					'NEW_SONG_LENGTH' => dok_sec2str($VARS['length']),
+					'NEW_SONG_LENGTH' => $VARS['length'],
 					'NEW_SONG_LABEL' => $new_song_label,
 					'NEW_SONG_ARTIST' => $artist,
 					'NEW_SONG_ALBUM' => $album,

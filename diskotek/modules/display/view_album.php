@@ -34,8 +34,9 @@ function dok_view_album ($VARS, $update_module, $tpl_path) {
 	if ( !$songs->numrows() ) {
 		$t->set_var('songs_block',MSG_NO_SONG);
 	} else {
+		$pager_data = array('related'=>'album','related_id'=>$VARS['id']);
 		while ( $song = $songs->fetch_array() ) {
-			$song_data = dok_song_format($song);
+			$song_data = dok_song_format($song,$pager_data);
 			$song_data['SONG_ARTIST'] = preg_replace('/^'.$ARTIST_SONG_LINKS[0].'/','',$song_data['SONG_ARTIST']);
 			$t->set_var($song_data);
 			$t->set_var('SONG_TRACK',$song['track']);

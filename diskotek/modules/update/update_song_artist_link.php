@@ -33,7 +33,12 @@ function dok_update_song_artist_link () {
 	$res = dok_uquery('insert into '.dok_tn('rel_song_artist').' (song_id, artist_id, link) values ('.$song['id'].','.$artist['id'].','.$VARS['link'].')');
 	
 	if ( $res ) {
-                return 'view_song';
+		$VARS['nohit']=1;
+		if ( isset($VARS['back2edit']) ) {
+			return 'link_song_artist';
+		} else {
+                	return 'view_song';
+		}
         } else {
                 dok_msg(MSG_ERR_DB_UPDATE_FAILED,'dok_update_song_artist_link','e');
                 return false;

@@ -26,6 +26,7 @@ function dok_list_songs ( $VARS, $up, $theme_path ) {
 			$t->set_var('ARTIST_ID',$VARS['artist']);
 		}
 		$t->parse('if_artist_block','if_artist');
+		$pager_infos=array('related'=> 'artist','related_id'=>$VARS['artist']);
 	} else {
 		$query = 'select * from '.dok_tn('song').' where substring(name from 1 for 1) >= \''.$VARS['alpha'].'\' order by name limit '.$VARS['offset'].', '.DOK_LIST_EPP;
 		$total_query = 'select count(*) as c from '.dok_tn('song').' where substring(name from 1 for 1) >= \''.$VARS['alpha'].'\'';
@@ -33,12 +34,13 @@ function dok_list_songs ( $VARS, $up, $theme_path ) {
 		$t->set_var('ARTIST_ID','');
 		$t->set_var('ARTIST_NAME','');
 		$t->set_var('ARTIST_LINK','');
+		$pager_infos='';
 	}
 	$res = dok_oquery($query);
 	if ( $res->numrows() ) {
 		$ids = $res->fetch_col_array('id');
 		while ( $row = $res->fetch_array() ) {
-			$t->set_var(dok_song_format($row));
+			$t->set_var(dok_song_format($row,$pager_infos));
 	                $t->parse('song_block','song','true');
 		}
 		$res = mysql_query($total_query);

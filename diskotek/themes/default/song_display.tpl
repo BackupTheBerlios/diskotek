@@ -2,8 +2,8 @@
 <!-- BEGIN if_songeditor -->
  <a class="buttonedit" href="{SONG_EDIT_LINK}"><span class="buttonedit">edit</span></a>
 <!-- END if_songeditor -->
-
 </div>
+<div class="songinfos">
 Release date: {SONG_RELEASE}
 <BR>
 Genre: {SONG_GENRE}
@@ -11,6 +11,13 @@ Genre: {SONG_GENRE}
 <BR>
 <span class="label" style="background-color: {SONG_TAG}">&nbsp;</span> {SONG_LABEL}
 <!-- END if_label -->
+</div>
+<!-- BEGIN pager -->
+<div class="pager">
+&lt;&lt; <a href="{PAGER_PREV_LINK}">previous song</a><br>{PAGER_PREV_NAME}<br>
+<a href="{PAGER_RELATED_LINK}">{PAGER_RELATED_NAME}<br>
+&gt;&gt; <a href="{PAGER_NEXT_LINK}">next song</a><br>{PAGER_NEXT_NAME}</div>
+<!-- END pager -->
 <div class="mpsongcomment">{SONG_COMMENT}</div>
 <div class="mpsubtitle">
 Appearing in albums:

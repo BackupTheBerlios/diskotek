@@ -19,7 +19,7 @@ function dok_create_song_link() {
 
 	$VARS['other_id']=trim($VARS['other_id']);
 	$VARS['id']=trim($VARS['id']);
-
+	$VARS['nohit']=1;
 	if ( !$VARS['old_link'] || !is_numeric($VARS['old_link']) )	$VARS['old_link'] = 0;
 
 	$res = mysql_query('select name from '.dok_tn('song').' where id = '.$VARS['id'].' or id = '.$VARS['other_id']);

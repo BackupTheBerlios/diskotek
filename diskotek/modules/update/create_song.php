@@ -102,6 +102,7 @@ function dok_create_song() {
                 return false;
         }
 	$VARS['id'] = $my_id;
+	$VARS['nohit'] = 1;
 	if ( sizeof($VARS['link']) ) {
 		$links = array_keys(dok_songs_links_array());
 		foreach ( $VARS['link'] as $key => $val ) {

@@ -33,7 +33,7 @@ define ('DOK_LANGUAGE_PATH','language');
 /*
 *default theme (should match theme folder)
 */
-define ('DOK_THEME_DEFAULT','default');
+define ('DOK_THEME_DEFAULT','lighter');
 /*
 *default language (should match language folder)
 */
@@ -46,21 +46,12 @@ define ('DOK_DISPLAY_DEFAULT','homepage');
 *name of anonymous user
 */
 define ('DOK_ANONYMOUS_USER_NAME','Anonymous');
-/*
-*number of items displayed in a list context
-*/
-define ('DOK_LIST_EPP',25);
-
-//number of songs to display in 'artist view'
-define ('DOK_SONGS_ON_ARTIST_PAGE',15);
-
-//number of albums to display in 'artist view'
-define ('DOK_ALBUMS_ON_ARTIST_PAGE',10);
 
 // when a new user is created, shake in database for a user with a name that sounds identical
 define ('DOK_USE_SOUNDEX', true);
 
-define ('DOK_USE_HTML4','true');
+//enable use of extra forms features of HTML 4
+define ('DOK_USE_HTML4',true);
 
 // defines root directory of CACHE : if it's not writeable cache is disabled automatically
 //define ('DOK_CACHE_PATH','/tmp/diskocache');
@@ -71,6 +62,10 @@ define ('DOK_CACHE_PREFIX','DOK_');
 // defines time to live of cache files in seconds
 define ('DOK_CACHE_TTL',1800);
 
+// Pager related functions //
+
+// enable/disable pager
+define ('DOK_ENABLE_PAGER',true);
 
 /*
 *define relations between artists and songs: you could add relations by choosing a unused indice,
@@ -78,6 +73,7 @@ define ('DOK_CACHE_TTL',1800);
 */
 $ARTIST_SONG_LINKS = array (	0 => 'by',
 				20 => 'featuring ',
+				25 => 'produced by ',
 				30 => 'remix by ');
 
 /*
@@ -93,6 +89,8 @@ $ARTIST_SONG_LINKS = array (	0 => 'by',
 $SONGS_LINKS = array ( 1 => array('same lyrics','same lyrics'),
 			4 => array('same beat','same beat'),
 			7 => array('remix','original'),
+			8 => array('instrumental','original'),
+			9 => array('a capella','original'),
 			10 => array('complete version'),
 			13 => array('in another style','in another style'));
 
@@ -107,8 +105,9 @@ $SONGS_LINKS = array ( 1 => array('same lyrics','same lyrics'),
 * In addition the theme file 'theme.php' should contain a variable $THEME_SONG_LABEL that is a part of line that could
 * contain template variables described just before. This parsed will appear as {SONG_LABEL_LINE} in a song display
 */
-$SONGS_LABELS = array (	1 => array('label'=>'club bang', 'tag' => '#FF0000', 'tag2' => ''),
-			2 => array('label'=>'5 stars hiphop beat', 'tag' => '#0000FF', 'tag2' => ''),
-			3 => array('label'=>'hot & wet', 'tag' => '#00FF00', 'tag2' => '')
+$SONGS_LABELS = array (	1 => array('label'=>'club bang (R&B)', 'tag' => '#FF0000', 'tag2' => ''),
+			2 => array('label'=>'club bang (HipHop)', 'tag' => '#FF0000', 'tag2' => ''),
+			3 => array('label'=>'5 stars hiphop beat', 'tag' => '#0000FF', 'tag2' => ''),
+			4 => array('label'=>'hot & wet', 'tag' => '#00FF00', 'tag2' => '')
 			);
 ?>

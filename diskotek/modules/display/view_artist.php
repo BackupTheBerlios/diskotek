@@ -56,10 +56,11 @@ function dok_view_artist ($VARS, $update_module, $tpl_path) {
 		$query = 'select * from '.dok_tn('song').' where id in('.implode(',',$display_songs).') order by hits desc,name, creation desc';
 		unset($songs);
 		$songs = dok_oquery($query);
+		$pager_data = array('related'=>'artist','related_id'=>$VARS['id']);
 		while ( $song = $songs->fetch_array() ) {
 			//$sl = dok_sec2min($song['length']);
 			$song['ignore_artist'] = $VARS['id'];
-			$t->set_var(dok_song_format($song));
+			$t->set_var(dok_song_format($song,$pager_data));
 
 			$t->parse('songs_block','artist_songs','true');
 		}
@@ -76,7 +77,7 @@ function dok_view_artist ($VARS, $update_module, $tpl_path) {
 			$albums_id = $albums->fetch_col_array('album_id');
 			unset($albums);
 			if ( sizeof($albums_id) > DOK_ALBUMS_ON_ARTIST_PAGE ) {
-				$albums_display = array_slice($albums_id,DOK_ALBUMS_ON_ARTIST_PAGE);
+				$albums_display = array_slice($albums_id,0,DOK_ALBUMS_ON_ARTIST_PAGE);
 				$t->set_var('ALL_ALBUMS_LINK',$_SERVER['PHP_SELF'].'?display=list_albums&artist='.$VARS['id']);
 				$t->set_var('ARTIST_REMAINING_ALBUMS',(sizeof($albums_id) - DOK_ALBUMS_ON_ARTIST_PAGE));
 				$t->parse('all_albums_block','all_albums');

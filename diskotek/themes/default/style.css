@@ -223,3 +223,21 @@ div.sysmsg {
 	font-size: 12px;
 	line-height: 25px;
 }
+.songinfos {
+	position: relative;
+	top: 0px;
+	left: 0%;
+	width: 75%;
+}
+.pager {
+	position: absolute;
+	top: 40px;
+	left: 75%;
+	width: 25%;
+	font-size: 12px;
+	text-align: center;
+	border: 1px solid #005098;
+	margin: 5px;
+	background-color: #003399;
+	padding: 2px;
+}

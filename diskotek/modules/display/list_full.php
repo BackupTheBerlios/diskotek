@@ -26,10 +26,29 @@ function dok_list_full ( $VARS, $up, $theme_path ) {
 		$element_name = MSG_SONGS;
 	}
 	$t->set_var('LIST_ELEMENT_NAME',$element_name);
-	$query = 'select id, name, substring(name from 1 for 1) as letter from '.dok_tn($VARS['element']).' order by name';
-	//echo $query;
-	$res = dok_oquery($query);
 
+	$where = '';
+	if ( ($VARS['element'] == 'album' || $VARS['element'] == 'song') && isset($VARS['artist_id']) && is_numeric($VARS['artist_id']) && $VARS['artist_id'] > 0 ) {
+		$res = mysql_query('select name from '.dok_tn('artist').' where id = '.$VARS['artist_id']);
+		if ( mysql_numrows($res) ) {
+			$row = mysql_fetch_array($res);
+			$t->set_var('ARTIST_NAME',$row['name']);
+			$t->set_var('ARTIST_LINK',$_SERVER['PHP_SELF'].'?display=view_artist&id='.$VARS['artist_id']);
+			if( $VARS['element'] == 'song' ) {
+				$where = 'left join '.dok_tn('rel_song_artist').' as r on a.id=r.song_id where r.artist_id = '.$VARS['artist_id'];
+			} else {
+				$where = 'left join '.dok_tn('rel_song_album').' as r on a.id=r.album_id left join '.dok_tn('rel_song_artist').' as r2 on r.song_id=r2.song_id  where r2.artist_id = '.$VARS['artist_id'].' group by a.id';
+			}
+		}
+	} else {
+		$t->set_var('ARTIST_NAME','');
+		$t->set_var('ARTIST_LINK',$_SERVER['PHP_SELF']);
+	}
+
+	$query = 'select a.id, a.name, substring(a.name from 1 for 1) as letter from '.dok_tn($VARS['element']).' as a '.$where.' order by a.name';
+	//echo $query.'<BR>';
+	$res = dok_oquery($query);
+	//echo mysql_error();
 	if ( $res->numrows() ) {
 		$letter = false;
 		$count = -1;

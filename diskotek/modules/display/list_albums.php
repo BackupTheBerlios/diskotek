@@ -5,6 +5,7 @@ function dok_list_albums ( $VARS, $up, $theme_path ) {
         $t = new template($theme_path);
         $t->set_file('page','album_list.tpl');
 	$t->set_block('page','if_artist','artist_block');
+	$t->set_block('page','if_artist_2','artist_2_block');
         $t->set_block('page','album','album_block');
 	$t->set_block('page','next_page','next_page_block');
 	if( !isset($VARS['alpha']) )    {

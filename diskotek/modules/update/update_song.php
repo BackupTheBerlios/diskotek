@@ -71,6 +71,7 @@ function dok_update_song() {
 	}
 
 	if ( $res ) {
+		$VARS['nohit']=1;
 		return 'view_song';
 	} else {
 		dok_msg(MSG_ERR_DB_UPDATE_FAILED,'dok_update_song','e');

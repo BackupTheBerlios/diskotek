@@ -47,7 +47,7 @@ function dok_edit_song ($VARS,$update_module,$theme_path) {
 		$t->set_var('artist_remove_block','');
 	} else {
 		while ( $a_row = mysql_fetch_array($res) ) {
-			$t->set_var('ARTIST_REMOVE_LINK',$_SERVER['PHP_SELF'].'?update=unlink_song_artist&artist='.$a_row['id'].'&id='.$row['id']);
+			$t->set_var('ARTIST_REMOVE_LINK',$_SERVER['PHP_SELF'].'?update=unlink_song_artist&artist='.$a_row['id'].'&id='.$row['id'].'&nohit=1');
                         $t->parse('artist_remove_block','artist_remove');
 			$t->set_var('ARTIST_NAME',$a_row['name']);
 			$t->parse('artist_block','artist','true');

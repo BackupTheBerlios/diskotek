@@ -11,14 +11,19 @@ Alphabetic jump: <a href="{DOK}?display=list_songs&alpha=-&artist={ARTIST_ID}">1
 <a href="{DOK}?display=list_songs&alpha=q&artist={ARTIST_ID}">q-t</a> |
 <a href="{DOK}?display=list_songs&alpha=u&artist={ARTIST_ID}">u-z</a>
 <P>
+<table border=0 cellpadding=0>
 <!-- BEGIN song -->
-<div class="listelement">
-<i><a href="{SONG_LINK}">{SONG_NAME}</a></i>, {SONG_ARTIST} ({SONG_LENGTH}, {SONG_GENRE}) {SONG_LABEL_LINE}
-</div>
+<tr class="list"><td>
+<a href="{SONG_LINK}">{SONG_NAME}</a></td>
+<td>{SONG_ARTIST}</td>
+<td>{SONG_LENGTH}</td>
+<td>{SONG_GENRE}</td><td> {SONG_LABEL_LINE}</td>
+</tr>
 <!-- END song -->
+</table>
 <!-- BEGIN next_page -->
-<P><a href="{NEXT_PAGE_LINK}" class="mplink">next page</a>
+<P><a href="{NEXT_PAGE_LINK}" class="mplink">&gt;&gt; next page</a>
 <!-- END next_page -->
 <div class="fulllist">
-<a class="mplink" href="{DOK}?display=list_full&element=song&artist_id={ARTIST_ID}">full listing</a>
+<a class="mplink" href="{DOK}?display=list_full&element=song&artist_id={ARTIST_ID}">&gt;&gt; full listing</a>
 </div>

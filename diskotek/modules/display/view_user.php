@@ -29,9 +29,11 @@ function dok_view_user ($VARS, $update, $theme_path) {
 	else				$editor = MSG_NO;
 	if ( $user['disabled'] )	$disabled = MSG_YES;
 	else				$disabled = MSG_NO;
+	if ( $user['last_login'] == 0 )	$last_login = MSG_USER_NEVER_LOGGED;
+	else				$last_login = date($THEME_DATE, $user['last_login']);
 	$t->set_var(array (	'USER_NAME' => $user['name'],
 				'USER_DB_CREATION' => date($THEME_DATE, $user['creation']),
-				'USER_LAST_LOGIN'  => date($THEME_DATE, $user['last_login']),
+				'USER_LAST_LOGIN'  => $last_login,
 				'USER_ADMIN'	   => $admin,
 				'USER_EDITOR'	   => $editor,
 				'USER_DISABLED'	   => $disabled,

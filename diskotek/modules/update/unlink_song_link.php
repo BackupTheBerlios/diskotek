@@ -20,7 +20,7 @@ function dok_unlink_song_link() {
 
 	$VARS['other_id']=trim($VARS['other_id']);
 	$VARS['id']=trim($VARS['id']);
-
+	$VARS['nohit']=1;
 	$relation = explode('-',$VARS['link']);
 
 	$query = 'delete from '.dok_tn('rel_songs').' where link = '.$relation[0].' ';

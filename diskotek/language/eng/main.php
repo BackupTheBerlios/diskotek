@@ -81,9 +81,9 @@ define ('MSG_YES','Yes');
 define ('MSG_MINUTS',':');
 define ('MSG_SECONDS','');
 define ('MSG_UNKNOWN','unknown');
-define ('MSG_LOGIN_NOT_LOGGED','not logged in. [<a href="%s">login</a>]');
-define ('MSG_LOGIN_LOGGED','logged in as %s. [<a href="%s">logout</a>]');
-
+define ('MSG_LOGIN_NOT_LOGGED','not logged in. [<a href="%s" class="white">login</a>]');
+define ('MSG_LOGIN_LOGGED','logged in as %s. [<a href="%s" class="white">logout</a>]');
+define ('MSG_USER_NEVER_LOGGED','never logged in');
 define ('MSG_SEARCH_NO_RESULT_SONG','No matching song');
 define ('MSG_SEARCH_NO_RESULT_ALBUM','No matching album');
 define ('MSG_SEARCH_NO_RESULT_ARTIST','No matching artist');

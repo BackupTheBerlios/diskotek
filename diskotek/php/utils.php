@@ -230,7 +230,7 @@ function dok_oquery($query) {
 }
 
 /**
-*returns a temlate object filled with the default error page
+*returns a template object filled with the default error page
 *
 *@param string $error_message the message to display on the error page
 *@return template error template
@@ -379,7 +379,7 @@ function dok_db_2_textarea ($text) {
 *
 *
 */
-function dok_song_format ( $data ) {
+function dok_song_format ( $data, $pager_infos = '' ) {
 	global $THEME_DATE, $THEME_SONG_LABEL;
 	$label = dok_song_label_vars($data['label']);
 	$ret = $label;
@@ -387,6 +387,9 @@ function dok_song_format ( $data ) {
 	$ret['SONG_ID']   = $data['id'];
 	$ret['SONG_HITS'] = $data['hits'];
 	$ret['SONG_LINK'] = $_SERVER['PHP_SELF'].'?display=view_song&id='.$data['id'];
+	if ( is_array($pager_infos) ) {
+		$ret['SONG_LINK'] .= '&pager_related='.$pager_infos['related'].'&pager_related_id='.$pager_infos['related_id'];
+	}
 	$ret['SONG_ARTIST'] = dok_get_artists_string($data['id'], $data['ignore_artist']);
 	$ret['SONG_LENGTH'] = dok_sec2str($data['length']);
 	$ret['SONG_RELEASE'] = dok_year2str($data['release']);
@@ -414,6 +417,15 @@ function dok_song_label_vars($label_id) {
 }
 
 function dok_get_genre_select ( $varname = 'genre', $selected = null ) {
+	static $mycache = array();
+	if ( $selected === null ) {
+		$my_selected = 'none';
+	} else {
+		$my_selected = $selected;
+	}
+	if ( isset($mycache[$my_selected]) ) {
+		return $mycache[$my_selected];
+	}
 	global $GENRES;
 	$ret = '<select name="'.$varname.'">';
 	foreach ( $GENRES as $id => $name ) {
@@ -424,6 +436,7 @@ function dok_get_genre_select ( $varname = 'genre', $selected = null ) {
 		$ret.='>'.$name.'</option>';
 	}
 	$ret.= '</select>';
+	$mycache[$my_selected] = $ret;
 	return $ret;
 }
 
@@ -497,6 +510,20 @@ function dok_letter_array($table) {
 	return $res->fetch_col_array('letter');
 }
 
+function dok_pager_clean ( $t ) {
+	global $THEME_PAGER_TYPE;
+	$t->set_block('page','pager','pager_block');
+	$t->set_var('pager_block','');
+	
+	$t->set_var(array(	'PAGER'=>'',
+				'PAGER_PREV_LINK'=>'',
+				'PAGER_PREV_NAME'=>'',
+				'PAGER_NEXT_LINK'=>'',
+				'PAGER_NEXT_NAME'=>'',
+				'PAGER_RELATED_LINK'=>'',
+				'PAGER_RELATED_NAME'=>''));
+	return $t;
+}
 
 function dok_genre_name($id) {
 	global $GENRES;

@@ -1,32 +1,16 @@
-<div class="box">
-<div class="boxtitle">
-Actions
+<!-- BEGIN if_logged -->
+<div class="boxitem">
+<a class="boxlink" href="{DOK}?display=edit_user&id={USER_ID}">personnal settings</a><BR>
 </div>
-<div class="boxcontent">
-<a class="boxlink" href="{DOK}">
-<div class="boxlink">home page</div>
-</a>
+<!-- END if_logged -->
+<div class="boxitem">
+Actions<BR>
 <!-- BEGIN if_editor -->
-<a class="boxlink" href="{DOK}?display=new_song">
-<div class="boxlink">Add new song</div>
-</a>
-<a class="boxlink" href="{DOK}?display=new_artist">
-<div class="boxlink">Add new artist</div>
-</a>
-<a class="boxlink" href="{DOK}?display=new_album">
-<div class="boxlink">Add new album</div>
-</a>
+<a class="boxlink" href="{DOK}?display=new_song">Add new song</a><BR>
+<a class="boxlink" href="{DOK}?display=new_artist">Add new artist</a><BR>
+<a class="boxlink" href="{DOK}?display=new_album">Add new album</a><BR>
 <!-- END if_editor -->
 <!-- BEGIN if_admin -->
-<a class="boxlink" href="{DOK}?display=new_user">
-<div class="boxlink">Add new user</div>
-</a>
+<a class="boxlink" href="{DOK}?display=new_user">Add new user</a><BR>
 <!-- END if_admin -->
-<!-- BEGIN if_logged -->
-<p>
-<a class="boxlink" href="{DOK}?display=edit_user&id={USER_ID}">
-<div class="boxlink">personnal settings</div>
-</a>
-<!-- END if_logged -->
-</div>
 </div>

@@ -125,7 +125,22 @@ function dok_view_song($VARS, $update, $theme_path) {
 	} else {
 		$t->set_var('label_block','');
 	}
-	$res = mysql_query('update '.dok_tn('song').' set hits = hits + 1 where id = '.$VARS['id']);
+	
+	//pager related
+	if ( DOK_ENABLE_PAGER ) {
+		global $THEME_PAGER_TYPE;
+		if ( isset($VARS['pager_related']) ) {
+			if ( $VARS['pager_related'] == 'artist' )	include_once 'php/pager_song_artist.php';
+			elseif ( $VARS['pager_related'] == 'album' )	include_once 'php/pager_song_album.php';
+			else $t=dok_pager_clean($t);
+		} else {
+			$t=dok_pager_clean($t);
+		}
+	} else {
+		$t=dok_pager_clean($t);
+	}
+	
+	if ( ! isset($VARS['nohit']) ) $res = mysql_query('update '.dok_tn('song').' set hits = hits + 1 where id = '.$VARS['id']);
 	return array($t, sprintf(MSG_TITLE_DISPLAY_SONG,$row['name']));
 }
 

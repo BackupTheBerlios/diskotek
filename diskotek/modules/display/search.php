@@ -71,6 +71,7 @@ function dok_search ( $VARS, $update, $theme_path ) {
 function dok_search_song ( $query ) {
 	$return = array();
 	$sql_query = 'select *, MATCH (name, comment) AGAINST (\''.$query.'\') as score from '.dok_tn('song').' as s where MATCH (name, comment) AGAINST (\''.$query.'\')';
+	//echo $sql_query;
 	$res = mysql_query($sql_query);
 	while ( $row = mysql_fetch_array($res) ) {
 		$vars = dok_song_format($row);
