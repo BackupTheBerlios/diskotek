@@ -1,7 +1,7 @@
 <?PHP
 
 function dok_create_album () {
-	global $VARS;
+	global $VARS, $USER;
 	if ( !isset($VARS['name']) ) {
 		dok_msg(MSG_ERR_NO_ALBUM_NAME,'dok_create_album','e');
 		return false;
@@ -16,8 +16,12 @@ function dok_create_album () {
 		dok_msg(sprintf(MSG_ERR_DUP_ALBUM_NAME,$album_name),'dok_create_album','e');
                 return false;
 	}
+
+	if ( DOK_ENABLE_USER )  $creation_uid = $USER->id;
+        else                    $creation_uid = 0;
+
 	//add artist
-	$res = mysql_query('insert into '.dok_tn('album').' (name,creation) values (\''.addslashes($album_name).'\','.time().')');
+	$res = mysql_query('insert into '.dok_tn('album').' (name,creation,creation_uid) values (\''.addslashes($album_name).'\','.time().','.$creation_uid.')');
 	if ( !$res ) {
 		dok_msg(mysql_error(),'dok_create_album','e');
                 return false;
