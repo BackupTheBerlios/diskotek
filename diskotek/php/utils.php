@@ -195,11 +195,11 @@ function dok_error_template($error_message) {
 function &dok_rel_song_artist($songs = array(), $artists = array() ) {
 	$where = 'where ';
 	if ( sizeof($songs) )	{
-		$where .= 'song_id in ('.implode(',',$songs).')';
+		$where .= 'r.song_id in ('.implode(',',$songs).')';
 	} elseif ( sizeof($artists) ) {
-	   $where .= 'artist_id in ('.implode(',',$artists).')';
+	   $where .= 'r.artist_id in ('.implode(',',$artists).')';
 	}
-	$query = 'select artist_id, song_id from '.dok_tn('rel_song_artist').' '.$where;
+	$query = 'select r.artist_id, r.song_id from '.dok_tn('rel_song_artist').' as r left join '.dok_tn('song').' as s on r.song_id = s.id '.$where.' order by s.hits desc, s.name';
 	return dok_oquery($query);
 }
 

@@ -1,6 +1,8 @@
 0.4
 
 * bugfix: 'next page' link on songs list
+* bugfix: song length in duplicate song dialog
+* sorted artist songs by song popularity in artist page
 
 0.3
 

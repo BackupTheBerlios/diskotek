@@ -17,7 +17,7 @@ Artist songs:
 <A HREF="{SONG_LINK}">{SONG_NAME}</a>  {SONG_LENGTH} ({SONG_ARTIST})<BR>
 <!-- END artist_songs -->
 <!-- BEGIN all_songs -->
-<A HREF="{ALL_SONGS_LINK}" class="mplink">View all songs</a>
+<A HREF="{ALL_SONGS_LINK}" class="mplink">View all songs</a> ({ARTIST_SONGS} in database)
 <!-- END all_songs -->
 <P>
 <div class="mpsubtitle">

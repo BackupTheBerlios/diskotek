@@ -33,8 +33,10 @@ function dok_view_artist ($VARS, $update_module, $tpl_path) {
 		$t->set_var('related_artists_block',MSG_NO_RELATED_ARTIST);
 	} else {
 		$all_songs = $songs->fetch_col_array('song_id');
+		$t->set_var('ARTIST_SONGS',sizeof($all_songs));
 		if ( sizeof($all_songs) > DOK_SONGS_ON_ARTIST_PAGE ) {
 			$t->set_var('ALL_SONGS_LINK',$_SERVER['PHP_SELF'].'?display=list_songs&artist='.$VARS['id']);
+			$t->set_var('ARTIST_REMAINING_SONGS',(sizeof($all_songs) - DOK_SONGS_ON_ARTIST_PAGE));
 			$t->parse('all_songs_block','all_songs');
 			$all_songs = array_slice($all_songs,0,DOK_SONGS_ON_ARTIST_PAGE);
 		} else {
@@ -42,7 +44,7 @@ function dok_view_artist ($VARS, $update_module, $tpl_path) {
 		}
 
 
-		$query = 'select id, name, creation, length, release, comment from '.dok_tn('song').' where id in('.implode(',',$all_songs).') order by name, creation';
+		$query = 'select id, name, creation, length, release, comment from '.dok_tn('song').' where id in('.implode(',',$all_songs).') order by hits desc,name, creation';
 		unset($songs);
 		$songs = dok_oquery($query);
 		while ( $song = $songs->fetch_array() ) {
