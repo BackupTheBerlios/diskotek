@@ -27,6 +27,7 @@ function dok_create_album () {
                 return false;
 	}
 	$VARS['id'] = mysql_insert_id();
+	$_SESSION['song_select_album'] = $VARS['id'];
 	return 'view_album';
 }
 

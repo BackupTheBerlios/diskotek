@@ -14,11 +14,13 @@ function dok_link_song_album ($VARS, $update, $theme_path) {
 	$where = '';
 	if ( sizeof($current_albums) )	$where = ' where id not in('.implode(',',$current_albums).')';*/
 	$where = '';
-	$res = mysql_query('select id, name from '.dok_tn('album').$where.' order by name desc');
+	$res = mysql_query('select id, name from '.dok_tn('album').$where.' order by name');
 	
 	$a_select = '';
 	while ( $row = mysql_fetch_array($res) ) {
-		$a_select.='<option value="'.$row['id'].'">'.$row['name'].'</option>';
+		$a_select.='<option value="'.$row['id'].'"';
+		if ( $_SESSION['song_select_album'] == $row['id'] )    $a_select .= ' selected';
+		$a_select.='>'.$row['name'].'</option>';
 	}
 
 	$t = new template($theme_path);
