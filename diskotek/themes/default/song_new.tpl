@@ -1,6 +1,7 @@
 Enter a new song in the database
 <P>
 <form method=post action="{DOK}">
+<input type=hidden name="update" value="create_song">
 <table border=0>
 <tr><td>Artist name <br>(only one, you can add more artists later)</td>
 <td><select name="artist">{ARTISTS_SELECT}</select></td></tr>

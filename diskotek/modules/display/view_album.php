@@ -24,14 +24,16 @@ function dok_view_album ($VARS, $update_module, $tpl_path) {
 		$t->set_var('songs_block',MSG_NO_SONG);
 	} else {
 		while ( $song = $songs->fetch_array() ) {
-			$sl = sec2min($song['length']);
+			$sl = dok_sec2min($song['length']);
 			if ( !$sl['minut'] )	$length = $sl['second'].' '.MSG_SECONDS;
 			else			$length = $sl['minut'].' '.MSG_MINUTS.' '.$sl['second'].' '.MSG_SECONDS;
 			$t->set_var(array('SONG_LINK'  => $PHP_SELF.'?display=view_song&id='.$song['id'],
 					'SONG_NAME'    => $song['name'],
 					'SONG_LENGTH'  => $length,
 					'SONG_TRACK'   => $song['track'],
-					'SONG_DB_CREATION' => date($THEME_DATE,$song['creation']) ));
+					'SONG_DB_CREATION' => date($THEME_DATE,$song['creation']),
+					'SONG_ARTIST' => dok_get_artists_string($song['id']) ));
+			
 			$t->parse('songs_block','album_songs','true');
 		}
 	}

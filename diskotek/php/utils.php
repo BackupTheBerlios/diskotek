@@ -170,12 +170,32 @@ function &dok_rel_song_artist($songs = array(), $artists = array() ) {
 	return dok_oquery($query);
 }
 
-function sec2min ( $seconds ) {
+function dok_sec2min ( $seconds ) {
 	$min = intval($seconds / 60);
 	if ( $min == 0 )	{
-		return array('minut'=>0,'seconds'=>$seconds);
+		return array('minut'=>0,'second'=>$seconds);
 	}
 	return array('minut'=>$min,'second'=> ($seconds%60) );
+}
+
+function dok_sec2str ( $seconds ) {
+	$a = dok_sec2min($seconds);
+	$ret = '';
+	if ( $a['minut'] == 0 && $a['second'] == 0 )	return MSG_UNKNOWN;
+	if ( $a['minut'] > 0 )	$ret=$a['minut'].MSG_MINUTS.$a['second'].MSG_SECONDS;
+	else			$ret=$a['second'].MSG_SECONDS;
+	return $ret;
+}
+
+
+function dok_get_artists_string ( $song_id ) {
+	$res = dok_oquery('select a.name,a.id from '.dok_tn('rel_song_artist').' as r left join '.dok_tn('artist').' as a on r.artist_id = a.id where r.song_id = '.$song_id);
+	if ( !$res->numrows() )	return MSG_NO_ARTIST;
+	$ret = '';
+	while ( $row = $res->fetch_array() ) {
+		$ret .= '<a href="'.$PHP_SELF.'?display=view_artist&id='.$row['id'].'">'.$row['name'].'</a>, ';
+	}
+	return substr($ret,0,-2);
 }
 
 ?>

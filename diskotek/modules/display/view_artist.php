@@ -28,7 +28,7 @@ function dok_view_artist ($VARS, $update_module, $tpl_path) {
 		unset($songs);
 		$songs = dok_oquery($query);
 		while ( $song = $songs->fetch_array() ) {
-			$sl = sec2min($song['length']);
+			$sl = dok_sec2min($song['length']);
 			if ( !$sl['minut'] )	$length = $sl['second'].' '.MSG_SECONDS;
 			else			$length = $sl['minut'].' '.MSG_MINUTS.' '.$sl['second'].' '.MSG_SECONDS;
 			$t->set_var(array('SONG_LINK'  => $PHP_SELF.'?display=view_song&id='.$song['id'],

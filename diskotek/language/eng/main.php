@@ -10,6 +10,7 @@ define ('MSG_ERR_ARTIST_DISPLAY','Unable to find the artist you asked for.');
 define ('MSG_ERR_SONG_NO_NAME','Please set song name');
 define ('MSG_ERR_SONG_DUP_NAME','the song \'%s\' is already in the database');
 define ('MSG_ERR_SONG_TRACK_DUP','the album got already song \'%s\' as song track %s');
+define ('MSG_ERR_SONG_DISPLAY','Unable to find the song you asked for.');
 define ('MSG_ERR_NO_TRACK','invalid track number');
 
 define ('MSG_TITLE_NEW_SONG','Enter a new song in the database');
@@ -17,9 +18,12 @@ define ('MSG_TITLE_NEW_ARTIST','Enter a new artist');
 define ('MSG_TITLE_NEW_ALBUM','Enter a new album');
 define ('MSG_TITLE_DISPLAY_ARTIST','artist %s');
 define ('MSG_TITLE_DISPLAY_ALBUM','album %s');
+define ('MSG_TITLE_DISPLAY_SONG','song %s');
 
 define ('MSG_NO_SONG','No song');
 define ('MSG_NO_ALBUM','No album');
+define ('MSG_NO_ARTIST','No artist');
 define ('MSG_MINUTS',':');
 define ('MSG_SECONDS','');
+define ('MSG_UNKNOWN','unknown');
 ?>
