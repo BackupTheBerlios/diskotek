@@ -14,7 +14,7 @@ Artist albums:
 Artist songs:
 </div>
 <!-- BEGIN artist_songs -->
-<A HREF="{SONG_LINK}">{SONG_NAME}</a>  {SONG_LENGTH} (with {SONG_ARTIST})<BR>
+<A HREF="{SONG_LINK}">{SONG_NAME}</a>  {SONG_LENGTH} ({SONG_ARTIST})<BR>
 <!-- END artist_songs -->
 <P>
 <div class="mpsubtitle">

@@ -1,4 +1,4 @@
-<div class="mptitle">{SONG_NAME}, <span class="titlefont">by {SONG_ARTIST}</span> ({SONG_LENGTH})
+<div class="mptitle">{SONG_NAME}, <span class="titlefont">{SONG_ARTIST}</span> ({SONG_LENGTH})
 <!-- BEGIN if_songeditor -->
  <a class="buttonedit" href="{SONG_EDIT_LINK}"><span class="buttonedit">edit</span></a>
 <!-- END if_songeditor -->

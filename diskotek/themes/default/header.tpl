@@ -57,3 +57,4 @@ Lists
 </div>
 
 <div class="mainpage">
+{SYSTEM_MESSAGE}

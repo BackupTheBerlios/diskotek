@@ -7,6 +7,9 @@
   (check based on artist name sonority)
 * in new song form, could set track to be the next album track
 * in artist view, display other artists in artist songs
+* added system messages display routine
+* improved song artists display
+* added capability to set a song multipple times on an album
 
 0.1
 

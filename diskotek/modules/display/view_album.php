@@ -1,7 +1,7 @@
 <?PHP
 
 function dok_view_album ($VARS, $update_module, $tpl_path) {
-	global $THEME_DATE;
+	global $THEME_DATE, $ARTIST_SONG_LINKS;
 	if ( !isset($VARS['id']) || !is_numeric($VARS['id']) || $VARS['id'] < 1 ) {
 		$t = dok_error_template(MSG_ERR_ALBUM_DISPLAY);
 		return array($t,sprintf(MSG_TITLE_DISPLAY_ALBUM,''));
@@ -31,7 +31,9 @@ function dok_view_album ($VARS, $update_module, $tpl_path) {
 		$t->set_var('songs_block',MSG_NO_SONG);
 	} else {
 		while ( $song = $songs->fetch_array() ) {
-			$t->set_var(dok_song_format($song));
+			$song_data = dok_song_format($song);
+			$song_data['SONG_ARTIST'] = preg_replace('/^'.$ARTIST_SONG_LINKS[0].'/','',$song_data['SONG_ARTIST']);
+			$t->set_var($song_data);
 			$t->set_var('SONG_TRACK',$song['track']);
 			
 			$t->parse('songs_block','album_songs','true');

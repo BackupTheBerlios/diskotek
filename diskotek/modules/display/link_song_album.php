@@ -9,10 +9,11 @@ function dok_link_song_album ($VARS, $update, $theme_path) {
         }
 	$song = mysql_fetch_array($res);
 
-	$res = dok_oquery('select distinct(album_id) as aid from '.dok_tn('rel_song_album').' where song_id = '.$song['id']);
+/**	$res = dok_oquery('select distinct(album_id) as aid from '.dok_tn('rel_song_album').' where song_id = '.$song['id']);
 	$current_albums = $res->fetch_col_array('aid');
 	$where = '';
-	if ( sizeof($current_albums) )	$where = ' where id not in('.implode(',',$current_albums).')';
+	if ( sizeof($current_albums) )	$where = ' where id not in('.implode(',',$current_albums).')';*/
+	$where = '';
 	$res = mysql_query('select id, name from '.dok_tn('album').$where.' order by name desc');
 	
 	$a_select = '';

@@ -144,3 +144,11 @@ div.recorded {
 	font-size:12px;
 	font-style: italic;
 }
+
+div.sysmsg {
+	text-align: center;
+	background-color: #000000;
+	color: #FFFFFF;
+	width: 50%;
+	padding: 5px;
+}

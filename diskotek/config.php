@@ -22,7 +22,7 @@ define ('DOK_DISPLAY_DEFAULT','homepage');
 // when a new user is created, shake in database for a user with a name that sounds identical
 define ('DOK_USE_SOUNDEX', true); 
 
-$ARTIST_SONG_LINKS = array (	0 => '',
+$ARTIST_SONG_LINKS = array (	0 => 'by',
 				20 => 'featuring ',
 				30 => 'remix by ');
 ?>

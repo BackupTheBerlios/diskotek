@@ -101,6 +101,24 @@ while (false !== ($entry = $d->read())) {
 $d->close();
 dok_add_tpl_var('BOXES',$boxes);
 
+//parsing system messages:
+if ( !sizeof($DOK_SYSTEM_MESSAGES) ) {
+	dok_add_tpl_var('SYSTEM_MESSAGE','');
+} else {
+	$messages = $THEME_MESSAGE_BEGIN;
+	foreach ( $DOK_SYSTEM_MESSAGES as $type => $msgs ) {
+		if ( $type == 'e' )	$style = MSG_SYS_ERROR;
+		elseif ( $type == 'd' )	$style = MSG_SYS_DEBUG;
+		else			$style = MSG_SYS_INFO;
+		foreach ( $msgs as $msg ) {
+			$messages .= sprintf($style, $msg);
+			$messages .= $THEME_MESSAGE_SEPARATOR;
+		}
+	}
+	$messages = substr($messages, 0 , ( -1 * strlen($THEME_MESSAGE_SEPARATOR) ));
+	$messages.= $THEME_MESSAGE_END;
+	dok_add_tpl_var('SYSTEM_MESSAGE',$messages);
+}
 
 //sending display to user agent
 
