@@ -10,12 +10,14 @@ Length: {NEW_SONG_LENGTH}<BR></td><td>
 Release year: {NEW_SONG_RELEASE}</td></tr></table>
 <div class="mpsubtitle">Songs having already the same name, in the database
 </div>
+{SONG_RECORD_FORM}
 <!-- BEGIN duplicate -->
 <A HREF="{SONG_LINK}" target="_blank">{SONG_NAME}</a>, {SONG_ARTIST}, released on year {SONG_RELEASE}. duration {SONG_LENGTH}, genre {SONG_GENRE}.
 <div class="mpsongcomment">{SONG_COMMENT}</div>
+special relation type: {SONG_RELATION_SELECT}<P>
 <!-- END duplicate -->
 <P>
 Please click on the following button if you still want to record your song in the database:
-{SONG_RECORD_FORM}
-<center><input type=submit value="Record"></center>
+
+<center><input type=submit value="Record my new song"></center>
 </form>

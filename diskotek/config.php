@@ -90,5 +90,6 @@ $ARTIST_SONG_LINKS = array (	0 => 'by',
 $SONGS_LINKS = array ( 1 => array('same lyrics','same lyrics'),
 			4 => array('same beat','same beat'),
 			7 => array('remix','original'),
-			10 => array('complete version'));
+			10 => array('complete version'),
+			13 => array('in another style','in another style'));
 ?>

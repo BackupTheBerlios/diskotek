@@ -6,10 +6,15 @@ function dok_ask_dup_song ( $VARS, $update, $theme_path ) {
 		$t = dok_error_template(MSG_ERR_NO_DUP_SONG);
                 return array($t,sprintf(MSG_TITLE_DUP_SONG,''));
 	}
+	/*
+	*find related songs
+	*
+	*/
+	//$res = dok_oquery('select * from '.dok_tn('rel_songs').' where song_id1 = 
 	$t = new template($theme_path);
 	$t->set_file('page','song_dup.tpl');
 	$t->set_block('page','duplicate','dup_block');
-	$query = 'select id, name, length, release, comment from '.dok_tn('song').' where id in('.implode(',',$VARS['duplicates']).')';
+	$query = 'select * from '.dok_tn('song').' where id in('.implode(',',$VARS['duplicates']).')';
 	$res = mysql_query($query);
 	while ( $row = mysql_fetch_array($res) ) {
 		$t->set_var(dok_song_format($row));

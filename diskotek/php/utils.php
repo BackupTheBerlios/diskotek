@@ -416,6 +416,10 @@ function dok_get_genre_select ( $varname = 'genre', $selected = null ) {
 */
 function dok_songs_links_array() {
 	global $SONGS_LINKS;
+	static $CACHE = '';
+	if ( strlen($CACHE) ) {
+		return $CACHE;
+	}
 	$back = array();
 	foreach ( $SONGS_LINKS as $key => $array ) {
 		if( $array[1] == $array[0] ) {
@@ -427,6 +431,7 @@ function dok_songs_links_array() {
 			$back[$key.'-'.'0'] = $array[0].' (&lt;=&gt;'.$array[1].')';
 		}
 	}
+	$CACHE = $back;
 	return $back;
 }
 

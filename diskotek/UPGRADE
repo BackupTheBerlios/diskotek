@@ -2,8 +2,12 @@ MYSQL updates
 
 0.5 => 0.6
 
-create table dok_rel_songs(song_id1 bigint not null, song_id2 bigint not null, link tinyint not null default 0, unique(song_id1,song_id2,link)) ;
+create table dok_rel_songs(song_id1 bigint not null, song_id2 bigint not null, link smallint not null default 0,
+`reverse` tinyint(1) NOT NULL default '0',
+ unique(song_id1,song_id2,link)) ;
 create index song_id on dok_rel_song_album(song_id);
+create index link on dok_rel_songs(link);
+
 
 0.4 => 0.5
 
