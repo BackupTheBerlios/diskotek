@@ -17,7 +17,7 @@ class dok_user {
 		//print_r($_SESSION);
 		$id = $_SESSION['user_id'];
 		if ( $id ) {
-			$res = mysql_query('select * from '.dok_tn('user').' where id = '.$_SESSION['user_id'].' AND password = \''.$_SESSION['user_password'].'\'');
+			$res = mysql_query('select * from '.dok_tn('user').' where id = '.$_SESSION['user_id'].' AND password = \''.$_SESSION['user_password'].'\' and disabled=\'0\'');
 			if ( mysql_numrows($res) ) {
 				$row = mysql_fetch_array($res);
 				$this->name	= $row['name'];
@@ -31,7 +31,7 @@ class dok_user {
 	}
 
 	function login($user, $password) {
-		$query = 'select * from '.dok_tn('user').' where name = \''.addslashes($user).'\' and password = \''.md5($password).'\'';
+		$query = 'select * from '.dok_tn('user').' where name = \''.addslashes($user).'\' and password = \''.md5($password).'\' and disabled = \'0\'';
 		//echo $query;
 		$res = mysql_query($query);
 		if ( mysql_numrows($res) ) {
@@ -44,6 +44,8 @@ class dok_user {
                         $this->admin    = $row['admin'];
                         $this->lang     = $row['lang'];
                         $this->theme    = $row['theme'];
+			$this->creation    = $row['creation'];
+			$this->last_login    = $row['last_login'];
 		}
 		return true;
 	}

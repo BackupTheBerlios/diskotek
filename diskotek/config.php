@@ -59,8 +59,18 @@ define ('DOK_USE_SOUNDEX', true);
 
 define ('DOK_USE_HTML4','true');
 
+// defines root directory of CACHE : if it's not writeable cache is disabled automatically
+define ('DOK_CACHE_PATH','/tmp/diskocache');
+
+// defines prefix of cache files (you SHOULD have a prefix)
+define ('DOK_CACHE_PREFIX','DOK_');
+
+// defines time to live of cache files in seconds
+define ('DOK_CACHE_TTL',1800);
+
+
 /*
-*define relations between artists and songs: you could add relations by choosing a unused indice, 
+*define relations between artists and songs: you could add relations by choosing a unused indice,
 *and a clear relation name. Ex: 25 => 'producer', 43 => 'guitarist' ...
 */
 $ARTIST_SONG_LINKS = array (	0 => 'by',

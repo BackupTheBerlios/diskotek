@@ -21,7 +21,7 @@ function dok_update_artist() {
 		return 'view_artist';
 	}
 
-	$res = mysql_query('update '.dok_tn('artist').' set name = \''.addslashes(ucwords($name)).'\' where id = '.$VARS['id']);
+	$res = dok_uquery('update '.dok_tn('artist').' set name = \''.addslashes(ucwords($name)).'\' where id = '.$VARS['id']);
 	if ( $res ) {
                 return 'view_artist';
         } else {

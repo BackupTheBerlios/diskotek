@@ -33,7 +33,7 @@ function dok_unlink_song_artist () {
                 return false;
 	}
 
-	$res = mysql_query('delete from '.dok_tn('rel_song_artist').' where song_id = '.$song['id'].' and artist_id = '.$artist['id']);
+	$res = dok_uquery('delete from '.dok_tn('rel_song_artist').' where song_id = '.$song['id'].' and artist_id = '.$artist['id']);
 
 	if ( $res ) {
                 return 'edit_song';

@@ -37,12 +37,12 @@ function dok_song_track () {
 		return false;
 	}
 
-	$res = mysql_query('delete from '.dok_tn('rel_song_album').' where song_id = '.$VARS['song_id'].' and album_id = '.$VARS['album_id']);
+	$res = dok_uquery('delete from '.dok_tn('rel_song_album').' where song_id = '.$VARS['song_id'].' and album_id = '.$VARS['album_id']);
 	if ( !$res ) {
 		echo mysql_error();
                 return false;
 	}
-	$res = mysql_query('insert into '.dok_tn('rel_song_album').' (song_id, album_id, track) values ('.$VARS['song_id'].','.$VARS['album_id'].','.$VARS['track'].')');
+	$res = dok_uquery('insert into '.dok_tn('rel_song_album').' (song_id, album_id, track) values ('.$VARS['song_id'].','.$VARS['album_id'].','.$VARS['track'].')');
 	if ( !$res ) {
                 echo mysql_error();
                 return false;

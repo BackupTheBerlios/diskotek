@@ -25,6 +25,9 @@ function dok_edit_user ($VARS,$update_module,$theme_path) {
 	$admin_cb = '<input type="checkbox" name="admin" value="1"';
         if ( $row['admin'] )   $admin_cb.=' CHECKED';
         $admin_cb.='>';
+	$disabled_cb = '<input type="checkbox" name="disabled" value="1"';
+        if ( $row['disabled'] )   $disabled_cb.=' CHECKED';
+        $disabled_cb.='>';
 
 	$t->set_file('page','user_edit.tpl');
 	$t->set_block('page','if_admin','if_admin_block');
@@ -37,6 +40,7 @@ function dok_edit_user ($VARS,$update_module,$theme_path) {
 				'USER_NAME'=>$row['name'],
 				'USER_NAME_TF'=>str_replace( '"','&quot;',$row['name'] ),
 				'USER_EDITOR_CB' => $editor_cb,
+				'USER_DISABLED_CB' => $disabled_cb,
 				'USER_ADMIN_CB'  => $admin_cb   ));
 	return array($t, sprintf(MSG_TITLE_EDIT_USER,$row['name']));
 }

@@ -14,6 +14,8 @@ Use this page to update user settings:
 <td>{USER_EDITOR_CB}</td></tr>
 <tr><td>Admin rights (includes edition rights) ?</td>
 <td>{USER_ADMIN_CB}</td></tr>
+<tr><td>User login disabled ?</td>
+<td>{USER_DISABLED_CB}</td></tr>
 <!-- END if_admin -->
 </table>
 <input type=submit value="update">

@@ -36,12 +36,23 @@ $VARS = dok_get_html_vars();
 //initiate DB connection
 dok_db_open();
 
+//check for cache
+if ( DOK_CACHE_PATH && is_dir(DOK_CACHE_PATH) && is_writable(DOK_CACHE_PATH) ) {
+	define('DOK_USE_CACHE',true);
+	require 'php/cache.php';
+} else {
+	define('DOK_USE_CACHE',false);
+}
+
 
 //check for user
 if ( DOK_ENABLE_USER ) {
 	$USER = new dok_user();
 	if ( $VARS['login'] ) {
 		$USER->login($VARS['username'],$VARS['password']);
+		if ( $USER->id ) {
+			$res = mysql_query('update '.dok_tn('user').' set last_login = '.time().' where id = '.$USER->ID);
+		}
 	} elseif ( $VARS['logout']) {
 		$USER->logout();
 	} else {
@@ -134,12 +145,27 @@ if ( !function_exists('dok_'.$DOK_DISPLAY) ) {
 	echo "Fatal error: module '$DOK_DISPLAY' should provide a function 'dok_$DOK_DISPLAY'.";
 	exit;
 }
-eval('list($main_template, $page_title) = dok_'.$DOK_DISPLAY.'($VARS, $DOK_UPDATE,$DOK_THEME_PATH);');
-if ( !is_object($main_template) || strtolower(get_class($main_template)) != 'template' ) {
-	echo "Fatal error: function 'dok_$DOK_DISPLAY' of module '$DOK_DISPLAY' should return a template and the page title.";
-        exit;
+
+//CACHE
+$GOT_CACHE = false;
+if ( DOK_USE_CACHE ) {
+	$CACHE_FILENAME = dok_c_filename($DOK_DISPLAY,$VARS);
+	if ( strlen($CACHE_FILENAME) ) {
+		$CACHE_CONTENTS = dok_c_get($CACHE_FILENAME);
+		if ( $CACHE_CONTENTS )	$GOT_CACHE=true;
+		$CACHE_CONTENTS = unserialize($CACHE_CONTENTS);
+		dok_add_tpl_var('TITLE',$CACHE_CONTENTS['page_title']);
+	}
 }
-dok_add_tpl_var('TITLE',$page_title);
+if ( !$GOT_CACHE ) {
+	eval('list($main_template, $page_title) = dok_'.$DOK_DISPLAY.'($VARS, $DOK_UPDATE,$DOK_THEME_PATH);');
+	if ( !is_object($main_template) || strtolower(get_class($main_template)) != 'template' ) {
+		echo "Fatal error: function 'dok_$DOK_DISPLAY' of module '$DOK_DISPLAY' should return a template and the page title.";
+	        exit;
+	}
+	dok_add_tpl_var('TITLE',$page_title);
+}
+
 
 //parsing boxes
 $boxes = '';
@@ -198,14 +224,27 @@ $t->set_file('page','header.tpl');
 
 $t->pparse('out','page');
 
-$main_template->set_var($tplvars);
-$main_template->set_unknowns('remove');
-$main_template->pparse('out','page');
-
+if ( DOK_USE_CACHE && $CACHE_FILENAME ) {
+	if ( $GOT_CACHE ) {
+		//echo "FROM CACHE !!!";
+		echo $CACHE_CONTENTS['page_body'];
+	} else {
+		$main_template->set_var($tplvars);
+		$main_template->set_unknowns('remove');
+		$out = $main_template->parse('out','page');
+		$cache_data = serialize(array('page_title'=>$page_title,'page_body'=>$out));
+		dok_c_write($CACHE_FILENAME,$cache_data);
+		echo $out;
+	}
+} else {
+	$main_template->set_var($tplvars);
+	$main_template->set_unknowns('remove');
+	$main_template->pparse('out','page');
+}
 
 $t2->set_file('page','footer.tpl');
 
 $t2->pparse('out','page');
-
+echo DOK_USE_CACHE;
 //print_r($DOK_SYSTEM_MESSAGES);
 ?>

@@ -21,7 +21,7 @@ function dok_create_album () {
         else                    $creation_uid = 0;
 
 	//add artist
-	$res = mysql_query('insert into '.dok_tn('album').' (name,creation,creation_uid) values (\''.addslashes($album_name).'\','.time().','.$creation_uid.')');
+	$res = dok_uquery('insert into '.dok_tn('album').' (name,creation,creation_uid) values (\''.addslashes($album_name).'\','.time().','.$creation_uid.')');
 	if ( !$res ) {
 		dok_msg(mysql_error(),'dok_create_album','e');
                 return false;

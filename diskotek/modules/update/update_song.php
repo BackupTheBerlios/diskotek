@@ -62,7 +62,7 @@ function dok_update_song() {
 //	print_r($set);
 	
 	if ( sizeof($set) ) {
-		$res = mysql_query('update '.dok_tn('song').' set '.implode(',',$set).' where id = '.$VARS['id']);
+		$res = dok_uquery('update '.dok_tn('song').' set '.implode(',',$set).' where id = '.$VARS['id']);
 	}
 
 	if ( $res ) {

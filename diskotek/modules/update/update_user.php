@@ -18,7 +18,7 @@ function dok_update_user() {
 		dok_msg(MSG_ERR_USER_UPDATE_NOT_ALLOWED,'dok_update_user','e');
 		return false;
 	}
-	
+
 	$set = array();
 
 	if ( isset($VARS['password']) && strlen(trim($VARS['password'])) > 0 ) {
@@ -29,6 +29,7 @@ function dok_update_user() {
 	if ( !DOK_ENABLE_USER || $USER->admin ) {
 		if ( $VARS['editor'] != '1' )	$VARS['editor'] = 0;
 		if ( $VARS['admin'] != '1' )	$VARS['admin'] = 0;
+		if ( $VARS['disabled'] != '1' )	$VARS['disabled'] = 0;
 		if ( isset($VARS['name']) && trim($VARS['name']) != $user['name'] ) {
 			$VARS['name'] = substr($VARS['name'],0,255);
 			$res = mysql_query('select id from '.dok_tn('user').' where name = \''.addslashes($VARS['name']).'\'');
@@ -42,13 +43,15 @@ function dok_update_user() {
 		if ( $VARS['admin'] XOR $user['admin'] ) {
                         $set[] = 'admin = \''.$VARS['admin'].'\'';
                 }
-
+		if ( $VARS['disabled'] XOR $user['disabled'] ) {
+                        $set[] = 'disabled = \''.$VARS['disabled'].'\'';
+                }
 
 	}
 
 	if ( sizeof($set) ) {
 		$query = 'update '.dok_tn('user').' set '.implode(', ',$set).' where id = '.$VARS['id'];
-		$res = mysql_query($query);
+		$res = dok_uquery($query);
 		if ( !$res ) {
 			dok_msg(MSG_ERR_DB_UPDATE_FAILED,'dok_update_user','e');
 		}

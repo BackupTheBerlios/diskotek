@@ -36,7 +36,7 @@ function dok_update_song_album_link () {
 	}
 
 	//cool we could update
-	$res = mysql_query('insert into '.dok_tn('rel_song_album').' (song_id, album_id, track) values ('.$song['id'].','.$album['id'].','.$VARS['track'].')');
+	$res = dok_uquery('insert into '.dok_tn('rel_song_album').' (song_id, album_id, track) values ('.$song['id'].','.$album['id'].','.$VARS['track'].')');
 	
 	if ( $res ) {
 		$VARS['id'] = $album['id'];

@@ -21,7 +21,7 @@ function dok_update_album() {
 		return 'view_album';
 	}
 
-	$res = mysql_query('update '.dok_tn('album').' set name = \''.addslashes(ucwords($name)).'\' where id = '.$VARS['id']);
+	$res = dok_uquery('update '.dok_tn('album').' set name = \''.addslashes(ucwords($name)).'\' where id = '.$VARS['id']);
 	if ( $res ) {
                 return 'view_album';
         } else {

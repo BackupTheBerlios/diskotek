@@ -196,6 +196,23 @@ function dok_songs_nb() {
 }
 
 
+/**
+*executes query on mysql server and returns result
+*
+* you SHOULD use it to insert/update/delete queries
+* but not if it's to update 'song.hits' or 'user.last_login'
+*
+*@param string $query query to execute
+*@return mysql_result_identifier query result
+*/
+function dok_uquery($query) {
+	if ( DOK_USE_CACHE ) {
+		dok_c_delete();
+	}
+	$res = mysql_query($query);
+	return $res;
+}
+
 
 /**
 *execute query $query on mysql server, and returns resultset under

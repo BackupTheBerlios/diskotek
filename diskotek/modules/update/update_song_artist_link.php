@@ -30,7 +30,7 @@ function dok_update_song_artist_link () {
 	if ( !in_array($VARS['link'],array_keys($ARTIST_SONG_LINKS)) )	$VARS['link'] = 0;
 
 	//cool we could update
-	$res = mysql_query('insert into '.dok_tn('rel_song_artist').' (song_id, artist_id, link) values ('.$song['id'].','.$artist['id'].','.$VARS['link'].')');
+	$res = dok_uquery('insert into '.dok_tn('rel_song_artist').' (song_id, artist_id, link) values ('.$song['id'].','.$artist['id'].','.$VARS['link'].')');
 	
 	if ( $res ) {
                 return 'view_song';
