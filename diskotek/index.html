@@ -65,10 +65,10 @@ if ( DOK_ENABLE_USER ) {
                 Check if user is allowed to update something
         **********************************************************************/
 	if ( isset($VARS['update']) && !in_array($VARS['update'].'.php',$DOK_ANONYMOUS_UPDATE) ) {
-	if ( !in_array($VARS['update'].'.php',$DOK_ANONYMOUS_UPDATE) ) unset($VARS['update']);
-	}  elseif     ( !$USER->admin && !$USER->editor && !in_array($VARS['update'].'.php',$DOK_USER_UPDATE['all']) ||
-			!$USER->admin && !in_array($DOK_DISPLAY.'.php',$DOK_USER_UPDATE['editor']) ) {
-				unset($VARS['update']);
+		if (	!$USER->admin && !$USER->editor && !in_array($VARS['update'].'.php',$DOK_USER_UPDATE['all']) ||
+		       	!$USER->admin && !in_array($VARS['update'].'.php',$DOK_USER_UPDATE['editor']) ) {
+					unset($VARS['update']);
+		}
 	}
 } else {
 	/* includes language file */
@@ -76,7 +76,7 @@ if ( DOK_ENABLE_USER ) {
 	require (DOK_THEMES_PATH.'/'.$DOK_THEME.'/theme.php');
 }
 
-echo "update: ".$VARS['update'];
+//echo "update: ".$VARS['update'];
 
 /* catch module called for update (if any) */
 if ( isset($VARS['update']) ) {

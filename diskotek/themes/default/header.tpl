@@ -19,10 +19,10 @@
 Music search:
 <input type=hidden name="display" value="search">
 <input type=text name="query" size="10"> <input type=submit value="go" class="search">
-
- {LOGIN_STATE}
 </form>
-</td></tr>
+</td>
+<td align="left" valign="bottom">{LOGIN_STATE}</td>
+</tr>
 </table>
 </div>
 

@@ -7,8 +7,12 @@ Total listening time: {ALBUM_LENGTH}
 <div class="mpsubtitle">
 Track listing:
 </div>
+<table border=0>
+<tr><td>#</td><td>Artist(s)</td><td>Name</td><td>Length</td></tr>
 <!-- BEGIN album_songs -->
-{SONG_TRACK}. {SONG_ARTIST} - <i><a href="{SONG_LINK}">{SONG_NAME}</a></i> {SONG_LENGTH}<BR>
+<tr><td>{SONG_TRACK}</td>
+<td>{SONG_ARTIST}</td><td><i><a href="{SONG_LINK}">{SONG_NAME}</a></i></td><td>{SONG_LENGTH}</td></tr>
 <!-- END album_songs -->
+</table>
 <P>
 <div class="recorded">recorded in db on {ALBUM_DB_CREATION}</span>
