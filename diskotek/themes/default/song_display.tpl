@@ -18,6 +18,7 @@ Songs with same title:
 </div>
 <!-- BEGIN duplicate -->
 <a href="{SONG_LINK}">{SONG_NAME}</a>, {SONG_ARTIST} ({SONG_LENGTH})<BR>
+<div class="mpsongcomment">{SONG_COMMENT}</div>
 <!-- END duplicate -->
 <!-- END if_duplicate -->
 <P>
