@@ -16,6 +16,9 @@ Artist songs:
 <!-- BEGIN artist_songs -->
 <A HREF="{SONG_LINK}">{SONG_NAME}</a>  {SONG_LENGTH} ({SONG_ARTIST})<BR>
 <!-- END artist_songs -->
+<!-- BEGIN all_songs -->
+<A HREF="{ALL_SONGS_LINK}" class="mplink">View all songs</a>
+<!-- END all_songs -->
 <P>
 <div class="mpsubtitle">
 related artists:

@@ -49,6 +49,9 @@ Lists
 <a class="boxlink" href="{DOK}?display=list_artists">
 <div class="boxlink">Artists</div>
 </a>
+<a class="boxlink" href="{DOK}?display=list_songs">
+<div class="boxlink">Songs</div>
+</a>
 </div>
 </div>
 {BOXES}

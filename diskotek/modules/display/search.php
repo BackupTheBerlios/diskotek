@@ -9,6 +9,8 @@ function dok_search ( $VARS, $update, $theme_path ) {
 
 	$query = mysql_real_escape_string($VARS['query']);
 	$query = str_replace(array('%','_'),array('\%','\_'),$query);
+	if ( !$VARS['exact_word'] && !strpos($query, ' ') )	$query = $query.'*';
+	echo "Final query: $query <BR>";
 
 	$target = $VARS['target'];
 

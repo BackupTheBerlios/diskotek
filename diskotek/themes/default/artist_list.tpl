@@ -15,5 +15,5 @@ Alphabetic jump: <a href="{DOK}?display=list_artists&alpha=-">1-9</a> |
 </div>
 <!-- END artist -->
 <!-- BEGIN next_page -->
-<P><a href="{NEXT_PAGE_LINK}">next page</a>
+<P><a href="{NEXT_PAGE_LINK}" class="mplink">next page</a>
 <!-- END next_page -->
