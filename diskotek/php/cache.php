@@ -4,9 +4,9 @@ $CACHE_RULES = array (
 	'list_songs' => array('user'=>0,'artist','alpha','offset'),
 	'list_albums' => array('user'=>0,'alpha','offset','sort'),
 	'list_artists' => array('user'=>0,'alpha','offset','sort'),
-	'view_song' => array('user'=>1,'id'),
+	'view_song' => array('user'=>1,'id','pager_related','pager_related_id'),
 	'view_album' => array('user'=>1,'id'),
-	'list_full' => array('user'=>0,'element'),
+	'list_full' => array('user'=>0,'element','artist_id'),
 	'view_artist' => array('user'=>1,'id'));
 
 
@@ -26,7 +26,7 @@ function dok_c_filename($display,$VARS) {
 	$filename .= 'theme'.$DOK_THEME;
 	$cr = $CACHE_RULES[$display];
 	if ( isset($cr['user']) ) {
-		if ( DOK_ENABLE_USER ) {
+		if ( $cr['user'] == 1 && DOK_ENABLE_USER ) {
 			$filename .= 'U'.$USER->id.'_';
 		}
 		unset($cr['user']);

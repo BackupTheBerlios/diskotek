@@ -24,7 +24,7 @@ function dok_view_artist ($VARS, $update_module, $tpl_path) {
 				'ARTIST_DB_CREATION'=>date($THEME_DATE,$row['creation']) ));
 
 	if ( DOK_ENABLE_USER && !$USER->editor && !$USER->admin ) {
-                $t->set_var('if_artisteditor','');
+                $t->set_var('editor_block','');
 	} else {
 		$t->set_var('ARTIST_EDIT_LINK',$_SERVER['PHP_SELF'].'?display=edit_artist&id='.$VARS['id']);
 		$t->parse('editor_block','if_artisteditor');

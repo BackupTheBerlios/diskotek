@@ -20,7 +20,7 @@ function dok_view_album ($VARS, $update_module, $tpl_path) {
 				'ALBUM_DB_CREATION'=>date($THEME_DATE,$row['creation']) ));
 
 	if ( DOK_ENABLE_USER &&  !$USER->editor && !$USER->admin ) {
-		$t->set_var('if_albumeditor','');
+		$t->set_var('editor_block','');
 	} else {
 		$t->set_var('ALBUM_EDIT_LINK',$_SERVER['PHP_SELF'].'?display=edit_album&id='.$VARS['id']);
 		$t->parse('editor_block','if_albumeditor');
